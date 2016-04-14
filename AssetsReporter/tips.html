@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>TIPS</title>
+    <link rel="stylesheet" type="text/css" href="css/report.css">
+    <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+  </head>
+<body>
+   <div class="content-head">
+     <h1>TIPS</h1>
+     <div class="report-info">
+        <div id="report_at"></div>
+        <div id ="platform"></div>
+     </div>
+   </div>
+   <div class="content-main">
+     <h2>Texture に関するTIPS</h2>
+     <ul>
+       <li>Read/Write をOFFにしないと、メモリが余計に確保されます</li>
+       <li>MipMaps が必要ない2D系であれば、OFFにしましょう</li>
+       <li>圧縮設定になっているか確認しましょう</li>
+       <li>適切なサイズになっているか確認しましょう</li>
+     </ul>
+
+     <h2>Audioに関するTIPS</h2>
+     <ul>
+       <li>iOSでは MP3圧縮が良いでしょう</li>
+       <li>Androidでは、Vorbis圧縮が良いでしょう</li>
+       <li>"Force Mono"を活用して容量を減らしましょう</li>
+       <li>ビットレート設定は低ければ低いほど良いでしょう</li>
+     </ul>
+     <h2>Modelに関するTIPS</h2>
+     <ul>
+       <li>Read/Write をOFFにしないと、メモリが余計に取られます</li>
+       <li>キャラクターでないモデルは リグをDisableにしましょう</li>
+       <li>同一リグならば Avatarを使いまわしましょう</li>
+       <li>Mesh CompressionをEnableにしましょう</li>
+     </ul>
+   </div>
+</body>
+</html>
