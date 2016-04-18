@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class AssetsReporterWindow : EditorWindow {
 	private const float Space = 10.0f;
-	private const string excludeRulePath = "Assets/Editor/AssetsReporter/Data/excludeList.txt";
+	private const string excludeRulePath = "Assets/AssetsReporter/Editor/Data/excludeList.txt";
 	private string[] targetList = 
 	{
 		"default",

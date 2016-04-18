@@ -1,2 +1,0 @@
-Assets/\[Vender\].*
-Assets/3dsBanner/.*
