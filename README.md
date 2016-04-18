@@ -1,21 +1,21 @@
 # AssetsReporter
-[Unity] Import�ݒ�Ȃǂ��u���E�U��ŉ{��/�����ł���悤�ɂ���c�[���ł�<br />
+[Unity] Import設定などをブラウザ上で閲覧/検索できるようにするツールです<br />
 <br />
-�ړI�F�s�K�؂�Import�ݒ�ɂȂ��Ă���e�N�X�`��/�T�E���h/���f���f�[�^���������邽�߂̃c�[���ł��B<br />
-���̃c�[����Unity�v���W�F�N�g��(Assets�ȉ�)�Ɋ܂�Editor�g���ƁA�v���W�F�N�g���Ɋ܂߂Ȃ�HTML�����̓�Ő��藧���Ă��܂�<br />
-�{�v���W�F�N�g���ۂ��ƃR�s�[���ė��p���ĉ������B
+目的：不適切なImport設定になっているテクスチャ/サウンド/モデルデータ等を見つけるためのツールです。<br />
+このツールはUnityプロジェクト内(Assets以下)に含むEditor拡張と、プロジェクト内に含めないHTML部分の二個で成り立っています<br />
+本プロジェクトを丸ごとコピーして利用して下さい。
 
 
 
-# �g����
+# 使い方
 ![alt text](doc/image/reporterWindow.png)
 <pre>
-���j���[�́uTools/AssetsReporter�v���������Ƃŏ�LWindow���J���܂��B
+メニューの「Tools/AssetsReporter」を押すことで上記Windowが開きます。
 
-Texture/Model/Audio���̍��ڕʂɌĂяo���Ďg���܂��B
-�uReport�v�{�^���������ƃv���W�F�N�g������͂��A�u���E�U�ŕ\�����邱�Ƃ��o���܂��B
+Texture/Model/Audio等の項目別に呼び出して使います。
+「Report」ボタンを押すとプロジェクト内を解析し、ブラウザで表示することが出来ます。
 
-���ꂼ��ɂ��Ă͈ȉ��ɂāB
+それぞれについては以下にて。
 
 </pre>
 
@@ -23,38 +23,40 @@ Texture/Model/Audio���̍��ڕʂɌĂяo���Ďg���܂��B
 # TextureReporter
 ![alt text](doc/image/textureReporter.png)
 <pre>
-�v���W�F�N�g����Texture�̐ݒ�����|�[�g���܂��B
-���k�t�H�[�}�b�g�͓K�؂��Ȃǂ̊m�F���Ɏg����΂Ǝv���܂��B
+プロジェクト内のTextureの設定をレポートします。
+圧縮フォーマットは適切かなどの確認等に使えればと思います。
 </pre>
 
 # ModelReporter
 ![alt text](doc/image/modelReporter.png)
 <pre>
-�v���W�F�N�g����Model�̐ݒ�����|�[�g���܂��B
-Rig�̐ݒ�͂ǂ��Ȃ��Ă��邩�AMesh�œK�����͂����Ƃ��Ă��邩���X�m�F�ł��܂�
+プロジェクト内のModelの設定をレポートします。
+Rigの設定はどうなっているか、Mesh最適化等はちゃんとしているか等々確認できます
 </pre>
 
 # AudioReporter
 ![alt text](doc/image/audioReporter.png)
 <pre>
-�v���W�F�N�g����Audio�̐ݒ�����|�[�g���܂��B
-���k�t�H�[�}�b�g���̊m�F�ɂ��g����������
+プロジェクト内のAudioの設定をレポートします。
+圧縮フォーマット等の確認にお使いください
 </pre>
 
 # AssetBundleReporter
 <pre>
-��肩���ł��B�쐬�\���AssetBundle���{���\�Ȍ`�ɂ��܂�
+作りかけです。作成予定のAssetBundleを閲覧可能な形にします
 </pre>
 
-#ignore�ɂ���
+#ignoreについて
 <pre>
-�ȉ��̓��ǉ�����Ɨǂ��ł��傤�c
-�u/AssetsReporter/AssetsReporter/result/*.js�v
-�u/AssetsReporter/AssetsReporter/result/preview/�v
+以下の二つを追加すると良いでしょう…
+「/AssetsReporter/AssetsReporter/result/*.js」
+「/AssetsReporter/AssetsReporter/result/preview/」
 </pre>
+
 
 ## TODO
-���t�@�N�^�����O<br/>
-png�ȊO�̉摜�t�H�[�}�b�g�̕\���Ή��itga�����ƃR�s�[����Ȃ�)
-HTML��ł��t�@�C�����i�荞�݋@�\����B<br />
-ModelReporter�̓|���S�����Ō����ł���悤�ɂ���
+リファクタリング<br/>
+png以外の画像フォーマットがサイズがおかしくなるので対応（tga等)
+HTML上でもファイル名絞り込み機能つける。<br />
+ModelReporterはポリゴン数で検索できるようにする
+
