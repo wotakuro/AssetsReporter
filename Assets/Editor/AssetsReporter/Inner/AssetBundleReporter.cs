@@ -8,14 +8,18 @@ using System.Text.RegularExpressions;
 
 public class AssetBundleReporter {
 
-	[MenuItem("Tools/Test")]
-	public static void Report()
+	public static void CreateReport()
 	{
 		var reporter = new AssetBundleReporter();
-		reporter.CreateReport();
+		reporter.Report();
 	}
 
-	public void CreateReport()
+	public static void OpenReport()
+	{
+		Application.OpenURL(Path.Combine("AssetsReporter", "report_ab.html"));
+	}
+
+	public void Report()
 	{
 		try
 		{
@@ -60,7 +64,8 @@ public class AssetBundleReporter {
 			sb.Append("{");
 			AssetsReporterUtils.AddJsonObject(sb, "path", path).Append(",");
 			var depends = AssetDatabase.GetDependencies(new string[] { path });
-			AssetsReporterUtils.AddJsonObjectArray(sb, "depends", depends );
+			AssetsReporterUtils.AddJsonObjectArrayWithout(sb, "depends", depends , path);
+			System.Array.Sort<string>(depends);
 
 			UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
 			if (obj != null)

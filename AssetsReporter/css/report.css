@@ -61,6 +61,16 @@ h5{
   padding: 5px 5px;
   margin:5px 0px;
 }
+
+h6{
+  font-size:12pt;
+  padding:3px 10px 1px 10px;
+  border-left:6px solid #4388AA;
+  border-top:2px solid #4388AA;
+  border-bottom:2px solid #4388AA;
+  margin:-2px 3px 0px 0px;
+}
+
 .model-body{
   margin-left: 20px;
 }
@@ -77,6 +87,16 @@ h5{
 
 .selectable:hover{
   cursor: pointer;
+}
+.ab-image-texture{
+  margin-left : 20px;
+  border: 3px solid #cccccc;
+  max-width: 200px;
+}
+
+.ab-file-explain{
+  margin-left:10px;
+  margin-bottom:10px;
 }
 
 
@@ -103,4 +123,8 @@ h5{
 
 audio{
   padding-bottom:5px;
+}
+
+.ab-body{
+  margin-left: 20px;
 }

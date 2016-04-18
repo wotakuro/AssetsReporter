@@ -43,6 +43,7 @@ public class AssetsReporterWindow : EditorWindow {
 		OnGUITexture();
 		OnGUIAudio();
 		OnGUIModel();
+		OnGUIAssetBundle();
 		EditorGUILayout.EndScrollView();
 	}
 	void OnEnable()
@@ -147,9 +148,24 @@ public class AssetsReporterWindow : EditorWindow {
 			ModelReporter.OpenReport();
 		}
 		EditorGUILayout.EndHorizontal();
-
 	}
-
+	private void OnGUIAssetBundle()
+	{
+		EditorGUILayout.LabelField("AssetBundle Report");
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.LabelField("", GUILayout.Width(Space));
+		if (GUILayout.Button("Report", GUILayout.Width(100)))
+		{
+			SaveExcludeList();
+			AssetBundleReporter.CreateReport();
+			AssetBundleReporter.OpenReport();
+		}
+		if (GUILayout.Button("Open", GUILayout.Width(100)))
+		{
+			AssetBundleReporter.OpenReport();
+		}
+		EditorGUILayout.EndHorizontal();
+	}
 
 
 	private void SaveExcludeList()

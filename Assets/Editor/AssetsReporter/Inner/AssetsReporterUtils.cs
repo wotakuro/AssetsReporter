@@ -165,5 +165,24 @@ public class AssetsReporterUtils{
 		}
 		return num;
 	}
+
+	public static StringBuilder AddJsonObjectArrayWithout(StringBuilder sb, string key, string[] arr,string without)
+	{
+		sb.Append(key).Append(":[");
+		bool isFirst = true;
+		if (arr != null)
+		{
+			foreach (var val in arr)
+			{
+				if (val == without) { continue; }
+				if (isFirst) { isFirst = false; }
+				else { sb.Append(','); }
+				sb.Append('"').Append(val).Append('"');
+			}
+		}
+		sb.Append("]");
+		return sb;
+	}
+
 }
 
