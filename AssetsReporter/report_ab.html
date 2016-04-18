@@ -1,0 +1,144 @@
+<html>
+  <head>
+    <title>AssetBundle レポート</title>
+    <link rel="stylesheet" type="text/css" href="css/report.css">
+    <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript" src="result/report_ab.js"></script>
+    <script type="text/javascript">
+    <!--
+       function search(){
+          var data = g_ab_report;
+          var length = data.length;
+          var i = 0;
+          var condition = createSearchCondition();
+          $("#report").empty();
+          var result_num = 0;
+          for( i = 0 ; i < length ; ++ i ){
+            // check mipmap
+
+            reportData(data[i] );
+            ++ result_num;
+          }
+          $("#result_num").html( result_num + "件" );
+       }
+       function createSearchCondition(){
+          var condition = { 
+            mipmap:$("#mipmap").val() ,
+            readable:$("#readable").val(),
+            ispow2:$("#ispow2").val(),
+          };
+          return condition;
+       }
+
+       function reportData(data){
+         var str = '<div class="ab-block">';
+         str += '<h4 class="ab-title selectable">' + data.abname + '</h4>';
+         str += '<div class="ab-body" style="display: none;">';
+         data.files.sort( function(a,b){
+           if(a.type > b.type ){ return 1;}
+           if(a.type < b.type ){ return -1;}
+           return 0;
+         } );
+
+         str += '<h5>ファイル一覧</h5>';
+         for( var i = 0 ; i < data.files.length ;++ i ){
+           str += getFileReportData(data.files[i] );
+         }
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+       function getFileReportData( file ){
+         var str = '';
+         str += '<h6 class="selectable">' + '[' +  file.type + '] '+ file.path + '</h6>';
+         str += '<div class="ab-file-explain" style="display: none;">';
+         if( file.type == "Texture2D" ){
+           str += '<img class="ab-image-texture selectable" src="../' + file.path + '" />';
+         }else if( file.type == "AudioClip" ){
+           str += '<div class="try-listen">視聴</div>'+ '<audio src="../' + file.path + '" controls></audio>' ;
+         }else{
+           str += "依存関係<br />";
+           for( var i = 0 ; i < file.depends.length ; ++ i ){
+             str += file.depends[i] + "<br />";
+           }
+         }
+         str += '</div>';
+         return str;
+       }
+
+       $(document).ready( function(){
+//         setupCheckBox( g_texture_type_list , "ImportType","t_" , "#texture_type_block" );
+//         setupCheckBox( g_texture_format_list , "フォーマット","f_" , "#texture_format_block" );
+       });
+       $(document).on("click",".ab-title",function() {
+         $(this).next('.ab-body').slideToggle();
+       });
+       $(document).on("click","h6.selectable",function() {
+         $(this).next('.ab-file-explain').slideToggle();
+       });
+    -->
+    </script>
+  </head>
+<body>
+   <div class="content-head">
+     <h1>AssetBundleレポート</h1>
+     <div class="report-info">
+        <div id="report_at"></div>
+        <div id ="platform"></div>
+     </div>
+   </div>
+   <div class="content-main">
+   <h2>検索フィルター</h2>
+   <div class=""boxContainer>
+<!--
+     <div class="box">
+       <h3>基本設定</h3>
+       <table>
+         <tr><th>項目</th><th>条件</th></tr>
+         <tr>
+           <td>MipMap チェック</td>
+           <td><select id="mipmap"><option value="-1">チェックなし</option><option value="0">ONのみ</option><option value="1">OFFのみ</option></select></td>
+         </tr>
+         <tr>
+           <td>Read/Writeチェック</td>
+           <td><select id="readable"><option value="-1">チェックなし</option><option value="0">ONのみ</option></select></td>
+         </tr>
+         <tr>
+           <td>2の累乗チェック</td>
+           <td><select id="ispow2"><option value="-1">チェックなし</option><option value="0">累乗で無いもの</option></select></td>
+         </tr>
+       </table>
+     </div>
+     <div class="box">
+       <h3>フォーマット指定</h3>
+       <div id="texture_format_block"></div>
+     </div>
+     <div class="box">
+       <h3>ImportType指定</h3>
+       <div id="texture_type_block"></div>
+     </div>
+     <div class="box">
+       <h3>サイズ指定</h3>
+       <table>
+         <tr><th>項目</th><th>値</th></tr>
+         <tr>
+           <td>幅</td>
+           <td><input type="number" id="tex_min_width" value="0" style="width:60px;"/>～<input type="number" id="tex_max_width" value="4096" style="width:60px;" /></td>
+         </tr>
+         <tr>
+           <td>高さ</td>
+           <td><input type="number" id="tex_min_height" value="0" style="width:60px;" />～<input type="number" id="tex_max_height" value="4096" style="width:60px;" /></td>
+         </tr>
+       </table>
+     </div>
+-->
+   </div>
+   <div>
+     <input type ="button" class="search-btn" value ="検索する" onClick="search()" />
+     <h2>検索結果 <span id="result_num"></span></h2>
+     <div id="report"></div>
+   </div>
+   </div>
+</body>
+</html>

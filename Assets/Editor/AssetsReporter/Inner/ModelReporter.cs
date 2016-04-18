@@ -27,6 +27,12 @@ public class ModelReporter {
 		var reporter = new ModelReporter( exList );
 		reporter.ReportModel("AssetsReporter/result/report_model.js");
 	}
+	[MenuItem("Tools/TestReport")]
+	public static void TestReport()
+	{
+		var reporter = new ModelReporter( new List<string>());
+		reporter.ReportModel("AssetsReporter/result/report_model.js");
+	}
 	public static void OpenReport()
 	{
 		Application.OpenURL(Path.Combine("AssetsReporter", "report_model.html"));
