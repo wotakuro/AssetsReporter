@@ -19,18 +19,12 @@ Texture/Model/Audio等の項目別に呼び出して使います。
 
 </pre>
 
-## TODO
-リファクタリング<br/>
-png以外の画像フォーマットがサイズがおかしくなるので対応（tga等)
-HTML上でもファイル名絞り込み機能つける。<br />
-ModelReporterはポリゴン数で検索できるようにする
 
 # TextureReporter
 ![alt text](doc/image/textureReporter.png)
 <pre>
 プロジェクト内のTextureの設定をレポートします。
 圧縮フォーマットは適切かなどの確認等に使えればと思います。
-テクスチャサイズは現在 png以外のサイズが取れていないので修正予定。（ファイルから直接取らない方針に切り替え予定）
 </pre>
 
 # ModelReporter
@@ -58,3 +52,9 @@ Rigの設定はどうなっているか、Mesh最適化等はちゃんとしているか等々確認できます
 「/AssetsReporter/AssetsReporter/result/*.js」
 「/AssetsReporter/AssetsReporter/result/preview/」
 </pre>
+
+## TODO
+リファクタリング<br/>
+png以外の画像フォーマットの表示対応（tga等だとコピーするなど)
+HTML上でもファイル名絞り込み機能つける。<br />
+ModelReporterはポリゴン数で検索できるようにする
