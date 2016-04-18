@@ -60,3 +60,6 @@ Rigの設定はどうなっているか、Mesh最適化等はちゃんとして�
 HTML上でもファイル名絞り込み機能つける。<br />
 ModelReporterはポリゴン数で検索できるようにする
 
+# その他
+こちらではjQueryを利用しています
+https://jquery.com/
