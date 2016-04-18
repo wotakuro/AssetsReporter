@@ -4,9 +4,13 @@ function getCheckCondition( data , headerStr){
    length = data.length;
    for( i = 0 ; i < length ; ++ i ){
      var t = data[i].val;
-     res[ t ] = $("#" + headerStr + t).prop('checked');
+     res[ t ] = $("#" + headerStr + convertCheckBoxValue(t) ).prop('checked');
    }
    return res;
+}
+
+function convertCheckBoxValue( val ){
+  return val.replace(/ /g,'_').replace(/./g,'_');
 }
 
 function setupCheckBox( data,thStr ,headStr,writeTo ){
@@ -17,7 +21,7 @@ function setupCheckBox( data,thStr ,headStr,writeTo ){
   for( i = 0; i < length ; ++ i ){
     html += '<tr>';
     html += '<td>'+ data[i].val + '</td>';
-    html += '<td>' + '<input type="checkbox" id="'+ headStr + data[i].val + '" checked/>'+ '</td>';
+    html += '<td>' + '<input type="checkbox" id="'+ headStr + convertCheckBoxValue( data[i].val ) + '" checked/>'+ '</td>';
     html += '<td>'+ data[i].cnt + '</td>';
     html += '</tr>';
   }
