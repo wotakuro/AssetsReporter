@@ -16,7 +16,7 @@ public class AssetBundleReporter {
 
 	public static void OpenReport()
 	{
-		Application.OpenURL(Path.Combine("AssetsReporter", "report_ab.html"));
+        AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "report_ab.html"));
 	}
 
 	public void Report()

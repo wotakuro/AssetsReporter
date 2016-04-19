@@ -29,7 +29,7 @@ public class ModelReporter {
 	}
 	public static void OpenReport()
 	{
-		Application.OpenURL(Path.Combine("AssetsReporter", "report_model.html"));
+        AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "report_model.html"));
 	}
 
 	public ModelReporter( List<string> exList)

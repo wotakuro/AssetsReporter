@@ -25,7 +25,7 @@ public class TextureReporter {
 	}
 	public static void OpenReport()
 	{
-		Application.OpenURL(Path.Combine("AssetsReporter", "report_texture.html"));
+		AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "report_texture.html"));
 	}
 
 	public TextureReporter(string pl, List<string> exList)
@@ -128,14 +128,16 @@ public class TextureReporter {
 		return (wFlag & hFlag);
 	}
 
-	private void GetTextureSize(TextureImporter import, out int w, out int h)
+	private Texture GetTextureSize(TextureImporter import, out int w, out int h)
 	{
 		w = h = 0;
-		byte[] data = File.ReadAllBytes(import.assetPath);
-		if (IsPngData(data))
-		{
-			GetPngSize(data, out w, out h);
-		}
+        var tex = AssetDatabase.LoadAssetAtPath<Texture>(import.assetPath);
+        if (tex != null)
+        {
+            w = tex.width;
+            h = tex.height;
+        }
+        return tex;
 	}
 
 	#region PNG_DATA
