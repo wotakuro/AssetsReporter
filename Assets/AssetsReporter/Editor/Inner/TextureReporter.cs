@@ -25,7 +25,7 @@ public class TextureReporter {
 	}
 	public static void OpenReport()
 	{
-		Application.OpenURL(Path.Combine("AssetsReporter", "report_texture.html"));
+		AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "report_texture.html"));
 	}
 
 	public TextureReporter(string pl, List<string> exList)

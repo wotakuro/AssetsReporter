@@ -184,5 +184,14 @@ public class AssetsReporterUtils{
 		return sb;
 	}
 
+    public static void OpenURL(string url)
+    {
+#if UNITY_EDITOR_WIN
+        Application.OpenURL(url);
+#else
+        System.Diagnostics.Process.Start( "file:///" + System.IO.Directory.GetCurrentDirectory() + "/" + url);        
+#endif
+    }
+
 }
 

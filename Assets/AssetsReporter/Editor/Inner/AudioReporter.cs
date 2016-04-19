@@ -27,7 +27,7 @@ public class AudioReporter
 	}
 
 	public static void OpenReport() {
-		Application.OpenURL(Path.Combine("AssetsReporter", "report_audio.html"));
+        AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "report_audio.html"));
 	}
 
 	public void ReportAudio(string reportPath)
