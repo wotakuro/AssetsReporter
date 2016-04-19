@@ -44,6 +44,14 @@
             if( !condition.avatarCheck[ data[i].sourceAvatar ] ){
               continue;
             }
+            // check vertexnum
+            if( condition.vert_num_min > data[i].polygonNum || data[i].polygonNum > condition.vert_num_max){
+               continue;
+            }
+            // check object num
+            if( condition.obj_num_min > data[i].objectNum || data[i].objectNum > condition.obj_num_max){
+               continue;
+            }
 
             reportData(data[i] );
             ++ result_num;
@@ -57,7 +65,11 @@
             opt_mesh:$("#opt_mesh").val(),
             rigCheck:{},
             scaleCheck:{},
-            avatarCheck:{}
+            avatarCheck:{},
+            obj_num_min:$("#obj_num_min").val(),
+            obj_num_max:$("#obj_num_max").val(),
+            vert_num_min:$("#vert_num_min").val(),
+            vert_num_max:$("#vert_num_max").val(),
           };
           condition.rigCheck   = getCheckCondition( g_model_rig_list , 'r_' );
           condition.scaleCheck = getCheckCondition( g_model_scale_list , 's_' );
@@ -188,6 +200,22 @@
      <div class="box">
        <h3>SourceAvatar指定</h3>
        <div id="model_avatar_block"></div>
+     </div>
+     <div class="box">
+       <h3>頂点・オブジェクト数指定</h3>
+       <div >
+       <table>
+         <tr><th>項目</th><th>値</th></tr>
+         <tr>
+           <td>頂点数</td>
+           <td><input type="number" id="vert_num_min" value="0" style="width:60px;"/>～<input type="number" id="vert_num_max" value="99999" style="width:60px;" /></td>
+         </tr>
+         <tr>
+           <td>オブジェクト数</td>
+           <td><input type="number" id="obj_num_min" value="0" style="width:60px;" />～<input type="number" id="obj_num_max" value="9999" style="width:60px;" /></td>
+         </tr>
+       </table>
+       </div>
      </div>
    </div>
    <div>
