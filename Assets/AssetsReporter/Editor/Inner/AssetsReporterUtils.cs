@@ -104,8 +104,7 @@ public class AssetsReporterUtils{
 	{
 		var now = DateTime.Now;
 		sb.Append("g_report_at=\"");
-		sb.Append(now.Year).Append("-").Append( string.Format("{0:D2}",now.Month)).Append("-").Append(string.Format("{0:D2}",now.Day)).Append(" ");
-		sb.Append(string.Format("{0:D2}", now.Hour)).Append(":").Append(string.Format("{0:D2}", now.Minute)).Append(":").Append(string.Format("{0:D2}", now.Second));
+        sb.Append(now.ToString());
 		sb.Append("\";\n");
 	}
 	public static void AddPlatformVar(StringBuilder sb,string platform)
