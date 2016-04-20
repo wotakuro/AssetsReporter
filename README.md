@@ -9,9 +9,7 @@ Copy this to your project.
 ![alt text](doc/image/reporterWindow.png)
 <pre>
 Click "Tools/AssetsReporter" to open window.
-
 This reports independentae of each pat( "Texture/Model/Audio").
-
 Push "Report" button to analyze project, then open web browser.
 </pre>
 
@@ -40,7 +38,7 @@ You can check like below.
 <pre>
 This reports Import settings of AudioClips.
 You can check like below.
- - Is compress fomat suitable?
+ - Is compress format suitable?
 </pre>
 
 # AssetBundleReporter
