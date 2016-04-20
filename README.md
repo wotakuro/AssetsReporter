@@ -1,7 +1,7 @@
 # AssetsReporter
-[Unity] You can search storange import settings on web browser.<br />
+[Unity] You can detect storange import settings on web browser.<br />
 <br />
-Purpose of this： This software was developed for search storange "Import settings"(for texture/audio/model).<br />
+Purpose of this： This software was developed for detect storange "Import settings"(for texture/audio/model).<br />
 Copy this to your project.
 (Not only Assets directory, but also AssetsReport directory.)
 
@@ -59,6 +59,7 @@ you'd better to add ignore list.
 ## TODO
 refactoring<br/>
 texture thumnail not only png<br />
+summary report 
 
 # Other
 This software is depends on jquery.
