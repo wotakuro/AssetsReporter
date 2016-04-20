@@ -44,6 +44,22 @@
             if( !condition.avatarCheck[ data[i].sourceAvatar ] ){
               continue;
             }
+            // check vertexnum
+            if( condition.vert_num_min > data[i].polygonNum || data[i].polygonNum > condition.vert_num_max){
+               continue;
+            }
+            // check object num
+            if( condition.obj_num_min > data[i].objectNum || data[i].objectNum > condition.obj_num_max){
+               continue;
+            }
+            // check include path
+            if( !isIncludeFileName(data[i].path , condition.include_file_cond ) ){
+              continue;
+            }
+            // check exclude path
+            if( isExcludeFileName(data[i].path , condition.exclude_file_cond ) ){
+              continue;
+            }
 
             reportData(data[i] );
             ++ result_num;
@@ -57,7 +73,13 @@
             opt_mesh:$("#opt_mesh").val(),
             rigCheck:{},
             scaleCheck:{},
-            avatarCheck:{}
+            avatarCheck:{},
+            obj_num_min:$("#obj_num_min").val(),
+            obj_num_max:$("#obj_num_max").val(),
+            vert_num_min:$("#vert_num_min").val(),
+            vert_num_max:$("#vert_num_max").val(),
+            include_file_cond:getConditionList("include_file_name"),
+            exclude_file_cond:getConditionList("exclude_file_name")
           };
           condition.rigCheck   = getCheckCondition( g_model_rig_list , 'r_' );
           condition.scaleCheck = getCheckCondition( g_model_scale_list , 's_' );
@@ -81,7 +103,7 @@
          str += '<tr><th>パス</th><td>' + data.path + '</td></tr>';
          str += '<tr><th>オブジェクト数</th><td>' + data.objectNum + '</td></tr>';
          if(  data.polygonNum !== undefined ){
-           str += '<tr><th>ポリゴン数</th><td>' + data.polygonNum + '</td></tr>';
+           str += '<tr><th>頂点数</th><td>' + data.polygonNum + '</td></tr>';
          }
          str += '<tr><th>ScaleFactor</th><td>' + data.scaleFactor + '</td></tr>';
          str += '<tr><th>Read/Write</th><td>' + data.isReadable + '</td></tr>';
@@ -189,8 +211,32 @@
        <h3>SourceAvatar指定</h3>
        <div id="model_avatar_block"></div>
      </div>
+     <div class="box">
+       <h3>頂点・オブジェクト数指定</h3>
+       <div >
+       <table>
+         <tr><th>項目</th><th>値</th></tr>
+         <tr>
+           <td>頂点数</td>
+           <td><input type="number" id="vert_num_min" value="0" style="width:60px;"/>～<input type="number" id="vert_num_max" value="99999" style="width:60px;" /></td>
+         </tr>
+         <tr>
+           <td>オブジェクト数</td>
+           <td><input type="number" id="obj_num_min" value="0" style="width:60px;" />～<input type="number" id="obj_num_max" value="9999" style="width:60px;" /></td>
+         </tr>
+       </table>
+       </div>
+     </div>
    </div>
-   <div>
+     <h3>以下のファイル名を含む場合のみ</h3>
+     <div id="include_file_name">
+        <input type="button" class="add_cond" value="条件追加" />
+     </div>
+     <h3>以下のファイル名を含むのを除外</h3>
+     <div id="exclude_file_name">
+        <input type="button" class="add_cond" value="条件追加" />
+     </div>
+   <h3>検索</h3>
      <input type ="button" class="search-btn" value ="検索する" onClick="search()" />
      <h2>検索結果 <span id="result_num"></span></h2>
      <div id="report"></div>
