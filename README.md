@@ -5,6 +5,10 @@ Purpose of this： This software was developed for detect storange "Import setti
 Copy this to your project.
 (Not only Assets directory, but also AssetsReport directory.)
 
+<pre>For Japanese (日本の方向け)
+japanese ブランチにする事で日本語版になります。
+</pre>
+
 # How to use
 ![alt text](doc/image/menu.png)
 <pre>
