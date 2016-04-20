@@ -22,7 +22,7 @@ Push "Report" button to analyze project, then open web browser.
 ![alt text](doc/image/textureReporter.png)
 <pre>
 This reports Import settings of Textures.
-You can use this like below cases.
+You can use this like these cases.
  - Is compression format suitable?
  - Are there any textures which size isn't power of two.
 </pre>
@@ -31,7 +31,7 @@ You can use this like below cases.
 ![alt text](doc/image/modelReporter.png)
 <pre>
 This reports Import settings of Models.
-You can use this like below cases.
+You can use this like these cases.
  - Is optimize mesh ?
  - Is Rig suitable?
  - Are there any models which is checked "Read/Write".
@@ -41,7 +41,7 @@ You can use this like below cases.
 ![alt text](doc/image/audioReporter.png)
 <pre>
 This reports Import settings of AudioClips.
-You can use this like below cases.
+You can use this like these cases.
  - Is compress format suitable?
 </pre>
 
