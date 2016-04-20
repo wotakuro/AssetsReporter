@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>AudioClipレポート</title>
+    <title>AudioClip Report</title>
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/reporter.js"></script>
@@ -56,7 +56,7 @@
             reportData(data[i] );
             ++ result_num;
           }
-          $("#result_num").html( result_num + "件" );
+          $("#result_num").html( "(" + result_num + ")" );
        }
 
        function createSearchCondition(){
@@ -80,14 +80,14 @@
          var str = '<div class="audio-block">';
          str += '<h4 class="audio-title selectable">' + data.path + '</h4>';
          str += '<div class="audio-body" style="display: none;">';
-         str += '<div class="try-listen">視聴</div>'+ '<audio src="../' + data.path + '" controls></audio>' ;
+         str += '<div class="try-listen">Listen</div>'+ '<audio src="../' + data.path + '" controls></audio>' ;
          str += '<table>';
-         str += '<tr><th>パス</th><td>' + data.path + '</td></tr>';
+         str += '<tr><th>Path</th><td>' + data.path + '</td></tr>';
          str += '<tr><th>ForceToMono</th><td>' + data.forceToMono + '</td></tr>';
          str += '<tr><th>loadInBackground</th><td>' + data.loadInBackground + '</td></tr>';
          str += '<tr><th>preloadAudioData</th><td>' + data.preloadAudioData + '</td></tr>';
          str += '<tr><th>loadType</th><td>' + data.loadType + '</td></tr>';
-         str += '<tr><th>フォーマット</th><td>' + data.compressionFormat + '</td></tr>';
+         str += '<tr><th>Format</th><td>' + data.compressionFormat + '</td></tr>';
          str += '<tr><th>SampleRateSetting</th><td>' + data.sampleRateSetting + '</td></tr>';
          str += '<tr><th>SampleRateOverride</th><td>' + data.sampleRateOverride + ' Hz</td></tr>';
          str += '</table>';
@@ -101,7 +101,7 @@
        $(document).ready( function(){
          setupCheckBox( g_audio_rating_list   ,"Hz", "r_" , "#audio_rating_block" );
          setupCheckBox( g_audio_loadtype_list ,"LoadType" , "t_" , "#audio_load_type_block" );
-         setupCheckBox( g_audio_compress_list ,"フォーマット", "c_" , "#audio_compress_block" );
+         setupCheckBox( g_audio_compress_list ,"Format", "c_" , "#audio_compress_block" );
        });
        $(document).on("click",".audio-title",function() {
          $(this).next('.audio-body').slideToggle();
@@ -111,59 +111,59 @@
   </head>
 <body>
    <div class="content-head">
-     <h1>AudioClipレポート</h1>
+     <h1>AudioClip Report</h1>
      <div class="report-info">
         <div id="report_at"></div>
         <div id ="platform"></div>
      </div>
    </div>
    <div class="content-main">
-   <h2>検索フィルター</h2>
+   <h2>Search filter</h2>
    <div class=""boxContainer>
      <div class="box">
-       <h3>基本設定</h3>
+       <h3>Basic</h3>
        <table>
-         <tr><th>項目</th><th>条件</th></tr>
+         <tr><th>item</th><th>condition</th></tr>
          <tr>
            <td>Force To Mono</td>
-           <td><select id="force_mono"><option value="-1">チェックなし</option><option value="0">ONのみ</option><option value="1">OFFのみ</option></select></td>
+           <td><select id="force_mono"><option value="-1">No check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
          </tr>
          <tr>
            <td>Load In BackGround</td>
-           <td><select id="load_bg"><option value="-1">チェックなし</option><option value="0">ONのみ</option><option value="1">OFFのみ</option></select></td>
+           <td><select id="load_bg"><option value="-1">No check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
          </tr>
          <tr>
            <td>Preload AudioData</td>
-           <td><select id="preload"><option value="-1">チェックなし</option><option value="0">ONのみ</option><option value="1">OFFのみ</option></select></td>
+           <td><select id="preload"><option value="-1">No check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
          </tr>
        </table>
      </div>
      <div class="box">
-       <h3>LoadType指定</h3>
+       <h3>LoadType</h3>
        <div id="audio_load_type_block"></div>
      </div>
      <div class="box">
-       <h3>フォーマット指定</h3>
+       <h3>Format</h3>
        <div id="audio_compress_block"></div>
      </div>
      <div class="box">
-       <h3>Hz指定</h3>
+       <h3>Hz(Sample rate)</h3>
        <div id="audio_rating_block"></div>
      </div>
    </div>
    <div>
-     <h3>以下のファイル名を含む場合のみ</h3>
+     <h3>When filepath includes below words</h3>
      <div id="include_file_name">
-        <input type="button" class="add_cond" value="条件追加" />
+        <input type="button" class="add_cond" value="Add condition" />
      </div>
-     <h3>以下のファイル名を含むのを除外</h3>
+     <h3>When filepath doesn't include below words</h3>
      <div id="exclude_file_name">
-        <input type="button" class="add_cond" value="条件追加" />
+        <input type="button" class="add_cond" value="Add Condition" />
      </div>
 
-   <h3>検索</h3>
-     <input type ="button" class="search-btn" value ="検索する" onClick="search()" />
-     <h2>検索結果 <span id="result_num"></span></h2>
+   <h3>Search</h3>
+     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
+     <h2>Search results <span id="result_num"></span></h2>
      <div id="report"></div>
    </div>
    </div>

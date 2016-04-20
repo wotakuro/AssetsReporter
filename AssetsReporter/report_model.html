@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Model レポート</title>
+    <title>Model Report</title>
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/reporter.js"></script>
@@ -64,7 +64,7 @@
             reportData(data[i] );
             ++ result_num;
           }
-          $("#result_num").html( result_num + "件" );
+          $("#result_num").html( "(" + result_num + ")" );
        }
        function createSearchCondition(){
           var condition = { 
@@ -92,18 +92,18 @@
          str += '<h4 class="model-title selectable">' + data.path + '</h4>';
          str += '<div class="model-body" style="display: none;">';
          if( data.preview ){
-           str += '<h5 class="selectable">プレビュー</h5>';
+           str += '<h5 class="selectable">Preview</h5>';
            str += '<div>';
            str += '<img class="model-texture selectable" src="result/preview/' + data.preview + '" />';
            str += '</div>';
          }
-         str += '<h5 class="selectable">モデル情報</h5>';
+         str += '<h5 class="selectable">Imformation about Model</h5>';
          str += '<div class="model-explain">';
          str += '<table>';
-         str += '<tr><th>パス</th><td>' + data.path + '</td></tr>';
-         str += '<tr><th>オブジェクト数</th><td>' + data.objectNum + '</td></tr>';
+         str += '<tr><th>path</th><td>' + data.path + '</td></tr>';
+         str += '<tr><th>Object num</th><td>' + data.objectNum + '</td></tr>';
          if(  data.polygonNum !== undefined ){
-           str += '<tr><th>頂点数</th><td>' + data.polygonNum + '</td></tr>';
+           str += '<tr><th>Vertex num</th><td>' + data.polygonNum + '</td></tr>';
          }
          str += '<tr><th>ScaleFactor</th><td>' + data.scaleFactor + '</td></tr>';
          str += '<tr><th>Read/Write</th><td>' + data.isReadable + '</td></tr>';
@@ -113,7 +113,7 @@
          str += '</table></div>';
 
          // Rig
-         str += '<h5 class="selectable">Rig情報</h5>';
+         str += '<h5 class="selectable">Information of Rig</h5>';
          str += '<div class="rig-explain">';
          str += '<table>';
          str += '<tr><th>Type</th><td>' + data.animationType + '</td></tr>';
@@ -125,18 +125,18 @@
          str += '</div>';
 
          // Animation
-         str += '<h5 class="selectable">Animation情報</h5>';
+         str += '<h5 class="selectable">Information of Animation</h5>';
          str += '<div class="animation-explain">';
          if( !data.animationClips || data.animationClips.length == 0 ){
-           str += 'アニメーション設定がありません';
+           str += 'No animations.';
          }else{
-           str += '基本情報';
+           str += 'Basic';
            str += '<table>';
            str += '<tr><th>animationCompression</th><td>' + data.animationCompression + '</td></tr>';
            str += '</table>';
-           str += '<br />アニメーション一覧';
+           str += '<br />Animation list';
            str += '<table>';
-           str += '<tr><th>アニメーション名</th><th>WrapMode</th><th>Loop</th><th>FirstFrame</th><th>LastFrame</th></tr>';
+           str += '<tr><th>name</th><th>WrapMode</th><th>Loop</th><th>FirstFrame</th><th>LastFrame</th></tr>';
            for( var i=0; i < data.animationClips.length;++i){
              str += '<tr>';
              str += '<td>' + data.animationClips[i].name + '</td>';
@@ -171,74 +171,74 @@
   </head>
 <body>
    <div class="content-head">
-     <h1>Modelレポート</h1>
+     <h1>Model Report</h1>
      <div class="report-info">
         <div id="report_at"></div>
         <div id ="platform"></div>
      </div>
    </div>
    <div class="content-main">
-   <h2>検索フィルター</h2>
+   <h2>Search Filter</h2>
    <div class=""boxContainer>
      <div class="box">
-       <h3>基本設定</h3>
+       <h3>Basic</h3>
        <table>
-         <tr><th>項目</th><th>条件</th></tr>
+         <tr><th>item</th><th>condition</th></tr>
          <tr>
-           <td>アニメーションあり/なし</td>
-           <td><select id="include_anim"><option value="-1">チェックなし</option><option value="0">ありのみ</option><option value="1">なしのみ</option></select></td>
+           <td>Animation Check</td>
+           <td><select id="include_anim"><option value="-1">No Check</option><option value="0">Include only</option><option value="1">Not include only</option></select></td>
          </tr>
          <tr>
-           <td>Read/Writeチェック</td>
-           <td><select id="readable"><option value="-1">チェックなし</option><option value="0">ONのみ</option></select></td>
+           <td>Read/Write Check</td>
+           <td><select id="readable"><option value="-1">No Check</option><option value="0">Enable only</option></select></td>
          </tr>
          <tr>
-           <td>OptimizeMesh</td>
-           <td><select id="opt_mesh"><option value="-1">チェックなし</option><option value="0">OFFのみ</option></select></td>
+           <td>OptimizeMesh Check</td>
+           <td><select id="opt_mesh"><option value="-1">No Check</option><option value="0">Disable only</option></select></td>
          </tr>
        </table>
      </div>
      <div class="box">
-       <h3>ScaleFactor指定</h3>
+       <h3>ScaleFactor</h3>
        <div id="model_scale_block"></div>
      </div>
 
      <div class="box">
-       <h3>Rig指定</h3>
+       <h3>Rig</h3>
        <div id="model_rig_block"></div>
      </div>
      <div class="box">
-       <h3>SourceAvatar指定</h3>
+       <h3>SourceAvatar</h3>
        <div id="model_avatar_block"></div>
      </div>
      <div class="box">
-       <h3>頂点・オブジェクト数指定</h3>
+       <h3>number of vertex / object</h3>
        <div >
        <table>
-         <tr><th>項目</th><th>値</th></tr>
+         <tr><th>item</th><th>condition</th></tr>
          <tr>
-           <td>頂点数</td>
-           <td><input type="number" id="vert_num_min" value="0" style="width:60px;"/>～<input type="number" id="vert_num_max" value="99999" style="width:60px;" /></td>
+           <td>Vertex</td>
+           <td><input type="number" id="vert_num_min" value="0" style="width:60px;"/> - <input type="number" id="vert_num_max" value="99999" style="width:60px;" /></td>
          </tr>
          <tr>
-           <td>オブジェクト数</td>
-           <td><input type="number" id="obj_num_min" value="0" style="width:60px;" />～<input type="number" id="obj_num_max" value="9999" style="width:60px;" /></td>
+           <td>Object</td>
+           <td><input type="number" id="obj_num_min" value="0" style="width:60px;" /> - <input type="number" id="obj_num_max" value="9999" style="width:60px;" /></td>
          </tr>
        </table>
        </div>
      </div>
    </div>
-     <h3>以下のファイル名を含む場合のみ</h3>
+     <h3>When filepath includes below words</h3>
      <div id="include_file_name">
-        <input type="button" class="add_cond" value="条件追加" />
+        <input type="button" class="add_cond" value="Add condition" />
      </div>
-     <h3>以下のファイル名を含むのを除外</h3>
+     <h3>When filepath doesn't include below words</h3>
      <div id="exclude_file_name">
-        <input type="button" class="add_cond" value="条件追加" />
+        <input type="button" class="add_cond" value="Add condition" />
      </div>
-   <h3>検索</h3>
-     <input type ="button" class="search-btn" value ="検索する" onClick="search()" />
-     <h2>検索結果 <span id="result_num"></span></h2>
+   <h3>Search</h3>
+     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
+     <h2>Search results <span id="result_num"></span></h2>
      <div id="report"></div>
    </div>
    </div>

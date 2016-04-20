@@ -17,7 +17,7 @@ function setupCheckBox( data,thStr ,headStr,writeTo ){
   var length = data.length;
   var i = 0;
   var html = "<table>";
-  html += "<tr><th>" + thStr + "</th><th>チェック</th><th>該当数</th></tr>";
+  html += "<tr><th>" + thStr + "</th><th>Check</th><th>Hit num</th></tr>";
   for( i = 0; i < length ; ++ i ){
     html += '<tr>';
     html += '<td>'+ data[i].val + '</td>';
@@ -69,7 +69,7 @@ $(document).ready( function(){
   var date_str = "report : " + g_report_at;
   var platform_str = g_report_platform;
   if( !g_report_platform ){
-     platform_str = "platform : 指定なし";
+     platform_str = "platform : none";
   }else{
      platform_str = "platform : " + platform_str;
   }
@@ -79,7 +79,7 @@ $(document).ready( function(){
 });
 
 $(document).on("click",".add_cond",function() {
-  var str = '<div><input class="cond_value" type="text" size="80"><input type="button" class="del_cond" value="削除"></div>';
+  var str = '<div><input class="cond_value" type="text" size="80"><input type="button" class="del_cond" value="delete"></div>';
   $(this).before(str);
 });
 $(document).on("click",".del_cond",function() {

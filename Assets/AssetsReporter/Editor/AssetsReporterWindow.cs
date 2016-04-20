@@ -57,14 +57,14 @@ public class AssetsReporterWindow : EditorWindow {
 		EditorGUILayout.LabelField("Exclude List( Regex )");
 		if (GUILayout.Button("Save", GUILayout.Width(45)))
 		{
-			if (EditorUtility.DisplayDialog("確認", "Exclude Listを保存しますか", "ok", "cancel"))
+			if (EditorUtility.DisplayDialog("Coinfirm", "Save Exclude List?", "ok", "cancel"))
 			{
 				SaveExcludeList();
 			}
 		}
 		if (GUILayout.Button("Load", GUILayout.Width(45)))
 		{
-			if (EditorUtility.DisplayDialog("確認", "Exclude Listをロードしますか？", "ok", "cancel"))
+			if (EditorUtility.DisplayDialog("Confirm", "Load Exclude List？", "ok", "cancel"))
 			{
 				LoadExcludeList();
 			}

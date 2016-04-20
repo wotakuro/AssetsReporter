@@ -1,65 +1,67 @@
 # AssetsReporter
-[Unity] Import設定などをブラウザ上で閲覧/検索できるようにするツールです<br />
+[Unity] You can search storange import settings on web browser.<br />
 <br />
-目的：不適切なImport設定になっているテクスチャ/サウンド/モデルデータ等を見つけるためのツールです。<br />
-このツールはUnityプロジェクト内(Assets以下)に含むEditor拡張と、プロジェクト内に含めないHTML部分の二個で成り立っています<br />
-本プロジェクトを丸ごとコピーして利用して下さい。
+Purpose of this： This software was developed for search storange "Import settings"(for texture/audio/model).<br />
+Copy this to your project.
+(Not only Assets directory, but also AssetsReport directory.)
 
-
-
-# 使い方
+# How to use
 ![alt text](doc/image/reporterWindow.png)
 <pre>
-メニューの「Tools/AssetsReporter」を押すことで上記Windowが開きます。
+Click "Tools/AssetsReporter" to open window.
 
-Texture/Model/Audio等の項目別に呼び出して使います。
-「Report」ボタンを押すとプロジェクト内を解析し、ブラウザで表示することが出来ます。
+This reports independentae of each pat( "Texture/Model/Audio").
 
-それぞれについては以下にて。
-
+Push "Report" button to analyze project, then open web browser.
 </pre>
 
 
 # TextureReporter
 ![alt text](doc/image/textureReporter.png)
 <pre>
-プロジェクト内のTextureの設定をレポートします。
-圧縮フォーマットは適切かなどの確認等に使えればと思います。
+This reports Import settings of Textures.
+You can check like below.
+ - Is compression format suitable?
+ - Are there any textures which size isn't power of two.
 </pre>
 
 # ModelReporter
 ![alt text](doc/image/modelReporter.png)
 <pre>
-プロジェクト内のModelの設定をレポートします。
-Rigの設定はどうなっているか、Mesh最適化等はちゃんとしているか等々確認できます
+This reports Import settings of Models.
+You can check like below.
+ - Is optimize mesh ?
+ - Is Rig suitable?
+ - Are there any models which is checked "Read/Write".
 </pre>
 
 # AudioReporter
 ![alt text](doc/image/audioReporter.png)
 <pre>
-プロジェクト内のAudioの設定をレポートします。
-圧縮フォーマット等の確認にお使いください
+This reports Import settings of AudioClips.
+You can check like below.
+ - Is compress fomat suitable?
 </pre>
 
 # AssetBundleReporter
 <pre>
-作りかけです。作成予定のAssetBundleを閲覧可能な形にします
+currently developing...
+You'll see assetbundle data on web browser.
 </pre>
 
-#ignoreについて
+#about ignore
 <pre>
-以下の二つを追加すると良いでしょう…
-「/AssetsReporter/AssetsReporter/result/*.js」
-「/AssetsReporter/AssetsReporter/result/preview/」
+report results are in below.
+ "/AssetsReporter/AssetsReporter/result/*.js"
+ "/AssetsReporter/AssetsReporter/result/preview/"
+you'd better to add ignore list.
 </pre>
 
 
 ## TODO
-リファクタリング<br/>
-サムネイル表示できないテクスチャのフォーマットはpng吐き出しを行う等で表示可能にする<br />
-HTML上でもファイル名絞り込み機能つける。<br />
-ModelReporterはポリゴン数で検索できるようにする
+refactoring<br/>
+texture thumnail not only png<br />
 
-# その他
-こちらではjQueryを利用しています
+# Other
+This software is depends on jquery.
 https://jquery.com/

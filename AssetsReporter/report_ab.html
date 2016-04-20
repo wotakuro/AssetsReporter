@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>AssetBundle レポート</title>
+    <title>AssetBundle Report</title>
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/reporter.js"></script>
@@ -26,7 +26,7 @@
             reportData(data[i] );
             ++ result_num;
           }
-          $("#result_num").html( result_num + "件" );
+          $("#result_num").html( "(" + result_num + ")" );
        }
        function createSearchCondition(){
           var condition = { 
@@ -72,7 +72,7 @@
            return 0;
          } );
 
-         str += '<h5 class="selectable">ファイル一覧</h5>';
+         str += '<h5 class="selectable">File List</h5>';
          str += '<div>';
          for( var i = 0 ; i < data.files.length ;++ i ){
            str += getFileReportData(data.files[i] );
@@ -89,9 +89,9 @@
          if( file.type == "Texture2D" ){
            str += '<img class="ab-image-texture selectable" src="../' + file.path + '" />';
          }else if( file.type == "AudioClip" ){
-           str += '<div class="try-listen">視聴</div>'+ '<audio src="../' + file.path + '" controls></audio>' ;
+           str += '<div class="try-listen">Listen</div>'+ '<audio src="../' + file.path + '" controls></audio>' ;
          }else{
-           str += "依存関係<br />";
+           str += "dependencies<br />";
            for( var i = 0 ; i < file.depends.length ; ++ i ){
              str += file.depends[i] + "<br />";
            }
@@ -102,7 +102,7 @@
 
        $(document).ready( function(){
 //         setupCheckBox( g_texture_type_list , "ImportType","t_" , "#texture_type_block" );
-//         setupCheckBox( g_texture_format_list , "フォーマット","f_" , "#texture_format_block" );
+//         setupCheckBox( g_texture_format_list , "Format","f_" , "#texture_format_block" );
        });
        $(document).on("click",".ab-title",function() {
          $(this).next('.ab-body').slideToggle();
@@ -118,66 +118,24 @@
   </head>
 <body>
    <div class="content-head">
-     <h1>AssetBundleレポート</h1>
+     <h1>AssetBundle Report</h1>
      <div class="report-info">
         <div id="report_at"></div>
         <div id ="platform"></div>
      </div>
    </div>
    <div class="content-main">
-   <h2>検索フィルター</h2>
-   アセットバンドル内にあるファイルが以下の名前を含む<br />
+   <h2>Search Filter</h2>
+   AssetBundle includes below files<br />
    <input id="in_bundle_file" type="text" size="150" />
 <br />
-   アセットバンドルが以下のファイル名を含むものと依存関係がある<br />
+   AssetBundle depends on below files<br />
    <input id="depend_file" type="text" size="150" />
    <div class="boxContainer">
-<!--
-     <div class="box">
-       <h3>基本設定</h3>
-       <table>
-         <tr><th>項目</th><th>条件</th></tr>
-         <tr>
-           <td>MipMap チェック</td>
-           <td><select id="mipmap"><option value="-1">チェックなし</option><option value="0">ONのみ</option><option value="1">OFFのみ</option></select></td>
-         </tr>
-         <tr>
-           <td>Read/Writeチェック</td>
-           <td><select id="readable"><option value="-1">チェックなし</option><option value="0">ONのみ</option></select></td>
-         </tr>
-         <tr>
-           <td>2の累乗チェック</td>
-           <td><select id="ispow2"><option value="-1">チェックなし</option><option value="0">累乗で無いもの</option></select></td>
-         </tr>
-       </table>
-     </div>
-     <div class="box">
-       <h3>フォーマット指定</h3>
-       <div id="texture_format_block"></div>
-     </div>
-     <div class="box">
-       <h3>ImportType指定</h3>
-       <div id="texture_type_block"></div>
-     </div>
-     <div class="box">
-       <h3>サイズ指定</h3>
-       <table>
-         <tr><th>項目</th><th>値</th></tr>
-         <tr>
-           <td>幅</td>
-           <td><input type="number" id="tex_min_width" value="0" style="width:60px;"/>～<input type="number" id="tex_max_width" value="4096" style="width:60px;" /></td>
-         </tr>
-         <tr>
-           <td>高さ</td>
-           <td><input type="number" id="tex_min_height" value="0" style="width:60px;" />～<input type="number" id="tex_max_height" value="4096" style="width:60px;" /></td>
-         </tr>
-       </table>
-     </div>
--->
    </div>
    <div>
-     <input type ="button" class="search-btn" value ="検索する" onClick="search()" />
-     <h2>検索結果 <span id="result_num"></span></h2>
+     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
+     <h2>Search results <span id="result_num"></span></h2>
      <div id="report"></div>
    </div>
    </div>

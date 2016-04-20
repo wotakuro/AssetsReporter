@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Texture レポート</title>
+    <title>Texture Report</title>
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/reporter.js"></script>
@@ -55,7 +55,7 @@
             reportData(data[i] );
             ++ result_num;
           }
-          $("#result_num").html( result_num + "件" );
+          $("#result_num").html( "(" + result_num + ")" );
        }
        function createSearchCondition(){
           var condition = { 
@@ -89,12 +89,12 @@
          str += '<img class="image-texture selectable" src="../' + data.path + '" />';
          str += '<div class="image-explain">';
          str += '<table>';
-         str += '<tr><th>パス</th><td>' + data.path + '</td></tr>';
-         str += '<tr><th>タイプ</th><td>' + data.textureType + '</td></tr>';
-         str += '<tr><th>フォーマット</th><td>' + data.textureFormat + '</td></tr>';
-         str += '<tr><th>サイズ</th><td>' + data.width + '*' + data.height ;
+         str += '<tr><th>Path</th><td>' + data.path + '</td></tr>';
+         str += '<tr><th>Type</th><td>' + data.textureType + '</td></tr>';
+         str += '<tr><th>Format</th><td>' + data.textureFormat + '</td></tr>';
+         str += '<tr><th>Size</th><td>' + data.width + '*' + data.height ;
          if( !data.isPow2 ){
-            str += "(2の累乗じゃありません)";
+            str += "(isn't pow2 size)";
          }
          str += '</td></tr>';
          str += '<tr><th>MaxSize</th><td>' + data.maxSize + '</td></tr>';
@@ -108,7 +108,7 @@
 
        $(document).ready( function(){
          setupCheckBox( g_texture_type_list , "ImportType","t_" , "#texture_type_block" );
-         setupCheckBox( g_texture_format_list , "フォーマット","f_" , "#texture_format_block" );
+         setupCheckBox( g_texture_format_list , "Format","f_" , "#texture_format_block" );
        });
        $(document).on("click",".image-title",function() {
          $(this).next('.image-body').slideToggle();
@@ -121,69 +121,69 @@
   </head>
 <body>
    <div class="content-head">
-     <h1>Textureレポート</h1>
+     <h1>Texture Report</h1>
      <div class="report-info">
         <div id="report_at"></div>
         <div id ="platform"></div>
      </div>
    </div>
    <div class="content-main">
-   <h2>検索フィルター</h2>
-   <div class=""boxContainer>
+   <h2>Search filter</h2>
+   <div class="boxContainer">
      <div class="box">
-       <h3>基本設定</h3>
+       <h3>Basic</h3>
        <table>
-         <tr><th>項目</th><th>条件</th></tr>
+         <tr><th>item</th><th>condition</th></tr>
          <tr>
-           <td>MipMap チェック</td>
-           <td><select id="mipmap"><option value="-1">チェックなし</option><option value="0">ONのみ</option><option value="1">OFFのみ</option></select></td>
+           <td>MipMap check</td>
+           <td><select id="mipmap"><option value="-1">No Check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
          </tr>
          <tr>
-           <td>Read/Writeチェック</td>
-           <td><select id="readable"><option value="-1">チェックなし</option><option value="0">ONのみ</option></select></td>
+           <td>Read/Write check</td>
+           <td><select id="readable"><option value="-1">No Check</option><option value="0">Enable only</option></select></td>
          </tr>
          <tr>
-           <td>2の累乗チェック</td>
-           <td><select id="ispow2"><option value="-1">チェックなし</option><option value="0">累乗で無いもの</option></select></td>
+           <td>Pow2 check</td>
+           <td><select id="ispow2"><option value="-1">No Check</option><option value="0">Not pow2 size</option></select></td>
          </tr>
        </table>
      </div>
      <div class="box">
-       <h3>フォーマット指定</h3>
+       <h3>Format</h3>
        <div id="texture_format_block"></div>
      </div>
      <div class="box">
-       <h3>ImportType指定</h3>
+       <h3>ImportType</h3>
        <div id="texture_type_block"></div>
      </div>
      <div class="box">
-       <h3>サイズ指定</h3>
+       <h3>Texture size</h3>
        <table>
-         <tr><th>項目</th><th>値</th></tr>
+         <tr><th>item</th><th>condition</th></tr>
          <tr>
-           <td>幅</td>
-           <td><input type="number" id="tex_min_width" value="0" style="width:60px;"/>～<input type="number" id="tex_max_width" value="4096" style="width:60px;" /></td>
+           <td>Width</td>
+           <td><input type="number" id="tex_min_width" value="0" style="width:60px;"/> - <input type="number" id="tex_max_width" value="4096" style="width:60px;" /></td>
          </tr>
          <tr>
-           <td>高さ</td>
-           <td><input type="number" id="tex_min_height" value="0" style="width:60px;" />～<input type="number" id="tex_max_height" value="4096" style="width:60px;" /></td>
+           <td>Height</td>
+           <td><input type="number" id="tex_min_height" value="0" style="width:60px;" /> - <input type="number" id="tex_max_height" value="4096" style="width:60px;" /></td>
          </tr>
        </table>
      </div>
    </div>
    <div>
-     <h3>以下のファイル名を含む場合のみ</h3>
+     <h3>When filepath includes below words</h3>
      <div id="include_file_name">
-        <input type="button" class="add_cond" value="条件追加" />
+        <input type="button" class="add_cond" value="Add condition" />
      </div>
-     <h3>以下のファイル名を含むのを除外</h3>
+     <h3>When filepath doesn't include below words</h3>
      <div id="exclude_file_name">
-        <input type="button" class="add_cond" value="条件追加" />
+        <input type="button" class="add_cond" value="Add condition" />
      </div>
 
-   <h3>検索</h3>
-     <input type ="button" class="search-btn" value ="検索する" onClick="search()" />
-     <h2>検索結果 <span id="result_num"></span></h2>
+   <h3>Search</h3>
+     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
+     <h2>Search results <span id="result_num"></span></h2>
      <div id="report"></div>
    </div>
    </div>
