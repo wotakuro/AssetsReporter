@@ -6,7 +6,7 @@ Copy this to your project.
 (Not only Assets directory, but also AssetsReport directory.)
 
 <pre>For Japanese (日本の方向け)
-japanese ブランチにする事で日本語版になります。
+branchをjapaneseにする事で日本語版になります。
 </pre>
 
 # How to use
