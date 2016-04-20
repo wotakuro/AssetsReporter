@@ -13,7 +13,7 @@ Click "Tools/AssetsReporter" to open window.
 
 ![alt text](doc/image/reporterWindow.png)
 <pre>
-This reports independentae of each pat( "Texture/Model/Audio").
+This reports independentae of each part( "Texture/Model/Audio").
 Push "Report" button to analyze project, then open web browser.
 </pre>
 
