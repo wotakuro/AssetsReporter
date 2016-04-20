@@ -43,6 +43,14 @@
             if( condition.tex_min_height > data[i].height || condition.tex_max_height < data[i].height ){
               continue;
             }
+            // check include path
+            if( !isIncludeFileName(data[i].path , condition.include_file_cond ) ){
+              continue;
+            }
+            // check exclude path
+            if( isExcludeFileName(data[i].path , condition.exclude_file_cond ) ){
+              continue;
+            }
 
             reportData(data[i] );
             ++ result_num;
@@ -59,7 +67,9 @@
             tex_min_height:$("#tex_min_height").val(),
             tex_max_height:$("#tex_max_height").val(),
             formatCheck:{},
-            typeCheck:{}
+            typeCheck:{},
+            include_file_cond:getConditionList("include_file_name"),
+            exclude_file_cond:getConditionList("exclude_file_name")
           };
           var i = 0;
           var length = g_texture_format_list.length;
@@ -162,6 +172,16 @@
      </div>
    </div>
    <div>
+     <h3>以下のファイル名を含む場合のみ</h3>
+     <div id="include_file_name">
+        <input type="button" class="add_cond" value="条件追加" />
+     </div>
+     <h3>以下のファイル名を含むのを除外</h3>
+     <div id="exclude_file_name">
+        <input type="button" class="add_cond" value="条件追加" />
+     </div>
+
+   <h3>検索</h3>
      <input type ="button" class="search-btn" value ="検索する" onClick="search()" />
      <h2>検索結果 <span id="result_num"></span></h2>
      <div id="report"></div>

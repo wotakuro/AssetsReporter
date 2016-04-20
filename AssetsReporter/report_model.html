@@ -52,6 +52,14 @@
             if( condition.obj_num_min > data[i].objectNum || data[i].objectNum > condition.obj_num_max){
                continue;
             }
+            // check include path
+            if( !isIncludeFileName(data[i].path , condition.include_file_cond ) ){
+              continue;
+            }
+            // check exclude path
+            if( isExcludeFileName(data[i].path , condition.exclude_file_cond ) ){
+              continue;
+            }
 
             reportData(data[i] );
             ++ result_num;
@@ -70,6 +78,8 @@
             obj_num_max:$("#obj_num_max").val(),
             vert_num_min:$("#vert_num_min").val(),
             vert_num_max:$("#vert_num_max").val(),
+            include_file_cond:getConditionList("include_file_name"),
+            exclude_file_cond:getConditionList("exclude_file_name")
           };
           condition.rigCheck   = getCheckCondition( g_model_rig_list , 'r_' );
           condition.scaleCheck = getCheckCondition( g_model_scale_list , 's_' );
@@ -218,7 +228,15 @@
        </div>
      </div>
    </div>
-   <div>
+     <h3>以下のファイル名を含む場合のみ</h3>
+     <div id="include_file_name">
+        <input type="button" class="add_cond" value="条件追加" />
+     </div>
+     <h3>以下のファイル名を含むのを除外</h3>
+     <div id="exclude_file_name">
+        <input type="button" class="add_cond" value="条件追加" />
+     </div>
+   <h3>検索</h3>
      <input type ="button" class="search-btn" value ="検索する" onClick="search()" />
      <h2>検索結果 <span id="result_num"></span></h2>
      <div id="report"></div>
