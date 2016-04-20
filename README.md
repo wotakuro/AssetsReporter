@@ -22,7 +22,7 @@ Push "Report" button to analyze project, then open web browser.
 ![alt text](doc/image/textureReporter.png)
 <pre>
 This reports Import settings of Textures.
-You can check like below.
+You can use this like below cases.
  - Is compression format suitable?
  - Are there any textures which size isn't power of two.
 </pre>
@@ -31,7 +31,7 @@ You can check like below.
 ![alt text](doc/image/modelReporter.png)
 <pre>
 This reports Import settings of Models.
-You can check like below.
+You can use this like below cases.
  - Is optimize mesh ?
  - Is Rig suitable?
  - Are there any models which is checked "Read/Write".
@@ -41,14 +41,14 @@ You can check like below.
 ![alt text](doc/image/audioReporter.png)
 <pre>
 This reports Import settings of AudioClips.
-You can check like below.
+You can use this like below cases.
  - Is compress format suitable?
 </pre>
 
 # AssetBundleReporter
 <pre>
 currently developing...
-You'll see assetbundle data on web browser.
+You'll be able to watch assetbundle data on web browser.
 </pre>
 
 #about ignore
