@@ -6,9 +6,13 @@ Copy this to your project.
 (Not only Assets directory, but also AssetsReport directory.)
 
 # How to use
-![alt text](doc/image/reporterWindow.png)
+![alt text](doc/image/menu.png)
 <pre>
 Click "Tools/AssetsReporter" to open window.
+</pre>
+
+![alt text](doc/image/reporterWindow.png)
+<pre>
 This reports independentae of each pat( "Texture/Model/Audio").
 Push "Report" button to analyze project, then open web browser.
 </pre>
