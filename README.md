@@ -1,7 +1,7 @@
 # AssetsReporter
-[Unity] You can detect storange import settings on web browser.<br />
+[Unity] You can detect strange import settings on web browser.<br />
 <br />
-Purpose of this： This software was developed for detect storange "Import settings"(for texture/audio/model).<br />
+Purpose of this： This software was developed for detect strange "Import settings"(for texture/audio/model).<br />
 Copy this to your project.
 (Not only Assets directory, but also AssetsReport directory.)
 
