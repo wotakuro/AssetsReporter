@@ -9,6 +9,11 @@ Copy this to your project.
 branchをjapaneseにする事で日本語版になります。
 </pre>
 
+<pre>To customize this.
+If you wanted to customize this, you'd better to watch wiki.
+I wrote a document "how this system works".
+</pre>
+
 # How to use
 ![alt text](doc/image/menu.png)
 <pre>
