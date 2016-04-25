@@ -78,6 +78,28 @@
            str += getFileReportData(data.files[i] );
          }
          str += '</div>'
+
+         str += '<h5 class="selectable">Dependencies</h5>';
+         str += '<div>'; 
+         if( data.depends.length == 0 ){
+           str += "No dependencies";
+         }else{
+           str += "<table>";
+           str += "<tr>";
+           str += "<th>Type</th><th>filepath</th><th>bundle name</th><th>bundle valiant</th>";
+           str += "</tr>";
+           for( var i = 0 ; i < data.depends.length ; ++ i ){
+             str += "<tr>";
+             str += "<td>" + data.depends[i].importerType + "</td>";
+             str += "<td>" + data.depends[i].file + "</td>";
+             str += "<td>" + data.depends[i].name + "</td>";
+             str += "<td>" + data.depends[i].valiant + "</td>";
+             str += "</tr>";
+           }
+           str += "</table>";
+         }
+         str += '</div>';
+
          str += '</div>';
          str += '</div>';
          $("#report").append( str );
@@ -91,10 +113,12 @@
          }else if( file.type == "AudioClip" ){
            str += '<div class="try-listen">Listen</div>'+ '<audio src="../' + file.path + '" controls></audio>' ;
          }else{
-           str += "dependencies<br />";
+           str += "<table>";
+           str += "<tr><th>dependencies</th></tr>";
            for( var i = 0 ; i < file.depends.length ; ++ i ){
-             str += file.depends[i] + "<br />";
+             str += "<tr><td>"+ file.depends[i] + "</td></tr>";
            }
+           str += "</table>";
          }
          str += '</div>';
          return str;
@@ -126,6 +150,7 @@
    </div>
    <div class="content-main">
    <h2>Search Filter</h2>
+   <h3>Include / Depends file</h3>
    AssetBundle includes below files<br />
    <input id="in_bundle_file" type="text" size="150" />
 <br />
