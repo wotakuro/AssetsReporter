@@ -101,7 +101,7 @@ public class ModelReporter {
 			string preview = AssetsReporterUtils.SaveModelPreview(importer, obj);
 			AssetsReporterUtils.AddJsonObject(sb, "preview", preview).Append(",");
 			
-		AssetsReporterUtils.AddJsonObject(sb, "polygonNum", AssetsReporterUtils.GetPolygonNum(obj) ).Append(",");
+		AssetsReporterUtils.AddJsonObject(sb, "vertexNum", AssetsReporterUtils.GetPolygonNum(obj) ).Append(",");
 		}
 		AssetsReporterUtils.AddJsonObject(sb, "isReadable", importer.isReadable).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "scaleFactor", importer.globalScale).Append(",");

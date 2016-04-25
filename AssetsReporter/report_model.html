@@ -45,7 +45,7 @@
               continue;
             }
             // check vertexnum
-            if( condition.vert_num_min > data[i].polygonNum || data[i].polygonNum > condition.vert_num_max){
+            if( condition.vert_num_min > data[i].vertexNum || data[i].vertexNum > condition.vert_num_max){
                continue;
             }
             // check object num
@@ -102,8 +102,8 @@
          str += '<table>';
          str += '<tr><th>path</th><td>' + data.path + '</td></tr>';
          str += '<tr><th>Object num</th><td>' + data.objectNum + '</td></tr>';
-         if(  data.polygonNum !== undefined ){
-           str += '<tr><th>Vertex num</th><td>' + data.polygonNum + '</td></tr>';
+         if(  data.vertexNum !== undefined ){
+           str += '<tr><th>Vertex num</th><td>' + data.vertexNum + '</td></tr>';
          }
          str += '<tr><th>ScaleFactor</th><td>' + data.scaleFactor + '</td></tr>';
          str += '<tr><th>Read/Write</th><td>' + data.isReadable + '</td></tr>';
