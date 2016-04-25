@@ -87,7 +87,11 @@
          var str = '<div class="image-block">';
          str += '<h4 class="image-title selectable">' + data.path + '</h4>';
          str += '<div class="image-body" style="display: none;">';
-         str += '<img class="image-texture selectable" src="../' + data.path + '" />';
+         if( data.preview ){
+           str += '<img class="image-texture selectable" src="result/preview/' + data.preview + '" />';
+         }else{
+           str += '<img class="image-texture selectable" src="../' + data.path + '" />';
+         }
          str += '<div class="image-explain">';
          str += '<table>';
          str += '<tr><th>Path</th><td>' + data.path + '</td></tr>';

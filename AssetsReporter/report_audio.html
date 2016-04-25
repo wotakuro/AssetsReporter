@@ -81,7 +81,12 @@
          var str = '<div class="audio-block">';
          str += '<h4 class="audio-title selectable">' + data.path + '</h4>';
          str += '<div class="audio-body" style="display: none;">';
-         str += '<div class="try-listen">Listen</div>'+ '<audio src="../' + data.path + '" controls></audio>' ;
+         str += '<div class="try-listen">Listen</div>';
+         if( data.preview ){
+           str += '<audio src="result/preview/' + data.preview + '" controls></audio>';
+         }else{
+           str += '<audio src="../' + data.path + '" controls></audio>' ;
+         }
          str += '<table>';
          str += '<tr><th>Path</th><td>' + data.path + '</td></tr>';
          str += '<tr><th>ForceToMono</th><td>' + data.forceToMono + '</td></tr>';
