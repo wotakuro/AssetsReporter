@@ -107,6 +107,8 @@ public class AssetBundleReporter {
 			{
 				sb.Append(",");
 				AssetsReporterUtils.AddJsonObject(sb, "type", obj.GetType().Name);
+                Resources.UnloadAsset(obj);
+                obj = null;
 			}
 			sb.Append("}");
 		}

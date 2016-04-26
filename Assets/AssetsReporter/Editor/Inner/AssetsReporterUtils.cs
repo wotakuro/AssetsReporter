@@ -140,6 +140,16 @@ public class AssetsReporterUtils{
 		AssetsReporterUtils.SaveTexture2d("AssetsReporter/result/preview/" + file, tex);
 		return file;
 	}
+    public static bool IsVisibleInWebBrowserImage(string path)
+    {
+        path = path.ToLower();
+        if (path.EndsWith(".png")) { return true; }
+        if (path.EndsWith(".jpg")) { return true; }
+        if (path.EndsWith(".bmp")) { return true; }
+        if (path.EndsWith(".gif")) { return true; }
+        return false;
+    }
+
 
 	public static void CreatePreviewDir()
 	{
