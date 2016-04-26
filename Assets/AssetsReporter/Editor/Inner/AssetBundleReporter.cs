@@ -107,7 +107,10 @@ public class AssetBundleReporter {
 			{
 				sb.Append(",");
 				AssetsReporterUtils.AddJsonObject(sb, "type", obj.GetType().Name);
-                Resources.UnloadAsset(obj);
+                if (obj.GetType() != typeof(GameObject))
+                {
+                    Resources.UnloadAsset(obj);
+                }
                 obj = null;
 			}
 			sb.Append("}");
