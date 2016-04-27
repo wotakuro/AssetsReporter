@@ -14,6 +14,11 @@ If you wanted to customize this, you'd better to watch wiki.
 I wrote a document "how this system works".
 </pre>
 
+# Demo
+[`https://wotakuro.github.io/AssetsReporter/`](https://wotakuro.github.io/AssetsReporter/)<br />
+You can watch result of AssetsReport.
+
+
 # How to use
 ![alt text](doc/image/menu.png)
 <pre>
