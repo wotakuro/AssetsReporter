@@ -65,6 +65,40 @@ function isExcludeFileName( path , cond_list ){
    return false;
 }
 
+
+function getWarningSummaryData( data , check ){
+  var data_length = data.length;
+  var check_length = check.length;
+  var check_result = {};
+
+  for( var i = 0 ; i < data_length ; ++ i ){
+    for( var j = 0 ; j < check_length ; ++ j ){
+      if( check[j].check_func(data[i]) ){
+        if(check_result[ check[j].message ] == undefined){
+          check_result[ check[j].message ] = 1;
+        }else{
+          ++ check_result[ check[j].message ];
+        }
+      }
+    }
+  }
+  return check_result;
+}
+function writeToWarningField( result ){
+  // report
+  if( result ){
+    var str = '<h2 class="warning">Warning</h2>';
+    str += '<table>';
+    str += '<tr><th>Item</th><th>HitNum</ht></tr>';
+    for( var idx in result ){
+      str += '<tr><td>' + idx + "</td><td>" + result[idx] + '</td></tr>';
+    }
+    str += '</table>';
+    str += '<br />';
+    $("#warning_field").html(str);
+  }
+}
+
 $(document).ready( function(){
   var date_str = "report : " + g_report_at;
   var platform_str = g_report_platform;

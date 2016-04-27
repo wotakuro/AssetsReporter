@@ -1,0 +1,5 @@
+g_report_at="4/28/2016 3:08:41 AM";
+g_audio_report=[{path:"Assets/Datas/Clear.wav",forceToMono:false,loadInBackground:false,preloadAudioData:true,loadType:"Streaming",compressionFormat:"Vorbis",sampleRateSetting:"PreserveSampleRate",sampleRateOverride:"44100"},{path:"Assets/Datas/Explode.wav",forceToMono:false,loadInBackground:false,preloadAudioData:true,loadType:"DecompressOnLoad",compressionFormat:"Vorbis",sampleRateSetting:"PreserveSampleRate",sampleRateOverride:"44100"},{path:"Assets/Datas/Laser.wav",forceToMono:true,loadInBackground:false,preloadAudioData:true,loadType:"DecompressOnLoad",compressionFormat:"Vorbis",sampleRateSetting:"PreserveSampleRate",sampleRateOverride:"44100"},{path:"Assets/Datas/Start.wav",forceToMono:false,loadInBackground:false,preloadAudioData:true,loadType:"DecompressOnLoad",compressionFormat:"PCM",sampleRateSetting:"OverrideSampleRate",sampleRateOverride:"96000"}];g_audio_rating_list=[{val:"44100",cnt:"3"},{val:"96000",cnt:"1"}];
+g_audio_loadtype_list=[{val:"Streaming",cnt:"1"},{val:"DecompressOnLoad",cnt:"3"}];
+g_audio_compress_list=[{val:"Vorbis",cnt:"3"},{val:"PCM",cnt:"1"}];
+g_report_platform="";

@@ -1,0 +1,197 @@
+<html>
+  <head>
+    <title>Texture Report</title>
+    <link rel="stylesheet" type="text/css" href="css/report.css">
+    <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript" src="js/warning_texture.js"></script>
+    <script type="text/javascript" src="result/report_texture.js"></script>
+    <script type="text/javascript">
+    <!--
+       function search(){
+          var data = g_texture_report;
+          var length = data.length;
+          var i = 0;
+          var condition = createSearchCondition();
+          $("#report").empty();
+          var result_num = 0;
+          for( i = 0 ; i < length ; ++ i ){
+            // check mipmap
+            if( condition.mipmap >= 0 ){
+              if(condition.mipmap == 0 && !data[i].mipmapEnabled ){continue;}
+              if(condition.mipmap == 1 && data[i].mipmapEnabled ){continue;}
+            }
+            // check readable
+            if( condition.readable ==0 && !data[i].isReadable){
+              continue;
+            }
+            // check pow 2
+            if( condition.ispow2 ==0 && data[i].isPow2 ){
+              continue;
+            }
+            // format check
+            if( !condition.formatCheck[ data[i].textureFormat ] ){
+              continue;
+            }
+            // image type check
+            if( !condition.typeCheck[ data[i].textureType ] ){
+              continue;
+            }
+            // sizecheck
+            if( condition.tex_min_width > data[i].width || condition.tex_max_width < data[i].width ){
+              continue;
+            }
+            if( condition.tex_min_height > data[i].height || condition.tex_max_height < data[i].height ){
+              continue;
+            }
+            // check include path
+            if( !isIncludeFileName(data[i].path , condition.include_file_cond ) ){
+              continue;
+            }
+            // check exclude path
+            if( isExcludeFileName(data[i].path , condition.exclude_file_cond ) ){
+              continue;
+            }
+
+            reportData(data[i] );
+            ++ result_num;
+          }
+          $("#result_num").html( "(" + result_num + ")" );
+       }
+       function createSearchCondition(){
+          var condition = { 
+            mipmap:$("#mipmap").val() ,
+            readable:$("#readable").val(),
+            ispow2:$("#ispow2").val(),
+            tex_min_width:$("#tex_min_width").val(),
+            tex_max_width:$("#tex_max_width").val(),
+            tex_min_height:$("#tex_min_height").val(),
+            tex_max_height:$("#tex_max_height").val(),
+            formatCheck:{},
+            typeCheck:{},
+            include_file_cond:getConditionList("include_file_name"),
+            exclude_file_cond:getConditionList("exclude_file_name")
+          };
+          var i = 0;
+          var length = g_texture_format_list.length;
+          for( i = 0; i < length ; ++ i ){
+            var f = g_texture_format_list[i].val;
+            condition.formatCheck[ f ] = $("#f_" + f).prop('checked');
+          }
+          condition.formatCheck = getCheckCondition( g_texture_format_list , 'f_' );
+          condition.typeCheck   = getCheckCondition( g_texture_type_list , 't_' );
+          return condition;
+       }
+
+       function reportData(data){
+         var str = '<div class="image-block">';
+         str += '<h4 class="image-title selectable">' + data.path + '</h4>';
+         str += '<div class="image-body" style="display: none;">';
+         if( data.preview ){
+           str += '<img class="image-texture selectable" src="result/preview/' + data.preview + '" />';
+         }else{
+           str += '<img class="image-texture selectable" src="../' + data.path + '" />';
+         }
+         str += '<div class="image-explain">';
+         str += '<table>';
+         str += '<tr><th>Path</th><td>' + data.path + '</td></tr>';
+         str += '<tr><th>Type</th><td>' + data.textureType + '</td></tr>';
+         str += '<tr><th>Format</th><td>' + data.textureFormat + '</td></tr>';
+         str += '<tr><th>Size</th><td>' + data.width + '*' + data.height ;
+         if( !data.isPow2 ){
+            str += "(isn't pow2 size)";
+         }
+         str += '</td></tr>';
+         str += '<tr><th>MaxSize</th><td>' + data.maxSize + '</td></tr>';
+         str += '<tr><th>Mipmap</th><td>' + data.mipmapEnabled + '</td></tr>';
+         str += '<tr><th>Read/Write</th><td>' + data.isReadable + '</td></tr>';
+         str += '</table></div>';
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       $(document).ready( function(){
+         setupCheckBox( g_texture_type_list , "ImportType","t_" , "#texture_type_block" );
+         setupCheckBox( g_texture_format_list , "Format","f_" , "#texture_format_block" );
+       });
+       $(document).on("click",".image-title",function() {
+         $(this).next('.image-body').slideToggle();
+       });
+       $(document).on("click",".image-texture",function() {
+         $(this).next('.image-explain').slideToggle();
+       });
+    -->
+    </script>
+  </head>
+<body>
+   <div class="content-head">
+     <h1>Texture Report</h1>
+     <div class="report-info">
+        <div id="report_at"></div>
+        <div id ="platform"></div>
+     </div>
+   </div>
+   <div class="content-main">
+   <div id="warning_field"></div>
+   <h2>Search filter</h2>
+   <div class="boxContainer">
+     <div class="box">
+       <h3>Basic</h3>
+       <table>
+         <tr><th>item</th><th>condition</th></tr>
+         <tr>
+           <td>MipMap check</td>
+           <td><select id="mipmap"><option value="-1">No Check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
+         </tr>
+         <tr>
+           <td>Read/Write check</td>
+           <td><select id="readable"><option value="-1">No Check</option><option value="0">Enable only</option></select></td>
+         </tr>
+         <tr>
+           <td>Pow2 check</td>
+           <td><select id="ispow2"><option value="-1">No Check</option><option value="0">Not pow2 size</option></select></td>
+         </tr>
+       </table>
+     </div>
+     <div class="box">
+       <h3>Format</h3>
+       <div id="texture_format_block"></div>
+     </div>
+     <div class="box">
+       <h3>ImportType</h3>
+       <div id="texture_type_block"></div>
+     </div>
+     <div class="box">
+       <h3>Texture size</h3>
+       <table>
+         <tr><th>item</th><th>condition</th></tr>
+         <tr>
+           <td>Width</td>
+           <td><input type="number" id="tex_min_width" value="0" style="width:60px;"/> - <input type="number" id="tex_max_width" value="4096" style="width:60px;" /></td>
+         </tr>
+         <tr>
+           <td>Height</td>
+           <td><input type="number" id="tex_min_height" value="0" style="width:60px;" /> - <input type="number" id="tex_max_height" value="4096" style="width:60px;" /></td>
+         </tr>
+       </table>
+     </div>
+   </div>
+   <div>
+     <h3>If filepath includes below words</h3>
+     <div id="include_file_name">
+        <input type="button" class="add_cond" value="Add condition" />
+     </div>
+     <h3>If filepath doesn't include below words</h3>
+     <div id="exclude_file_name">
+        <input type="button" class="add_cond" value="Add condition" />
+     </div>
+
+   <h3>Search</h3>
+     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
+     <h2>Search results <span id="result_num"></span></h2>
+     <div id="report"></div>
+   </div>
+   </div>
+</body>
+</html>

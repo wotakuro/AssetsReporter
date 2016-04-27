@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript" src="js/warning_model.js"></script>
     <script type="text/javascript" src="result/report_model.js"></script>
     <script type="text/javascript">
     <!--
@@ -45,7 +46,7 @@
               continue;
             }
             // check vertexnum
-            if( condition.vert_num_min > data[i].polygonNum || data[i].polygonNum > condition.vert_num_max){
+            if( condition.vert_num_min > data[i].vertexNum || data[i].vertexNum > condition.vert_num_max){
                continue;
             }
             // check object num
@@ -102,8 +103,8 @@
          str += '<table>';
          str += '<tr><th>path</th><td>' + data.path + '</td></tr>';
          str += '<tr><th>Object num</th><td>' + data.objectNum + '</td></tr>';
-         if(  data.polygonNum !== undefined ){
-           str += '<tr><th>Vertex num</th><td>' + data.polygonNum + '</td></tr>';
+         if(  data.vertexNum !== undefined ){
+           str += '<tr><th>Vertex num</th><td>' + data.vertexNum + '</td></tr>';
          }
          str += '<tr><th>ScaleFactor</th><td>' + data.scaleFactor + '</td></tr>';
          str += '<tr><th>Read/Write</th><td>' + data.isReadable + '</td></tr>';
@@ -173,11 +174,19 @@
    <div class="content-head">
      <h1>Model Report</h1>
      <div class="report-info">
+        <a href="../index.html">back</a>
         <div id="report_at"></div>
         <div id ="platform"></div>
      </div>
    </div>
    <div class="content-main">
+   <h2>lisence information</h2>
+   This sample uses unity-chan SD model.<br />
+   <img src="../Assets/Datas/UnityChan/imageLicenseLogo.png" /><br/>
+   This work is provided under <a href="http://unity-chan.com/contents/license_en/" target="_blank">Unity-Chan License Terms</a>
+   <a href="../Assets/Datas/UnityChan/UCL2_0.zip"/> lisence terms </a>
+
+   <div id="warning_field"></div>
    <h2>Search Filter</h2>
    <div class=""boxContainer>
      <div class="box">

@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript" src="js/warning_audio.js"></script>
     <script type="text/javascript" src="result/report_audio.js"></script>
     <script type="text/javascript">
     <!--
@@ -80,7 +81,12 @@
          var str = '<div class="audio-block">';
          str += '<h4 class="audio-title selectable">' + data.path + '</h4>';
          str += '<div class="audio-body" style="display: none;">';
-         str += '<div class="try-listen">Listen</div>'+ '<audio src="../' + data.path + '" controls></audio>' ;
+         str += '<div class="try-listen">Listen</div>';
+         if( data.preview ){
+           str += '<audio src="result/preview/' + data.preview + '" controls></audio>';
+         }else{
+           str += '<audio src="../' + data.path + '" controls></audio>' ;
+         }
          str += '<table>';
          str += '<tr><th>Path</th><td>' + data.path + '</td></tr>';
          str += '<tr><th>ForceToMono</th><td>' + data.forceToMono + '</td></tr>';
@@ -113,11 +119,13 @@
    <div class="content-head">
      <h1>AudioClip Report</h1>
      <div class="report-info">
+        <a href="../index.html">back</a>
         <div id="report_at"></div>
         <div id ="platform"></div>
      </div>
    </div>
    <div class="content-main">
+   <div id="warning_field"></div>
    <h2>Search filter</h2>
    <div class=""boxContainer>
      <div class="box">
