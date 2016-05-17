@@ -76,8 +76,6 @@ you'd better to add ignore list.
 
 ## TODO
 refactoring<br/>
-texture thumnail not only png<br />
-summary report 
 
 # Other
 This software is depends on jquery.
