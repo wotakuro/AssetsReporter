@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <title>Resources Report</title>
+    <link rel="stylesheet" type="text/css" href="css/report.css">
+    <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript" src="result/report_resources.js"></script>
+    <script type="text/javascript">
+    <!--
+       function search(){
+          var result_num = 0;
+          var data = g_resources_report;
+          var length = data.length;
+          var i = 0;
+          var condition = createSearchCondition();
+          $("#report").empty();
+          if( length == 0 ){
+             return;
+          }
+          $("#report").append( '<h3>Files in Resources</h3>');
+
+          var depends_list_cnt = {};
+
+          for( i = 0 ; i < length ; ++ i ){
+            // check type
+            if( !condition.typeCheck[ data[i].type ] ){
+              continue;
+            }
+            if( !condition.parentDirCheck[ data[i].parentDir ] ){
+              continue;
+            }
+            for( var j = 0 ; j < data[i].depends.length ; ++ j ){
+              var dependIdx = getDependsFileIndex( data[i].depends[j].path );
+              if( dependIdx >= 0 ){
+                if( !depends_list_cnt[ "d_" + dependIdx ] ){
+                  depends_list_cnt[ "d_" + dependIdx ] = {idx:dependIdx ,cnt:1};
+                }else{
+                  depends_list_cnt[ "d_" + dependIdx ].cnt += 1;
+                }
+              }
+            }
+            reportData( data[i] );
+            ++ result_num;
+          }
+          ///////////////////////////
+          reportDependsList( depends_list_cnt );
+          $("#result_num").html( "(" + result_num + ")" );
+       }
+
+
+       function reportDependsList( depends_list_cnt ){
+         $("#report").append( '<h3>depended files</h3>');
+         var str = "";
+         var dlist = g_resources_depends;
+         str += '<div class="resources-depends-block">';
+         str += "<table>";
+         str += "<tr><th>Type</th><th>Path</th><th>number of dependence</th></tr>";
+         for( var idx in depends_list_cnt ){
+           var listIdx = depends_list_cnt[idx].idx;
+           str += "<tr>";
+           str += "<td>" + dlist[listIdx].type  + "</td>";
+           str += "<td>" + dlist[listIdx].path  + "</td>";
+           str += "<td>" + depends_list_cnt[idx].cnt  + "</td>";
+           str += "</tr>";
+         }
+         str += "</table>";
+         str += '</div>'
+         $("#report").append(str);
+       }
+
+       function getDependsFileIndex( path ){
+         var data = g_resources_depends;
+         var length = data.length;
+         for( var i = 0 ; i < length ; ++ i ){
+           if( path == data[i].path ){ return i; }
+         }
+         return -1;
+       }
+
+       function reportData(data){
+         var str = '<div class="resources-block">';
+         str += '<h4 class="resources-title selectable">' + data.path + '</h4>';
+         str += '<div class="resources-body" style="display: none;">';
+         str += '<h5>Basic Info</h5>';           
+         str += '<table>';
+         str += '<tr>';
+         str += '<th>Path</th>' + '<td>' + data.path + '</td>';
+         str += '</tr>';
+         str += '<tr>';
+         str += '<th>Type</th>' + '<td>' + data.type + '</td>';
+         str += '</tr>';
+         str += '</table>';
+
+         str += '<h5>depended files</h5>';
+         if( data.depends.length == 0 ){
+           str += 'There is no depended file.';
+         }else{
+           data.depends.sort( function(a,b){
+             if(a.type > b.type ){ return 1;}
+             if(a.type < b.type ){ return -1;}
+             if(a.path > b.path ){ return 1;}
+             if(a.path < b.path ){ return -1;}
+             return 0;
+           });
+           str += '<table>';
+           str += '<tr><th>Type</th><th>Path</th></tr>'
+           for( var i=0;i<data.depends.length; ++i ){
+             str += '<tr>'; 
+             str += '<td>' + data.depends[i].type + '</td>';
+             str += '<td>' + data.depends[i].path + '</td>';
+             str += '</tr>';
+           }
+           str += '</table>';
+         }
+
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function createSearchCondition(){
+          var condition = { 
+          };
+          condition.typeCheck      = getCheckCondition( g_resources_type_list , 't_' );
+          condition.parentDirCheck = getCheckCondition( g_resources_parent_dir_list , 'p_' );
+          return condition;
+       }
+
+
+       $(document).ready( function(){
+         setupCheckBox( g_resources_type_list , "type","t_" , "#type_block" );
+         setupCheckBox( g_resources_parent_dir_list , "path","p_" , "#directory_block" );
+         if( g_resources_report.length > 0 ){
+           $("#warning_field").html("<h2>Warning</h2>" +
+                                    "It waste memories to put Resources directory.<br/>" + 
+                                    "(The information of dependencies is on memory to use Resources.Load) <br/><br/>");
+         }else{
+           $(".content-main").html('<h2>There is no "Resources"</h2>' +
+                                   "This project doesn't have 'Resources' directory.");
+         }
+       });
+       $(document).on("click",".resources-title",function() {
+         $(this).next('.resources-body').slideToggle();
+       });
+       $(document).on("click","h5.selectable",function() {
+         $(this).next('div').slideToggle();
+       });
+    -->
+    </script>
+  </head>
+<body>
+   <div class="content-head">
+     <h1>Resources Report</h1>
+     <div class="report-info">
+        <div id="report_at"></div>
+        <div id ="platform"></div>
+     </div>
+   </div>
+   <div class="content-main">
+     <div id="warning_field"></div>
+     <h2>Search Filter</h2>
+     <div class=""boxContainer>
+       <div class="box">
+         <h3>Type</h3>
+         <div id="type_block" ></div>
+       </div>
+       <div class="box">
+         <h3>Parent directories</h3>
+         <div id="directory_block" ></div>
+       </div>
+     </div>
+     <h3>Search</h3>
+     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
+     <h2>Search results <span id="result_num"></span></h2>
+     <div id="report"></div>
+   </div>
+</body>
+</html>
