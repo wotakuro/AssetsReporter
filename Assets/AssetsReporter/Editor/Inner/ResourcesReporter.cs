@@ -88,7 +88,7 @@ public class ResourcesReporter {
 
     private void ReportOneResource(StringBuilder sb, string assetPath)
     {
-        var depends = AssetDatabase.GetDependencies(assetPath);
+        var depends = AssetDatabase.GetDependencies( new string[]{assetPath});
 
         Type type = this.GetFileType(assetPath);
         AssetsReporterUtils.AddCountDictionary(this.typeDict, type);
@@ -128,6 +128,10 @@ public class ResourcesReporter {
             return fileTypeDict[path];
         }
         UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath < UnityEngine.Object>(path);
+        if (obj == null)
+        {
+            return typeof(System.Object);
+        }
         var type = obj.GetType();
         if ( type != typeof(GameObject))
         {

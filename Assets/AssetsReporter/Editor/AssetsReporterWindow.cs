@@ -46,6 +46,7 @@ public class AssetsReporterWindow : EditorWindow {
 		OnGUIAudio();
 		OnGUIModel();
 		OnGUIAssetBundle();
+        OnGUIResources();
 		EditorGUILayout.EndScrollView();
 	}
 	void OnEnable()
@@ -111,6 +112,8 @@ public class AssetsReporterWindow : EditorWindow {
             TextureReporter.CreateReport(this.targetList[currentTarget], excludeList);
             ModelReporter.CreateReport( excludeList);
             AudioReporter.CreateReport(this.targetList[currentTarget], excludeList);
+            AssetBundleReporter.CreateReport();
+            ResourcesReporter.CreateReport();
             AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "index.html"));
         }
         if (GUILayout.Button("Open", GUILayout.Width(100)))
@@ -190,6 +193,23 @@ public class AssetsReporterWindow : EditorWindow {
 		EditorGUILayout.EndHorizontal();
 	}
 
+    private void OnGUIResources()
+    {
+        EditorGUILayout.LabelField("Resources Report");
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("", GUILayout.Width(Space));
+        if (GUILayout.Button("Report", GUILayout.Width(100)))
+        {
+            SaveExcludeList();
+            ResourcesReporter.CreateReport();
+            ResourcesReporter.OpenReport();
+        }
+        if (GUILayout.Button("Open", GUILayout.Width(100)))
+        {
+            ResourcesReporter.OpenReport();
+        }
+        EditorGUILayout.EndHorizontal();
+    }
 
 	private void SaveExcludeList()
 	{
