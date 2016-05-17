@@ -60,9 +60,17 @@ You can use this like these cases.
 </pre>
 
 # AssetBundleReporter
+![alt text](doc/image/ReporterAb.png)
 <pre>
-currently developing...
 You'll be able to watch assetbundle data on web browser.
+</pre>
+
+# ResourcesReporter
+![alt text](doc/image/ResourcesReporter.png)
+<pre>
+It waste runtime-memory to put "Resources" directory in your project.
+You should better to replace "Resources" directory to assetbundle.
+This helps you to find "Resources" directory and assets in the directory.
 </pre>
 
 #about ignore
