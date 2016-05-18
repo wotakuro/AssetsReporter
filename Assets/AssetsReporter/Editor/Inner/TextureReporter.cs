@@ -39,7 +39,9 @@ public class TextureReporter {
 	public void ReportTexture(string reportPath)
 	{
 		try
-		{
+        {
+            AssetsReporterUtils.CreatePreviewDir();
+
 			this.textureTypeSet = new Dictionary<TextureImporterType,int>();
 			this.textureFormatSet = new Dictionary<TextureImporterFormat,int>();
 			var guids = AssetDatabase.FindAssets("t:texture2D", null);
