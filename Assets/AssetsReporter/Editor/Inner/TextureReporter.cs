@@ -21,7 +21,7 @@ public class TextureReporter {
 	public static void CreateReport(string pl,List<string>exList)
 	{
 		var reporter = new TextureReporter( pl , exList );
-		reporter.ReportTexture("AssetsReporter/result/report_texture.js");
+        reporter.ReportTexture(AssetsReporterUtils.ResultDir + "report_texture.js");
 	}
 	public static void OpenReport()
 	{

@@ -100,16 +100,17 @@ function writeToWarningField( result ){
 }
 
 $(document).ready( function(){
-  var date_str = "report : " + g_report_at;
-  var platform_str = g_report_platform;
-  if( !g_report_platform ){
-     platform_str = "platform : none";
-  }else{
-     platform_str = "platform : " + platform_str;
-  }
-
-  $("#report_at").html(date_str);
-  $("#platform").html(platform_str);
+  try{
+    var date_str = "report : " + g_report_at;
+    var platform_str = g_report_platform;
+    if( !g_report_platform ){
+       platform_str = "platform : none";
+    }else{
+       platform_str = "platform : " + platform_str;
+    }
+    $("#report_at").html(date_str);
+    $("#platform").html(platform_str);
+  }catch(e){}
 });
 
 $(document).on("click",".add_cond",function() {
@@ -119,5 +120,38 @@ $(document).on("click",".add_cond",function() {
 $(document).on("click",".del_cond",function() {
   $(this).parent('div').remove();
 });
+
+
+function SetTemplateToHtml( dict )
+{
+  for( var idx in dict ){
+    $("." + idx ).text( dict[ idx] );
+  }
+}
+
+g_current_template_data = null;
+function GetCurrentTemplateData()
+{
+   return g_current_template_data;
+}
+
+function LoadLanguageJavascript( lang , set )
+{
+  var idstr = "dynamic_js_" + lang +"_" + set;
+  if( !document.getElementById( idstr )  ){
+    var script = document.createElement( 'script' );
+    script.type = 'text/javascript';
+    script.src = "template/" + lang + "/template_" + set + ".js";
+    script.setAttribute( "id" , idstr );
+    script.onload = function(){
+      g_current_template_data = eval( "g_" + lang + "_template_" + set );
+      SetTemplateToHtml( g_current_template_data  );
+    };
+    document.head.appendChild( script );
+  }else{
+    g_current_template_data = eval( "g_" + lang + "_template_" + set );
+    SetTemplateToHtml( g_current_template_data  );
+  }
+}
 
 

@@ -75,7 +75,7 @@ public class AssetBundleReporter {
 				EditorUtility.DisplayProgressBar("AssetBundleReport" ,abname, idx / (float)abnames.Length);
 			}
 			sb.Append("];");
-			File.WriteAllText("AssetsReporter/result/report_ab.js", sb.ToString());
+            File.WriteAllText(AssetsReporterUtils.ResultDir + "report_ab.js", sb.ToString());
 		}
 		finally
 		{

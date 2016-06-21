@@ -25,7 +25,7 @@ public class ModelReporter {
 	public static void CreateReport(List<string>exList)
 	{
 		var reporter = new ModelReporter( exList );
-		reporter.ReportModel("AssetsReporter/result/report_model.js");
+        reporter.ReportModel(AssetsReporterUtils.ResultDir + "report_model.js");
 	}
 	public static void OpenReport()
 	{
