@@ -4,7 +4,9 @@ function getCheckCondition( data , headerStr){
    length = data.length;
    for( i = 0 ; i < length ; ++ i ){
      var t = data[i].val;
-     res[ t ] = $("#" + headerStr + convertCheckBoxValue(t) ).prop('checked');
+     try{
+       res[ t ] = $("#" + headerStr + convertCheckBoxValue(t) ).prop('checked');
+     }catch( e ){ window.alert( e ); }
    }
    return res;
 }

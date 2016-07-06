@@ -13,6 +13,7 @@ public class TextureReporter {
 
 	private Dictionary<TextureImporterType, int> textureTypeSet = new Dictionary<TextureImporterType, int>();
 	private Dictionary<TextureImporterFormat, int> textureFormatSet = new Dictionary<TextureImporterFormat, int>();
+    private Dictionary<string, int> spriteTagSet = new Dictionary<string, int>();
 
 	private string platform;
 	/// <summary>
@@ -44,6 +45,7 @@ public class TextureReporter {
 
 			this.textureTypeSet = new Dictionary<TextureImporterType,int>();
 			this.textureFormatSet = new Dictionary<TextureImporterFormat,int>();
+            this.spriteTagSet = new Dictionary<string, int>();
 			var guids = AssetDatabase.FindAssets("t:texture2D", null);
 			var sb = new StringBuilder(1024 * 1024);
 			int idx = 0;
@@ -74,7 +76,8 @@ public class TextureReporter {
 			}
 			sb.Append("];");
 			AssetsReporterUtils.AddCountVarObject(sb, "g_texture_format_list", textureFormatSet);
-			AssetsReporterUtils.AddCountVarObject(sb, "g_texture_type_list", textureTypeSet);
+            AssetsReporterUtils.AddCountVarObject(sb, "g_texture_type_list", textureTypeSet);
+            AssetsReporterUtils.AddCountVarObject(sb, "g_texture_spriteTag_list", spriteTagSet);
 			AssetsReporterUtils.AddPlatformVar(sb, this.platform);
 			File.WriteAllText(reportPath, sb.ToString());
 		}
@@ -103,6 +106,7 @@ public class TextureReporter {
             string preview = AssetsReporterUtils.SaveNotWebVisibleTextureToPreview(importer, tex);
             AssetsReporterUtils.AddJsonObject(sb, "preview", preview).Append(",");
         }
+
 		AssetsReporterUtils.AddJsonObject(sb, "path", importer.assetPath.ToString()).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "textureType", type.ToString()).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "isReadable", importer.isReadable).Append(",");
@@ -110,16 +114,25 @@ public class TextureReporter {
 		AssetsReporterUtils.AddJsonObject(sb, "mipmapEnabled", importer.mipmapEnabled).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "width", w).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "height", h).Append(",");
-		AssetsReporterUtils.AddJsonObject(sb, "isPow2", IsPow2Size(w, h)).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "maxSize", maxSize ).Append(",");
-		AssetsReporterUtils.AddJsonObject(sb, "textureFormat", format.ToString());
-		sb.Append("}");
+        AssetsReporterUtils.AddJsonObject(sb, "textureFormat", format.ToString()).Append(",");
+        if (string.IsNullOrEmpty(importer.spritePackingTag))
+        {
+            AssetsReporterUtils.AddJsonObject(sb, "isPow2", IsPow2Size(w, h)).Append(",");
+        }
+        else
+        {
+            AssetsReporterUtils.AddJsonObject(sb, "isPow2", true).Append(",");
+        }
+        AssetsReporterUtils.AddJsonObject(sb, "spritePackingTag", importer.spritePackingTag);
+        sb.Append("}");
         if (tex != null)
         {
             Resources.UnloadAsset(tex);
             tex = null;
         }
 
+        AssetsReporterUtils.AddCountDictionary(this.spriteTagSet, importer.spritePackingTag);
 		AssetsReporterUtils.AddCountDictionary(this.textureFormatSet, format);
 		AssetsReporterUtils.AddCountDictionary(this.textureTypeSet, type);
 	}
