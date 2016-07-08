@@ -5,7 +5,7 @@ g_en_template_texture = {
 	tplSearchFilter			: "SearchFilter",
 	tplSearchTitle			: "Search",
 	tplSearchBtn			: "Search",
-	tplSearchResultTitle	: "Search Result({0})",
+	tplSearchResultTitle	: "Search Result",
 	tplCheckNon				: "No Check",
 	tplCheckEnableOnly		: "Enable Only",
 	tplCheckDisableOnly		: "Disable Only",
@@ -26,13 +26,18 @@ g_en_template_texture = {
 	tplCondMipMapCheck		: "MipMap check	",
 	tplCondReadWriteCheck	: "Read/Write check	",
 	tplCondPow2Check		: "Pow2 check",
-
+    tplCheckNonPow2Only		: "Non pow2 only",
+    tplCondWidth			: "Width",
+	tplCondHeight			: "Height",
+	tplCondSpriteTag		: "SpritePackTag",
 
 	// in result
 	tplResultPath			: "Path",
 	tplResultType			: "Type",
 	tplResultFormat			: "Format",
 	tplResultSize			: "Size",
+	tplResultNonPow2		: "isn't pow2 size",
+	tplResultSpriteTag		: "SpritePackingTag",
 	tplResultMaxSize		: "MaxSize",
 	tplResultMipMap			: "MipMap",
 	tplResultReadWrite		: "Read/Write",

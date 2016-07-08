@@ -91,6 +91,7 @@
        }
 
        function reportData(data){
+         var tplData = GetCurrentTemplateData();
          var str = '<div class="image-block">';
          str += '<h4 class="image-title selectable">' + data.path + '</h4>';
          str += '<div class="image-body" style="display: none;">';
@@ -101,20 +102,20 @@
          }
          str += '<div class="image-explain">';
          str += '<table>';
-         str += '<tr><th>Path</th><td>' + data.path + '</td></tr>';
-         str += '<tr><th>Type</th><td>' + data.textureType + '</td></tr>';
-         str += '<tr><th>Format</th><td>' + data.textureFormat + '</td></tr>';
-         str += '<tr><th>Size</th><td>' + data.width + '*' + data.height ;
+         str += '<tr><th> ' + tplData.tplResultPath +  ' </th><td>' + data.path + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultType + '</th><td>' + data.textureType + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultFormat + '</th><td>' + data.textureFormat + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultSize + '</th><td>' + data.width + '*' + data.height ;
          if( !data.isPow2 ){
-            str += "(isn't pow2 size)";
+            str += '(' + tplData.tplResultNonPow2 + ')';
          }
          str += '</td></tr>';
 		 if( data.spritePackingTag ){
-            str += '<tr><th>SpritePackingTag</th><td>' + data.spritePackingTag + '</td></tr>'; 
+            str += '<tr><th>' + tplData.tplResultSpriteTag + '</th><td>' + data.spritePackingTag + '</td></tr>'; 
          }
-         str += '<tr><th>MaxSize</th><td>' + data.maxSize + '</td></tr>';
-         str += '<tr><th>Mipmap</th><td>' + data.mipmapEnabled + '</td></tr>';
-         str += '<tr><th>Read/Write</th><td>' + data.isReadable + '</td></tr>';
+         str += '<tr><th>'  + tplData.tplResultMaxSize +  ' </th><td>' + data.maxSize + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultMipMap + '</th><td>' + data.mipmapEnabled + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultReadWrite + '</th><td>' + data.isReadable + '</td></tr>';
          str += '</table></div>';
          str += '</div>';
          str += '</div>';
@@ -122,6 +123,7 @@
        }
 
        $(document).ready( function(){
+         LoadLanguageJavascript( g_language , "texture" );
          setupCheckBox( g_texture_type_list , "ImportType","t_" , "#texture_type_block" );
          setupCheckBox( g_texture_format_list , "Format","f_" , "#texture_format_block" );
          setupCheckBox( g_texture_spriteTag_list , "SpritePackingTag","st_" , "#sprite_tag_block" );
@@ -148,64 +150,64 @@
    <h2>Search filter</h2>
    <div class="boxContainer">
      <div class="box">
-       <h3>Basic</h3>
+       <h3 class="tplCondBasic"></h3>
        <table>
-         <tr><th>item</th><th>condition</th></tr>
+         <tr><th class="tplItem"></th><th class="tplCondition"></th></tr>
          <tr>
-           <td>MipMap check</td>
-           <td><select id="mipmap"><option value="-1">No Check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
+           <td class="tplCondMipMapCheck"></td>
+           <td><select id="mipmap"><option value="-1" class="tplCheckNon"></option><option value="0" class="tplCheckEnableOnly"></option><option value="1" class="tplCheckDisableOnly"></option></select></td>
          </tr>
          <tr>
-           <td>Read/Write check</td>
-           <td><select id="readable"><option value="-1">No Check</option><option value="0">Enable only</option></select></td>
+           <td class="tplCondReadWriteCheck"></td>
+           <td><select id="readable"><option value="-1" class="tplCheckNon"></option><option value="0" class="tplCheckEnableOnly"></option></select></td>
          </tr>
          <tr>
-           <td>Pow2 check</td>
-           <td><select id="ispow2"><option value="-1">No Check</option><option value="0">Not pow2 size</option></select></td>
+           <td class="tplCondPow2Check"></td>
+           <td><select id="ispow2"><option value="-1" class="tplCheckNon"></option><option value="0" class="tplCheckNonPow2Only"></option></select></td>
          </tr>
        </table>
      </div>
      <div class="box">
-       <h3>Format</h3>
+       <h3 class="tplCondFormat"></h3>
        <div id="texture_format_block"></div>
      </div>
      <div class="box">
-       <h3>ImportType</h3>
+       <h3 class="tplCondImportType"></h3>
        <div id="texture_type_block"></div>
      </div>
      <div class="box">
-       <h3>Texture size</h3>
+       <h3 class="tplCondTextureSize"></h3>
        <table>
-         <tr><th>item</th><th>condition</th></tr>
+         <tr><th class="tplItem"></th><th class="tplCondition"></th></tr>
          <tr>
-           <td>Width</td>
+           <td class="tplCondWidth"></td>
            <td><input type="number" id="tex_min_width" value="0" style="width:60px;"/> - <input type="number" id="tex_max_width" value="4096" style="width:60px;" /></td>
          </tr>
          <tr>
-           <td>Height</td>
+           <td class="tplCondHeight"></td>
            <td><input type="number" id="tex_min_height" value="0" style="width:60px;" /> - <input type="number" id="tex_max_height" value="4096" style="width:60px;" /></td>
          </tr>
        </table>
      </div>
 
      <div class="box">
-       <h3>SpritePackingTag</h3>
+       <h3 class="tplCondSpriteTag"></h3>
        <div id="sprite_tag_block"></div>
      </div>
    </div>
    <div>
-     <h3>If filepath includes below words</h3>
+     <h3 class="tplFileInclude"></h3>
      <div id="include_file_name">
-        <input type="button" class="add_cond" value="Add condition" />
+        <input type="button" class="add_cond tplAddConditionBtn" />
      </div>
-     <h3>If filepath doesn't include below words</h3>
+     <h3 class="tplFileExclude">If filepath doesn't include below words</h3>
      <div id="exclude_file_name">
-        <input type="button" class="add_cond" value="Add condition" />
+        <input type="button" class="add_cond tplAddConditionBtn" />
      </div>
 
    <h3>Search</h3>
-     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
-     <h2>Search results <span id="result_num"></span></h2>
+     <input type ="button" class="search-btn tplSearchBtn" onClick="search()" />
+     <h2><span class="tplSearchResultTitle"></span> <span id="result_num"></span></h2>
      <div id="report"></div>
    </div>
    </div>

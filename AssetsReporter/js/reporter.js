@@ -116,7 +116,10 @@ $(document).ready( function(){
 });
 
 $(document).on("click",".add_cond",function() {
-  var str = '<div><input class="cond_value" type="text" size="80"><input type="button" class="del_cond" value="delete"></div>';
+  var tplData = GetCurrentTemplateData();
+  var btnValue = 'delete';
+  if( tplData ){ btnValue = tplData.tplDelConditionBtn ;}
+  var str = '<div><input class="cond_value" type="text" size="80"><input type="button" class="del_cond" value="' + tplData.tplDelConditionBtn + '"></div>';
   $(this).before(str);
 });
 $(document).on("click",".del_cond",function() {
@@ -128,6 +131,7 @@ function SetTemplateToHtml( dict )
 {
   for( var idx in dict ){
     $("." + idx ).text( dict[ idx] );
+    $("input." + idx ).val( dict[ idx] );
   }
 }
 
