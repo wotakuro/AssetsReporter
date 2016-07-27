@@ -114,10 +114,17 @@
          str += '<h6 class="selectable">' + '[' +  file.type + '] '+ file.path + '</h6>';
          str += '<div class="ab-file-explain" style="display: none;">';
          if( file.type == "Texture2D" ){
-           str += '<img class="ab-image-texture selectable" src="../' + file.path + '" />';
+           if( file.preview ){
+             str += '<img class="ab-image-texture selectable" src="result/preview/' + file.preview + '" />';
+           }else{
+             str += '<img class="ab-image-texture selectable" src="../' + file.path + '" />';
+           }
          }else if( file.type == "AudioClip" ){
            str += '<div class="try-listen">Listen</div>'+ '<audio src="../' + file.path + '" controls></audio>' ;
          }else{
+           if( file.preview ){
+             str += '<img class="ab-image-texture selectable" src="result/preview/' + file.preview + '" />';
+           }
            str += "<table>";
            str += "<tr><th>dependencies</th></tr>";
            for( var i = 0 ; i < file.depends.length ; ++ i ){

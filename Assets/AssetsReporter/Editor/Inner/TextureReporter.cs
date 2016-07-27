@@ -101,9 +101,9 @@ public class TextureReporter {
 
         var tex = GetTextureSize(importer, out w, out h) as Texture2D;
 		sb.Append("{");
-        if (!AssetsReporterUtils.IsVisibleInWebBrowserImage(importer.assetPath))
+        if (!AssetsReporterUtils.IsVisibleInWebBrowserImage(importer.assetPath) && tex != null)
         {
-            string preview = AssetsReporterUtils.SaveNotWebVisibleTextureToPreview(importer, tex);
+            string preview = AssetsReporterUtils.GetWebVisibleTexturePreview(importer, tex, true);
             AssetsReporterUtils.AddJsonObject(sb, "preview", preview).Append(",");
         }
 

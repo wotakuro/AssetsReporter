@@ -38,11 +38,12 @@ public class AssetBundleReporter {
 	#endregion INNER_CLASS
 
 	private HashSet<AssetBundleIdentify> dependBundle;
+    private bool createThumnailPreview;
 
-	public static void CreateReport()
+    public static void CreateReport(bool thumnailFlag)
 	{
 		var reporter = new AssetBundleReporter();
-		reporter.Report();
+        reporter.Report(thumnailFlag);
 	}
 
 	public static void OpenReport()
@@ -50,10 +51,11 @@ public class AssetBundleReporter {
 		Application.OpenURL(Path.Combine("AssetsReporter", "report_ab.html"));
 	}
 
-	public void Report()
+    public void Report(bool thumnailFlag)
 	{
 		try
 		{
+            this.createThumnailPreview = thumnailFlag;
 			int idx = 0;
 			StringBuilder sb = new StringBuilder();
 
@@ -96,6 +98,7 @@ public class AssetBundleReporter {
 			else { sb.Append(","); }
 			sb.Append("{");
 			AssetsReporterUtils.AddJsonObject(sb, "path", path).Append(",");
+
 			var depends = AssetDatabase.GetDependencies(new string[] { path });
 			System.Array.Sort(depends);
 			this.AddDependsAssetBundle( depends);
@@ -111,6 +114,22 @@ public class AssetBundleReporter {
                 {
                     Resources.UnloadAsset(obj);
                 }
+                // thumnail
+                {
+                    if (obj.GetType() == typeof(Texture2D) && !AssetsReporterUtils.IsVisibleInWebBrowserImage(path))
+                    {
+                        sb.Append(",");
+                        string preview = AssetsReporterUtils.GetWebVisibleTexturePreview(TextureImporter.GetAtPath(path) as TextureImporter, obj as Texture2D, this.createThumnailPreview);
+                        AssetsReporterUtils.AddJsonObject(sb, "preview", preview);
+                    }
+                    else if (obj.GetType() == typeof(GameObject))
+                    {
+                        sb.Append(",");
+                        string preview = AssetsReporterUtils.GetAssetPreview(AssetImporter.GetAtPath(path), obj, this.createThumnailPreview);
+                        AssetsReporterUtils.AddJsonObject(sb, "preview", preview);
+                    }
+                }
+
                 obj = null;
 			}
 			sb.Append("}");
