@@ -16,10 +16,16 @@ function convertCheckBoxValue( val ){
 }
 
 function setupCheckBox( data,thStr ,headStr,writeTo ){
+  var tplData = GetCurrentTemplateData();
+
   var length = data.length;
   var i = 0;
   var html = "<table>";
-  html += "<tr><th>" + thStr + "</th><th>Check</th><th>Hit num</th></tr>";
+  if( tplData == null ){
+    html += "<tr><th>" + thStr + '</th><th class="tplCheck"></th><th class="tplHitNum"></th></tr>';
+  }else{
+    html += '<tr><th>' + thStr + '</th><th>' + tplData.tplCheck + '</th><th>' + tplData.tplHitNum + '</th></tr>';
+  }
   for( i = 0; i < length ; ++ i ){
     html += '<tr>';
     html += '<td>'+ data[i].val + '</td>';
