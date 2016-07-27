@@ -6,8 +6,30 @@ using System.IO;
 using System.Collections.Generic;
 
 public class AssetsReporterWindow : EditorWindow {
+
+    private class LanguageSetting
+    {
+        public string languageCode;
+        public string languageOutput;
+
+        public LanguageSetting(string code, string output)
+        {
+            this.languageCode = code;
+            this.languageOutput = output;
+        }
+    }
+
 	private const float Space = 10.0f;
 	private const string excludeRulePath = "Assets/AssetsReporter/Editor/Data/excludeList.txt";
+
+    private LanguageSetting[] languages = 
+    {
+        new LanguageSetting("en","English"),
+        new LanguageSetting("jp","日本語"),
+    };
+    private int selectLanguageIdx = 0;
+    private string[] selectLanguageList;
+
 	private string[] targetList = 
 	{
 		"default",
@@ -31,6 +53,10 @@ public class AssetsReporterWindow : EditorWindow {
 	void OnGUI()
 	{
 		scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+
+
+        OnGUISelectLanguage();
+
 		EditorGUILayout.LabelField("Platform Select");
 		EditorGUILayout.BeginHorizontal();
 		EditorGUILayout.LabelField("", GUILayout.Width(Space));
@@ -49,6 +75,24 @@ public class AssetsReporterWindow : EditorWindow {
         OnGUIResources();
 		EditorGUILayout.EndScrollView();
 	}
+
+    void OnGUISelectLanguage()
+    {
+        if (selectLanguageList == null)
+        {
+            selectLanguageList = new string[languages.Length];
+            for (int i = 0; i < selectLanguageList.Length; ++i)
+            {
+                selectLanguageList[i] = languages[i].languageOutput;
+            }
+        }
+        EditorGUILayout.LabelField("Language Select");
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("", GUILayout.Width(Space));
+        this.selectLanguageIdx = EditorGUILayout.Popup(this.selectLanguageIdx, selectLanguageList);
+        EditorGUILayout.EndHorizontal();
+    }
+
 	void OnEnable()
 	{
 		LoadExcludeList();
@@ -109,6 +153,7 @@ public class AssetsReporterWindow : EditorWindow {
         if (GUILayout.Button("Report", GUILayout.Width(100)))
         {
             SaveExcludeList();
+            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
             TextureReporter.CreateReport(this.targetList[currentTarget], excludeList);
             ModelReporter.CreateReport( excludeList);
             AudioReporter.CreateReport(this.targetList[currentTarget], excludeList);
@@ -131,6 +176,7 @@ public class AssetsReporterWindow : EditorWindow {
         if (GUILayout.Button("Report", GUILayout.Width(100)))
         {
             SaveExcludeList();
+            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
             TextureReporter.CreateReport(this.targetList[currentTarget], excludeList);
             TextureReporter.OpenReport();
         }
@@ -148,7 +194,8 @@ public class AssetsReporterWindow : EditorWindow {
 		if (GUILayout.Button("Report", GUILayout.Width(100)))
 		{
 			SaveExcludeList();
-			AudioReporter.CreateReport(this.targetList[currentTarget], excludeList);
+            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
+            AudioReporter.CreateReport(this.targetList[currentTarget], excludeList);
 			AudioReporter.OpenReport();
 		}
 		if (GUILayout.Button("Open", GUILayout.Width(100)))
@@ -166,7 +213,8 @@ public class AssetsReporterWindow : EditorWindow {
 		if (GUILayout.Button("Report", GUILayout.Width(100)))
 		{
 			SaveExcludeList();
-			ModelReporter.CreateReport( excludeList );
+            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
+            ModelReporter.CreateReport(excludeList);
 			ModelReporter.OpenReport();
 		}
 		if (GUILayout.Button("Open", GUILayout.Width(100)))
@@ -183,7 +231,8 @@ public class AssetsReporterWindow : EditorWindow {
 		if (GUILayout.Button("Report", GUILayout.Width(100)))
 		{
 			SaveExcludeList();
-			AssetBundleReporter.CreateReport();
+            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
+            AssetBundleReporter.CreateReport();
 			AssetBundleReporter.OpenReport();
 		}
 		if (GUILayout.Button("Open", GUILayout.Width(100)))
@@ -201,6 +250,7 @@ public class AssetsReporterWindow : EditorWindow {
         if (GUILayout.Button("Report", GUILayout.Width(100)))
         {
             SaveExcludeList();
+            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
             ResourcesReporter.CreateReport();
             ResourcesReporter.OpenReport();
         }

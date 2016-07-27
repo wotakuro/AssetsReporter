@@ -5,11 +5,13 @@
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/reporter.js"></script>
     <script type="text/javascript" src="result/report_ab.js"></script>
+    <script type="text/javascript" src="result/report_language.js"></script>
     <script type="text/javascript">
     <!--
        function search(){
           var data = g_ab_report;
           var length = data.length;
+          var dependenceFileCount = {};
           var i = 0;
           var condition = createSearchCondition();
           $("#report").empty();
@@ -23,9 +25,12 @@
             if( !isDependFile( data[i] , condition.depend_file ) ){
               continue;
             }
+            countDependencyFiles( data[i],dependenceFileCount );
             reportData(data[i] );
             ++ result_num;
           }
+          deleteAlreadyInAssetBundle( data , dependenceFileCount );
+          reportDuplication( dependenceFileCount );
           $("#result_num").html( "(" + result_num + ")" );
        }
        function createSearchCondition(){
@@ -122,6 +127,63 @@
          }
          str += '</div>';
          return str;
+       }
+
+       // delete already in assetBundle
+       function deleteAlreadyInAssetBundle( data , dependenceFileCount ){
+         for( var i = 0 ; i < data.length ; ++ i ){
+           var files = data[i].files;
+           for( var j = 0 ; j < files.length ; ++ j ){
+             if( dependenceFileCount[ files[j].path ] ){
+               delete( dependenceFileCount[ files[j].path ] );
+             }
+           }
+         }
+       }
+
+
+       // Count Dependency
+       function countDependencyFiles( data, dependenceFileCount){
+         for( var i = 0 ; i < data.depends.length ; ++ i ){
+           if( data.depends[i].name ){ continue; }
+           if( data.depends[i].importerType == "Mono" ){ continue; }
+           var file = data.depends[i].file;
+           if( !dependenceFileCount[file] ){
+             dependenceFileCount[file] = {count:1};
+           }else{
+             dependenceFileCount[file].count += 1;
+           }
+         }
+       }
+
+       function reportDuplication( dependenceFileCount ){
+         var dataList = [];
+         for( var idx in dependenceFileCount ){
+           if( dependenceFileCount[idx].count > 1 ){
+             var data = { file:idx , count:dependenceFileCount[idx].count }
+             dataList.push( data ); 
+           }
+         }
+         if( dataList.length == 0 ){ return ; }
+         dataList.sort( function(a,b){
+           if( a.count > b.count ){return -1;}
+           if( a.count < b.count ){return 1;}
+           return 0;
+         });
+         var str = "<br /><h2>DuplicateFiles</h2>";
+
+         str += "<table>";
+         str += "<tr><th>file</th>";
+         str += "<th>count</th>";
+         str += "</tr>";
+         for( var i = 0;i < dataList.length ; ++ i ){
+             str += "<tr>";
+             str += "<td>" + dataList[i].file + "</td>";
+             str += "<td>" + dataList[i].count + "</td>";
+             str += "</tr>";
+         }
+         str += "<table>"
+         $("#report").append( str );
        }
 
        $(document).ready( function(){

@@ -19,7 +19,7 @@ public class ResourcesReporter {
     public static void CreateReport()
 	{
         var reporter = new ResourcesReporter();
-        reporter.ReportResources("AssetsReporter/result/report_resources.js");
+        reporter.ReportResources(AssetsReporterUtils.ResultDir + "report_resources.js");
 	}
 
     public static void OpenReport()

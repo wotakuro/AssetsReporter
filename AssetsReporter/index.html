@@ -3,42 +3,52 @@
     <title>Assets Reporter</title>
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript" src="result/report_language.js"></script>    <script type="text/javascript">
+    <!--
+       $(document).ready( function(){
+         LoadLanguageJavascript( g_language , "index" );
+       });
+    -->
+    </script>
   </head>
 <body>
    <div class="content-head">
+     <div id="language_select_div"></div>
      <h1>AssetsReporter</h1>
      <div class="report-info">
      </div>
    </div>
    <div class="content-main">
-     <a href="report_texture.html" target="_blank"><h2>Texture Report</h2></a>
-     <div class=="report block">
-        Check Texture Import Settings
+     <a href="report_texture.html" target="_blank">
+		<h2 class="tplTextureTitle"></h2></a>
+     <div class="report block tplTextureExplain">
      </div><br/>
-     <a href="report_audio.html" target="_blank"><h2>Audio Report</h2></a>
-     <div class=="report block">
-        Check AudioClip Import Settings
-     </div><br/>
-
-     <a href="report_model.html" target="_blank"><h2>Model Report</h2></a>
-     <div class=="report block">
-        Check Model Import Settings
+     <a href="report_audio.html" target="_blank">
+	<h2 class="tplAudioTitle"></h2></a>
+     <div class="report block tplAudioExplain">
      </div><br/>
 
-     <a href="report_ab.html" target="_blank"><h2>AssetBundle Report</h2></a>
-     <div class=="report block">
+     <a href="report_model.html" target="_blank">
+     <h2 class="tplModelTitle"></h2></a>
+     <div class="report block tplModelExplain">
+     </div><br/>
+
+     <a href="report_ab.html" target="_blank">
+     <h2 class="tplAbTitle">AssetBundle Report</h2></a>
+     <div class="report block tplAbExplain">
         Check AssetBundle Import Settings
      </div><br/>
 
-     <a href="report_resources.html" target="_blank"><h2>Resources Report</h2></a>
-     <div class=="report block">
-        Check "Resources" directory in the project.
+     <a href="report_resources.html" target="_blank">
+	 <h2 class="tplResourceTitle">Resources Report</h2></a>
+     <div class="report block tplResourceExplain">
      </div><br/>
 
 
-     <a href="tips.html" target="_blank"><h2>Tips</h2></a>
-     <div class=="report block">
-        Tips for Import Settings
+     <a href="tips.html" target="_blank">
+	<h2 class="tplTipsTitle">Tips</h2></a>
+     <div class="report block tplTipsExplain">
      </div><br/>
    </div>
 </body>

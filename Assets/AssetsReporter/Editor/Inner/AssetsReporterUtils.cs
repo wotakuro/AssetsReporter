@@ -9,11 +9,26 @@ using UnityEditor;
 
 
 public class AssetsReporterUtils{
+    public const string ResultDir = "AssetsReporter/result/";
+    public const string PreviewDir = "AssetsReporter/result/preview/";
+
+    public static void WriteReportLanguage(string lang)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("g_language=\"");
+        sb.Append( lang );
+        sb.Append("\";\n");
+
+        File.WriteAllText(ResultDir + "report_language.js", sb.ToString());
+
+    }
+
 	public static StringBuilder AddJsonObject(StringBuilder sb, string key, string val)
 	{
 		sb.Append(key).Append(":\"").Append(val).Append('"');
 		return sb;
 	}
+
 	public static StringBuilder AddJsonObjectArray(StringBuilder sb, string key, string[] arr)
 	{
 		sb.Append(key).Append(":[");
@@ -30,11 +45,13 @@ public class AssetsReporterUtils{
 		sb.Append("]");
 		return sb;
 	}
+
 	public static StringBuilder AddJsonObject(StringBuilder sb, string key, float val)
 	{
 		sb.Append(key).Append(":\"").Append(val).Append('"');
 		return sb;
 	}
+
 	public static StringBuilder AddJsonObject(StringBuilder sb, string key, bool val)
 	{
 		sb.Append(key).Append(":");
@@ -48,11 +65,13 @@ public class AssetsReporterUtils{
 		}
 		return sb;
 	}
-	public static StringBuilder AddJsonObject(StringBuilder sb, string key, int val)
+
+    public static StringBuilder AddJsonObject(StringBuilder sb, string key, int val)
 	{
 		sb.Append(key).Append(":").Append(val);
 		return sb;
 	}
+
 	public static void AddCountVarObject<T>(StringBuilder sb, string varname, Dictionary<T, int> set)
 	{
 		sb.Append(varname).Append("=[");
@@ -74,6 +93,7 @@ public class AssetsReporterUtils{
 		}
 		sb.Append("];\n");
 	}
+
 	public static bool IsPathMatch(string path, List<string> list)
 	{
 		if (list == null)
@@ -100,6 +120,7 @@ public class AssetsReporterUtils{
 		}
 		dict[key] += 1;
 	}
+
 	public static void AddCurrenTimeVar(StringBuilder sb)
 	{
 		var now = DateTime.Now;
@@ -107,6 +128,7 @@ public class AssetsReporterUtils{
         sb.Append(now.ToString());
 		sb.Append("\";\n");
 	}
+
 	public static void AddPlatformVar(StringBuilder sb,string platform)
 	{
 		sb.Append("g_report_platform=\"");
@@ -139,11 +161,12 @@ public class AssetsReporterUtils{
 		}
         if (tex != null)
         {
-            AssetsReporterUtils.SaveTexture2d("AssetsReporter/result/preview/" + file, tex);
+            AssetsReporterUtils.SaveTexture2d(AssetsReporterUtils.PreviewDir+file, tex);
             tex = null;
         }
 		return file;
 	}
+    
     public static string SaveNotWebVisibleTextureToPreview(TextureImporter importer, Texture2D tex)
     {
         string guid = AssetDatabase.AssetPathToGUID(importer.assetPath);
@@ -157,7 +180,7 @@ public class AssetsReporterUtils{
             var saveTex = new Texture2D(tex.width, tex.height, TextureFormat.RGBA32,false);
             saveTex.SetPixels(texCopy.GetPixels() );
             saveTex.Apply();
-            AssetsReporterUtils.SaveTexture2d("AssetsReporter/result/preview/" + file, saveTex);
+            AssetsReporterUtils.SaveTexture2d(AssetsReporterUtils.PreviewDir + file, saveTex);
 
             Texture2D.DestroyImmediate(saveTex);
             Texture2D.DestroyImmediate(texCopy);
@@ -227,6 +250,4 @@ public class AssetsReporterUtils{
         System.Diagnostics.Process.Start( "file:///" + System.IO.Directory.GetCurrentDirectory() + "/" + url);        
 #endif
     }
-
 }
-

@@ -1,0 +1,45 @@
+g_jp_template_texture = {
+	// common
+	tplNoPlatform			: "指定なし",
+	tplWarning				: "警告",
+	tplSearchFilter			: "検索条件",
+	tplSearchTitle			: "検索",
+	tplSearchBtn			: "検索する",
+	tplSearchResultTitle	: "検索結果",
+	tplCheckNon				: "チェックなし",
+	tplCheckEnableOnly		: "Enableのみ",
+	tplCheckDisableOnly		: "Disable のみ",
+	tplHitNum				: "ヒット数",
+	tplItem					: "項目",
+	tplCheck				: "チェック",
+	tplCondition			: "条件",
+	tplAddConditionBtn		: "条件追加",
+	tplDelConditionBtn		: "削除",
+	tplFileInclude			: "以下の単語がファイルパスに含まれているもののみ",
+	tplFileExclude			: "以下の単語がファイルパスに含まれないもののみ",
+
+	// specific
+	tplCondBasic			: "基本設定",
+	tplCondFormat			: "フォーマット",
+	tplCondImportType		: "ImportType",
+	tplCondTextureSize		: "Textureサイズ",
+	tplCondMipMapCheck		: "MipMap チェック	",
+	tplCondReadWriteCheck	: "Read/Write チェック",
+	tplCondPow2Check		: "2の累乗チェック",
+    tplCheckNonPow2Only		: "2の累乗サイズ以外のみ",
+    tplCondWidth			: "幅",
+	tplCondHeight			: "高さ",
+	tplCondSpriteTag		: "SpritePackTag",
+
+
+	// in result
+	tplResultPath			: "Path",
+	tplResultType			: "Type",
+	tplResultFormat			: "フォーマット",
+	tplResultSize			: "サイズ",
+	tplResultNonPow2		: "2の累乗ではありません",
+	tplResultMaxSize		: "最大Size",
+	tplResultSpriteTag		: "SpritePackingTag",
+	tplResultMipMap			: "MipMap",
+	tplResultReadWrite		: "Read/Write",
+};

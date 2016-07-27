@@ -16,7 +16,7 @@ public class AudioReporter
 	public static void CreateReport(string pl, List<string> exList)
 	{
 		var reporter = new AudioReporter(pl,exList);
-		reporter.ReportAudio("AssetsReporter/result/report_audio.js");
+		reporter.ReportAudio(AssetsReporterUtils.ResultDir + "report_audio.js");
 	}
 
 	public AudioReporter(string pl, List<string> exList)
