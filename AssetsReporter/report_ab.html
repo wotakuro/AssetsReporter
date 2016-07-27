@@ -29,6 +29,7 @@
             reportData(data[i] );
             ++ result_num;
           }
+          deleteAlreadyInAssetBundle( data , dependenceFileCount );
           reportDuplication( dependenceFileCount );
           $("#result_num").html( "(" + result_num + ")" );
        }
@@ -128,17 +129,31 @@
          return str;
        }
 
-       // Count Dependency
-       function countDependencyFiles( data, dependenceFileCount){
-           for( var i = 0 ; i < data.depends.length ; ++ i ){
-             if( data.depends[i].name ){ continue; }
-             var file = data.depends[i].file;
-             if( !dependenceFileCount[file] ){
-               dependenceFileCount[file] = {count:1};
-             }else{
-               dependenceFileCount[file].count += 1;
+       // delete already in assetBundle
+       function deleteAlreadyInAssetBundle( data , dependenceFileCount ){
+         for( var i = 0 ; i < data.length ; ++ i ){
+           var files = data[i].files;
+           for( var j = 0 ; j < files.length ; ++ j ){
+             if( dependenceFileCount[ files[j].path ] ){
+               delete( dependenceFileCount[ files[j].path ] );
              }
            }
+         }
+       }
+
+
+       // Count Dependency
+       function countDependencyFiles( data, dependenceFileCount){
+         for( var i = 0 ; i < data.depends.length ; ++ i ){
+           if( data.depends[i].name ){ continue; }
+           if( data.depends[i].importerType == "Mono" ){ continue; }
+           var file = data.depends[i].file;
+           if( !dependenceFileCount[file] ){
+             dependenceFileCount[file] = {count:1};
+           }else{
+             dependenceFileCount[file].count += 1;
+           }
+         }
        }
 
        function reportDuplication( dependenceFileCount ){
