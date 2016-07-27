@@ -125,7 +125,8 @@ public class AssetBundleReporter {
                     else if (obj.GetType() == typeof(GameObject))
                     {
                         sb.Append(",");
-                        string preview = AssetsReporterUtils.GetAssetPreview(AssetImporter.GetAtPath(path), obj, this.createThumnailPreview);
+                        var assetImporter = AssetImporter.GetAtPath(path);
+                        string preview = AssetsReporterUtils.GetAssetPreview( assetImporter, obj, this.createThumnailPreview || ((assetImporter as ModelImporter) == null) );
                         AssetsReporterUtils.AddJsonObject(sb, "preview", preview);
                     }
                 }
