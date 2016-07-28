@@ -1,5 +1,5 @@
 # AssetsReporter
-Read this in other languages: English, [日本語](README.ja.md)<br />
+Read this in other languages: [English](README.md), 日本語<br />
 
 [Unity] Import設定などをブラウザ上で閲覧/検索できるようにするツールです<br />
 <br />
