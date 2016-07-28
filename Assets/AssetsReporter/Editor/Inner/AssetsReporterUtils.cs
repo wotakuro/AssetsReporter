@@ -142,10 +142,18 @@ public class AssetsReporterUtils{
 		File.WriteAllBytes(path, tex.EncodeToPNG());
 	}
 
-	public static string SaveAssetPreview(AssetImporter importer,UnityEngine.Object obj)
+	public static string GetAssetPreview(AssetImporter importer,UnityEngine.Object obj,bool createFlag)
 	{
+        if (importer == null || obj == null)
+        {
+            return "";
+        }
 		string guid = AssetDatabase.AssetPathToGUID(importer.assetPath);
 		string file = guid + ".png";
+        if (!createFlag)
+        {
+            return file;
+        }
 
 		//					var gmo = GameObject.Instantiate(obj);
 		var tex = AssetPreview.GetAssetPreview(obj);
@@ -167,10 +175,15 @@ public class AssetsReporterUtils{
 		return file;
 	}
     
-    public static string SaveNotWebVisibleTextureToPreview(TextureImporter importer, Texture2D tex)
+    public static string GetWebVisibleTexturePreview(TextureImporter importer, Texture2D tex,bool createFlag)
     {
+        if (importer == null || tex == null)
+        {
+            return "";
+        }
         string guid = AssetDatabase.AssetPathToGUID(importer.assetPath);
         string file = guid + ".png";
+        if (!createFlag) { return file; }
 
         var texCopy = new Texture2D(tex.width, tex.height, tex.format, tex.mipmapCount > 1);
         texCopy.LoadRawTextureData(tex.GetRawTextureData());

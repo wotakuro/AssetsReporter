@@ -17,6 +17,14 @@
           $("#report").empty();
           var result_num = 0;
           for( i = 0 ; i < length ; ++ i ){
+            // check ab name include
+            if( !isIncludeFileName( data[i].abname, condition.include_abname_cond ) ){
+              continue;
+            }
+            // check abname exclude
+            if( isExcludeFileName( data[i].abname, condition.exclude_abname_cond ) ){
+              continue;
+            }
             // check include
             if( !isIncludeFile(data[i] , condition.in_bundle_file ) ){
               continue;
@@ -36,7 +44,9 @@
        function createSearchCondition(){
           var condition = { 
             depend_file:$("#depend_file").val(),
-            in_bundle_file:$("#in_bundle_file").val()
+            in_bundle_file:$("#in_bundle_file").val(),
+            include_abname_cond:getConditionList("include_ab_name"),
+            exclude_abname_cond:getConditionList("exclude_ab_name")
           };
           return condition;
        }
@@ -51,6 +61,7 @@
          }
          return false;
        }
+
        function isDependFile( data , file ){
          if( !file ){ return true;}
          var l1 = data.files.length;
@@ -68,6 +79,7 @@
        }
 
        function reportData(data){
+         var tplData = GetCurrentTemplateData();
          var str = '<div class="ab-block">';
          str += '<h4 class="ab-title selectable">' + data.abname + '</h4>';
          str += '<div class="ab-body" style="display: none;">';
@@ -76,22 +88,20 @@
            if(a.type < b.type ){ return -1;}
            return 0;
          } );
-
-         str += '<h5 class="selectable">File List</h5>';
+         str += '<h5 class="selectable">' + tplData.tplResultFileList + '</h5>';
          str += '<div>';
          for( var i = 0 ; i < data.files.length ;++ i ){
            str += getFileReportData(data.files[i] );
          }
          str += '</div>'
-
-         str += '<h5 class="selectable">Dependencies</h5>';
+         str += '<h5 class="selectable">' + tplData.tplResultAbDependencies + '</h5>';
          str += '<div>'; 
          if( data.depends.length == 0 ){
-           str += "No dependencies";
+           str += tplData.tplResultNoDependencies;
          }else{
            str += "<table>";
            str += "<tr>";
-           str += "<th>Type</th><th>filepath</th><th>bundle name</th><th>bundle valiant</th>";
+           str += '<th>' + tplData.tplResultType + '</th><th>' + tplData.tplResultPath + '</th><th>' + tplData.tplResultBundleName + '</th><th>' + tplData.tplResultBundleValiant + '</th>';
            str += "</tr>";
            for( var i = 0 ; i < data.depends.length ; ++ i ){
              str += "<tr>";
@@ -104,22 +114,30 @@
            str += "</table>";
          }
          str += '</div>';
-
          str += '</div>';
          str += '</div>';
          $("#report").append( str );
        }
+
        function getFileReportData( file ){
+         var tplData = GetCurrentTemplateData();
          var str = '';
          str += '<h6 class="selectable">' + '[' +  file.type + '] '+ file.path + '</h6>';
          str += '<div class="ab-file-explain" style="display: none;">';
          if( file.type == "Texture2D" ){
-           str += '<img class="ab-image-texture selectable" src="../' + file.path + '" />';
+           if( file.preview ){
+             str += '<img class="ab-image-texture selectable" src="result/preview/' + file.preview + '" />';
+           }else{
+             str += '<img class="ab-image-texture selectable" src="../' + file.path + '" />';
+           }
          }else if( file.type == "AudioClip" ){
-           str += '<div class="try-listen">Listen</div>'+ '<audio src="../' + file.path + '" controls></audio>' ;
+           str += '<div class="try-listen">' + tplData.tplResultListen + '</div>'+ '<audio src="../' + file.path + '" controls></audio>' ;
          }else{
+           if( file.preview ){
+             str += '<img class="ab-image-texture selectable" src="result/preview/' + file.preview + '" />';
+           }
            str += "<table>";
-           str += "<tr><th>dependencies</th></tr>";
+           str += '<tr><th>'+ tplData.tplResultFileDependencies + '</th></tr>';
            for( var i = 0 ; i < file.depends.length ; ++ i ){
              str += "<tr><td>"+ file.depends[i] + "</td></tr>";
            }
@@ -170,11 +188,11 @@
            if( a.count < b.count ){return 1;}
            return 0;
          });
-         var str = "<br /><h2>DuplicateFiles</h2>";
-
+         var tplData = GetCurrentTemplateData();
+         var str = "<br /><h2>" + tplData.tplResultAbDependencies + "</h2>";
          str += "<table>";
-         str += "<tr><th>file</th>";
-         str += "<th>count</th>";
+         str += '<tr><th>' + tplData.ResultPath+ '</th>';
+         str += '<th>' + tplData.tplHitNum + '</th>';
          str += "</tr>";
          for( var i = 0;i < dataList.length ; ++ i ){
              str += "<tr>";
@@ -187,8 +205,7 @@
        }
 
        $(document).ready( function(){
-//         setupCheckBox( g_texture_type_list , "ImportType","t_" , "#texture_type_block" );
-//         setupCheckBox( g_texture_format_list , "Format","f_" , "#texture_format_block" );
+         LoadLanguageJavascript( g_language , "ab" );
        });
        $(document).on("click",".ab-title",function() {
          $(this).next('.ab-body').slideToggle();
@@ -211,18 +228,28 @@
      </div>
    </div>
    <div class="content-main">
-   <h2>Search Filter</h2>
-   <h3>Include / Depends file</h3>
-   AssetBundle includes below files<br />
+   <h2 class="tplSearchTitle"></h2>
+   <h3 class="tplCondAssetBundleName"></h3>
+   <h4 class="tplCondIncludeAbName"></h4>
+   <div id="include_ab_name">
+      <input type="button" class="add_cond tplAddConditionBtn"  />
+   </div>
+   <h4 class="tplCondExcludeAbName"></h4>
+   <div id="exclude_ab_name">
+      <input type="button" class="add_cond tplAddConditionBtn"  />
+   </div>
+   <br />
+   <h3 class="tplCondIncludeDepends"></h3>
+   <span class="tplCondIncludeFiles"></span><br />
    <input id="in_bundle_file" type="text" size="150" />
-<br />
-   AssetBundle depends on below files<br />
+   <br />
+   <span class="tplCondDependsFiles"></span><br />
    <input id="depend_file" type="text" size="150" />
    <div class="boxContainer">
    </div>
    <div>
-     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
-     <h2>Search results <span id="result_num"></span></h2>
+     <input type ="button" class="search-btn tplSearchBtn" onClick="search()" />
+     <h2><span class="tplSearchResultTitle"></span> <span id="result_num"></span></h2>
      <div id="report"></div>
    </div>
    </div>

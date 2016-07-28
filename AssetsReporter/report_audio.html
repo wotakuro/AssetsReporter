@@ -79,24 +79,25 @@
        }
 
        function reportData(data){
+         var tplData = GetCurrentTemplateData();
          var str = '<div class="audio-block">';
          str += '<h4 class="audio-title selectable">' + data.path + '</h4>';
          str += '<div class="audio-body" style="display: none;">';
-         str += '<div class="try-listen">Listen</div>';
+         str += '<div class="try-listen">' + tplData.tplResultListen + '</div>';
          if( data.preview ){
            str += '<audio src="result/preview/' + data.preview + '" controls></audio>';
          }else{
            str += '<audio src="../' + data.path + '" controls></audio>' ;
          }
          str += '<table>';
-         str += '<tr><th>Path</th><td>' + data.path + '</td></tr>';
-         str += '<tr><th>ForceToMono</th><td>' + data.forceToMono + '</td></tr>';
-         str += '<tr><th>loadInBackground</th><td>' + data.loadInBackground + '</td></tr>';
-         str += '<tr><th>preloadAudioData</th><td>' + data.preloadAudioData + '</td></tr>';
-         str += '<tr><th>loadType</th><td>' + data.loadType + '</td></tr>';
-         str += '<tr><th>Format</th><td>' + data.compressionFormat + '</td></tr>';
-         str += '<tr><th>SampleRateSetting</th><td>' + data.sampleRateSetting + '</td></tr>';
-         str += '<tr><th>SampleRateOverride</th><td>' + data.sampleRateOverride + ' Hz</td></tr>';
+         str += '<tr><th>' + tplData.tplResultPath + '</th><td>' + data.path + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultForceToMono +  '</th><td>' + data.forceToMono + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultLoadBackGround + '</th><td>' + data.loadInBackground + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultPreload + '</th><td>' + data.preloadAudioData + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultLoadType + '</th><td>' + data.loadType + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultFormat + '</th><td>' + data.compressionFormat + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultSampleSetting + '</th><td>' + data.sampleRateSetting + '</td></tr>';
+         str += '<tr><th>' + tplData.tplResultSampleOverride + '</th><td>' + data.sampleRateOverride + ' Hz</td></tr>';
          str += '</table>';
          str += '</div>';
          str += '</div>';
@@ -106,6 +107,7 @@
 
 
        $(document).ready( function(){
+         LoadLanguageJavascript( g_language , "audio" );
          setupCheckBox( g_audio_rating_list   ,"Hz", "r_" , "#audio_rating_block" );
          setupCheckBox( g_audio_loadtype_list ,"LoadType" , "t_" , "#audio_load_type_block" );
          setupCheckBox( g_audio_compress_list ,"Format", "c_" , "#audio_compress_block" );
@@ -126,52 +128,52 @@
    </div>
    <div class="content-main">
    <div id="warning_field"></div>
-   <h2>Search filter</h2>
+   <h2 class="tplSearchTitle"></h2>
    <div class=""boxContainer>
      <div class="box">
-       <h3>Basic</h3>
+       <h3 class="tplCondBasic"></h3>
        <table>
-         <tr><th>item</th><th>condition</th></tr>
+         <tr><th class="tplItem"></th><th class="tplCondition"></th></tr>
          <tr>
-           <td>Force To Mono</td>
-           <td><select id="force_mono"><option value="-1">No check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
+           <td class="tplCondForceToMono"></td>
+           <td><select id="force_mono"><option value="-1" class="tplCheckNon"></option><option value="0" class="tplCheckEnableOnly"></option><option value="1" class="tplCheckDisableOnly"></option></select></td>
          </tr>
          <tr>
-           <td>Load In BackGround</td>
-           <td><select id="load_bg"><option value="-1">No check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
+           <td class="tplCondLoadBackGround"></td>
+           <td><select id="load_bg"><option value="-1" class="tplCheckNon"></option><option value="0" class="tplCheckEnableOnly"></option><option value="1" class="tplCheckDisableOnly"></option></select></td>
          </tr>
          <tr>
-           <td>Preload AudioData</td>
-           <td><select id="preload"><option value="-1">No check</option><option value="0">Enable only</option><option value="1">Disable only</option></select></td>
+           <td class="tplCondPreload"></td>
+           <td><select id="preload"><option value="-1" class="tplCheckNon"></option><option value="0" class="tplCheckEnableOnly"></option><option value="1" class="tplCheckDisableOnly" ></option></select></td>
          </tr>
        </table>
      </div>
      <div class="box">
-       <h3>LoadType</h3>
+       <h3 class="tplCondLoadType"></h3>
        <div id="audio_load_type_block"></div>
      </div>
      <div class="box">
-       <h3>Format</h3>
+       <h3 class="tplCondFormat"></h3>
        <div id="audio_compress_block"></div>
      </div>
      <div class="box">
-       <h3>Hz(Sample rate)</h3>
+       <h3 class="tplCondSamplingRate"></h3>
        <div id="audio_rating_block"></div>
      </div>
    </div>
    <div>
-     <h3>If filepath includes below words</h3>
+     <h3 class="tplFileInclude"></h3>
      <div id="include_file_name">
-        <input type="button" class="add_cond" value="Add condition" />
+        <input type="button" class="add_cond tplAddConditionBtn"/>
      </div>
-     <h3>If filepath doesn't include below words</h3>
+     <h3 class="tplFileExclude"></h3>
      <div id="exclude_file_name">
-        <input type="button" class="add_cond" value="Add Condition" />
+        <input type="button" class="add_cond tplAddConditionBtn" />
      </div>
 
-   <h3>Search</h3>
-     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
-     <h2>Search results <span id="result_num"></span></h2>
+   <h3 class="tplSearchTitle"></h3>
+     <input type ="button" class="search-btn tplSearchBtn" onClick="search()" />
+     <h2><span class="tplSearchResultTItle"></span> <span id="result_num"></span></h2>
      <div id="report"></div>
    </div>
    </div>

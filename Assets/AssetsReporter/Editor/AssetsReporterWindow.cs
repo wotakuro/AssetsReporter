@@ -157,7 +157,7 @@ public class AssetsReporterWindow : EditorWindow {
             TextureReporter.CreateReport(this.targetList[currentTarget], excludeList);
             ModelReporter.CreateReport( excludeList);
             AudioReporter.CreateReport(this.targetList[currentTarget], excludeList);
-            AssetBundleReporter.CreateReport();
+            AssetBundleReporter.CreateReport(false);
             ResourcesReporter.CreateReport();
             AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "index.html"));
         }
@@ -232,7 +232,7 @@ public class AssetsReporterWindow : EditorWindow {
 		{
 			SaveExcludeList();
             AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            AssetBundleReporter.CreateReport();
+            AssetBundleReporter.CreateReport(true);
 			AssetBundleReporter.OpenReport();
 		}
 		if (GUILayout.Button("Open", GUILayout.Width(100)))

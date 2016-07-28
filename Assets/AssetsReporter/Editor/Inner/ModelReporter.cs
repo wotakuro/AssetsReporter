@@ -98,7 +98,7 @@ public class ModelReporter {
 		{
 			var obj = AssetDatabase.LoadAssetAtPath<GameObject>(importer.assetPath);
 
-			string preview = AssetsReporterUtils.SaveAssetPreview(importer, obj);
+			string preview = AssetsReporterUtils.GetAssetPreview(importer, obj,true);
 			AssetsReporterUtils.AddJsonObject(sb, "preview", preview).Append(",");
 			
 		AssetsReporterUtils.AddJsonObject(sb, "vertexNum", AssetsReporterUtils.GetPolygonNum(obj) ).Append(",");
