@@ -9,6 +9,7 @@
     <script type="text/javascript">
     <!--
        function search(){
+          var tplData = GetCurrentTemplateData();
           var result_num = 0;
           var data = g_resources_report;
           var length = data.length;
@@ -18,7 +19,7 @@
           if( length == 0 ){
              return;
           }
-          $("#report").append( '<h3>Files in Resources</h3>');
+          $("#report").append( '<h3>' + tplData.tplResultResourceTitle + '</h3>');
 
           var depends_list_cnt = {};
 
@@ -79,22 +80,23 @@
        }
 
        function reportData(data){
+         var tplData = GetCurrentTemplateData();
          var str = '<div class="resources-block">';
          str += '<h4 class="resources-title selectable">' + data.path + '</h4>';
          str += '<div class="resources-body" style="display: none;">';
-         str += '<h5>Basic Info</h5>';           
+         str += '<h5>' + tplData.tplResultBasic+ '</h5>';           
          str += '<table>';
          str += '<tr>';
-         str += '<th>Path</th>' + '<td>' + data.path + '</td>';
+         str += '<th>' + tplData.tplResultPath + '</th>' + '<td>' + data.path + '</td>';
          str += '</tr>';
          str += '<tr>';
-         str += '<th>Type</th>' + '<td>' + data.type + '</td>';
+         str += '<th>' + tplData.tplResultType + '</th>' + '<td>' + data.type + '</td>';
          str += '</tr>';
          str += '</table>';
 
-         str += '<h5>depended files</h5>';
+         str += '<h5>' + tplData.tplResultDependencies + '</h5>';
          if( data.depends.length == 0 ){
-           str += 'There is no depended file.';
+           str += tplData.tplResultNoDependencies;
          }else{
            data.depends.sort( function(a,b){
              if(a.type > b.type ){ return 1;}
@@ -104,7 +106,7 @@
              return 0;
            });
            str += '<table>';
-           str += '<tr><th>Type</th><th>Path</th></tr>'
+           str += '<tr><th>' + tplData.tplResultType + '</th><th>' + tplData.tplResultPath + '</th></tr>'
            for( var i=0;i<data.depends.length; ++i ){
              str += '<tr>'; 
              str += '<td>' + data.depends[i].type + '</td>';
@@ -133,12 +135,13 @@
          setupCheckBox( g_resources_parent_dir_list , "path","p_" , "#directory_block" );
          if( g_resources_report.length > 0 ){
            $("#warning_field").html("<h2>Warning</h2>" +
-                                    "It waste memories to put Resources directory.<br/>" + 
-                                    "(The information of dependencies is on memory to use Resources.Load) <br/><br/>");
+                                    '<span class="tplResourcesWarningM1"></span><br/>' + 
+                                    '<span class="tplResourcesWarningM2"></span> <br/><br/>');
          }else{
-           $(".content-main").html('<h2>There is no "Resources"</h2>' +
-                                   "This project doesn't have 'Resources' directory.");
+           $(".content-main").html('<h2 class="tplResultNoResourcesTitle"></h2>' +
+                                   '<span class="tplResultNoResourcesBody"></span>');
          }
+         LoadLanguageJavascript( g_language , "resources" );
        });
        $(document).on("click",".resources-title",function() {
          $(this).next('.resources-body').slideToggle();
@@ -159,7 +162,7 @@
    </div>
    <div class="content-main">
      <div id="warning_field"></div>
-     <h2>Search Filter</h2>
+     <h2 class="tplSearchTitle"></h2>
      <div class=""boxContainer>
        <div class="box">
          <h3>Type</h3>
@@ -170,9 +173,9 @@
          <div id="directory_block" ></div>
        </div>
      </div>
-     <h3>Search</h3>
-     <input type ="button" class="search-btn" value ="Search" onClick="search()" />
-     <h2>Search results <span id="result_num"></span></h2>
+     <h3 class="tplSearchTitle"></h3>
+     <input type ="button" class="search-btn tplSearchBtn" onClick="search()" />
+     <h2><span class="tplSearchResultTitle"></span> <span id="result_num"></span></h2>
      <div id="report"></div>
    </div>
 </body>
