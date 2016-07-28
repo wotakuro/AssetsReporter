@@ -1,4 +1,4 @@
-g_en_template_texture = {
+g_en_template_resources = {
 	// common
 	tplNoPlatform			: "none",
 	tplWarning				: "Warning",
@@ -19,26 +19,18 @@ g_en_template_texture = {
 	tplFileExclude			: "If filepath doesn't include below words",
 
 	// specific
-	tplCondBasic			: "Basic",
-	tplCondFormat			: "Format",
-	tplCondImportType		: "ImportType",
-	tplCondTextureSize		: "TextureSize",
-	tplCondMipMapCheck		: "MipMap check	",
-	tplCondReadWriteCheck	: "Read/Write check	",
-	tplCondPow2Check		: "Pow2 check",
-    tplCheckNonPow2Only		: "Non pow2 only",
-    tplCondWidth			: "Width",
-	tplCondHeight			: "Height",
-	tplCondSpriteTag		: "SpritePackTag",
+	tplResultNoResourcesTitle	: 'There is no "Resources"',
+	tplResultNoResourcesBody	: 'This project doesn\'t have "Resources" directory.',
 
-	// in result
-	tplResultPath			: "Path",
-	tplResultType			: "Type",
-	tplResultFormat			: "Format",
-	tplResultSize			: "Size",
-	tplResultNonPow2		: "isn't pow2 size",
-	tplResultSpriteTag		: "SpritePackingTag",
-	tplResultMaxSize		: "MaxSize",
-	tplResultMipMap			: "MipMap",
-	tplResultReadWrite		: "Read/Write",
+	tplResultBasic				: 'Basic Info',
+
+	tplResourcesWarningM1		: "Resourcesフォルダにアセットを入れると、メモリを余計に消費します。",
+	tplResourcesWarningM2		: "(Resources.Load 等でロードするためにファイルの依存関係等の情報が常にメモリ上に乗ります。) ",
+
+	tplResultResourceTitle		: "Files in Resources",
+	tplResultDependencies		: "depended files",
+	tplResultNoDependencies		: "There is no depended file.",
+	tplResultPath				: "Path",
+	tplResultType				: "Type",
+	tplResourcesDependencies	: "depended files"
 };

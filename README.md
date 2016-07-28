@@ -1,4 +1,7 @@
 # AssetsReporter
+
+Read this in other languages: English, [日本語](README.ja.md)<br />
+
 [Unity] You can detect strange import settings on web browser.<br />
 <br />
 Purpose of this： This software was developed for detect strange "Import settings"(for texture/audio/model).<br />
