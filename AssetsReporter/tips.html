@@ -3,7 +3,15 @@
     <title>TIPS</title>
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/reporter.js"></script>
     <script type="text/javascript" src="result/report_language.js"></script>
+    <script type="text/javascript">
+    <!--
+       $(document).ready( function(){
+         LoadLanguageJavascript( g_language , "tips" );
+       });
+    -->
+    </script>
   </head>
 <body>
    <div class="content-head">
@@ -14,37 +22,36 @@
      </div>
    </div>
    <div class="content-main">
-     <h2>About this TIPS</h2>
-     This TIPS is refer from the session of UniteTokyo2016.<br />
-     "Mobile Optimization"
-     <h2>TIPS for Texture </h2>
+     <h2 class="tplAboutThisTipsTitle">About this TIPS</h2>
+     <span class="tplAboutThisTipsMessage"></span>
+     <h2 class="tplTipsForTextureTitle"></h2>
      <ul>
-       <li>Make sure Read/Write is disabled </li>
-       <li>Disable mipmaps if possible</li>
-       <li>Make sure textures are Compressed.</li>
-       <li>Ensure sizes aren't too large</li>
+       <li class="tplTipsForTextureM1"></li>
+       <li class="tplTipsForTextureM2"></li>
+       <li class="tplTipsForTextureM3"></li>
+       <li class="tplTipsForTextureM4"></li>
      </ul>
 
-     <h2>TIPS for Audio</h2>
+     <h2 class="tplTipsForAudioTitle"></h2>
      <ul>
-       <li>Mp3 compression on iOS</li>
-       <li>Vorbis compression on Android</li>
-       <li>"Force Mono" for mobile games.</li>
-       <li>Set bitrate as low as possible</li>
+       <li class="tplTipsForAudioM1"></li>
+       <li class="tplTipsForAudioM2"></li>
+       <li class="tplTipsForAudioM3"></li>
+       <li class="tplTipsForAudioM4"></li>
      </ul>
-     <h2>TIPS for Model</h2>
+     <h2 class="tplTipsForModelTitle"></h2>
      <ul>
-       <li>Make sure Read/Write is disable</li>
-       <li>Disable rig on non-character models</li>
-       <li>Copy avatars for characters with shared rigs</li>
-       <li>Enable mesh compression</li>
+       <li class="tplTipsForModelM1"></li>
+       <li class="tplTipsForModelM2"></li>
+       <li class="tplTipsForModelM3"></li>
+       <li class="tplTipsForModelM4"></li>
      </ul>
 
-     <h2>TIPS for Resources directory</h2>
+     <h2 class="tplTipsForResourcesTitle"></h2>
      <ul>
-       <li>Make sure there are no "Resources" directory in the project.</li>
-       <li>It waste memory, putting "Resources" directory in the project.</li>
-       <li>Use AssetBundle instead of using "Resources.Load"</li>
+       <li class="tplTipsForResourcesM1"></li>
+       <li class="tplTipsForResourcesM2"></li>
+       <li class="tplTipsForResourcesM3"></li>
      </ul>
    </div>
 </body>
