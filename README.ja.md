@@ -1,6 +1,10 @@
 # AssetsReporter
 Read this in other languages: [English](README.md), 日本語<br />
 
+# 注意
+現在 Internet Explorerer系のブラウザでの閲覧が出来なくなってしまっております
+Chromeブラウザをお使いいただければと思います
+
 [Unity] Import設定などをブラウザ上で閲覧/検索できるようにするツールです<br />
 <br />
 目的：不適切なImport設定になっているテクスチャ/サウンド/モデルデータ等を見つけるためのツールです。<br />
