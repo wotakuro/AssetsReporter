@@ -167,3 +167,10 @@ function LoadLanguageJavascript( lang , set )
 }
 
 
+function GetLanguageConfig(){
+  try{
+   if( !g_language ){g_language = "en";}
+   return g_language;
+  }catch(e){ return "en"; }
+}
+

@@ -1,5 +1,6 @@
-<html>
+﻿<html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Resources Report</title>
     <link rel="stylesheet" type="text/css" href="css/report.css">
     <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
@@ -141,7 +142,7 @@
            $(".content-main").html('<h2 class="tplResultNoResourcesTitle"></h2>' +
                                    '<span class="tplResultNoResourcesBody"></span>');
          }
-         LoadLanguageJavascript( g_language , "resources" );
+         LoadLanguageJavascript( GetLanguageConfig() , "resources" );
        });
        $(document).on("click",".resources-title",function() {
          $(this).next('.resources-body').slideToggle();
