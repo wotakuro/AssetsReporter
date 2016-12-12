@@ -11,21 +11,23 @@ public class AssetsReporterWindow : EditorWindow {
     {
         public string languageCode;
         public string languageOutput;
+        public string appLanguage;
 
-        public LanguageSetting(string code, string output)
+        public LanguageSetting(string code, string output,string language)
         {
             this.languageCode = code;
             this.languageOutput = output;
+            this.appLanguage = language;
         }
     }
 
 	private const float Space = 10.0f;
-	private const string excludeRulePath = "Assets/AssetsReporter/Editor/Data/excludeList.txt";
+	private const string excludeRulePath = "AssetsReporter/excludeList.txt";
 
     private LanguageSetting[] languages = 
     {
-        new LanguageSetting("en","English"),
-        new LanguageSetting("jp","日本語"),
+        new LanguageSetting("en","English","English"),
+        new LanguageSetting("jp","日本語","Japanese"),
     };
     private int selectLanguageIdx = 0;
     private string[] selectLanguageList;
@@ -95,6 +97,15 @@ public class AssetsReporterWindow : EditorWindow {
 
 	void OnEnable()
 	{
+        string language = Application.systemLanguage.ToString();
+        for (int i = 0; i < languages.Length; ++i)
+        {
+            if (languages[i].appLanguage == language)
+            {
+                this.selectLanguageIdx = i;
+                break;
+            }
+        }
 		LoadExcludeList();
 	}
 
