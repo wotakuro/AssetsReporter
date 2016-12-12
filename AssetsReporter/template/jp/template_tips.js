@@ -1,32 +1,32 @@
-g_jp_template_tips = {
-	tplAboutThisTipsTitle		: "����TIPS�ɂ���",
-	tplAboutThisTipsMessage		: "����TIPS�ɂ̓A�v�����̂��œK�����邽�߂̏�񂪂���܂��B",
+﻿g_jp_template_tips = {
+	tplAboutThisTipsTitle		: "このTIPSについて",
+	tplAboutThisTipsMessage		: "このTIPSにはアプリ自体を最適化するための情報があります。",
 	// texture
-	tplTipsForTextureTitle		: "Texture �Ɋւ���TIPS",
-	tplTipsForTextureM1			: "Read/Write ��OFF�ɂ��Ȃ��ƁA���������]�v�Ɋm�ۂ���܂�",
-	tplTipsForTextureM2			: "MipMaps ���K�v�Ȃ�2D�n�ł���΁AOFF�ɂ��܂��傤",
-	tplTipsForTextureM3			: "���k�ݒ�ɂȂ��Ă��邩�m�F���܂��傤",
-	tplTipsForTextureM4			: "�K�؂ȃT�C�Y�ɂȂ��Ă��邩�m�F���܂��傤",
+	tplTipsForTextureTitle		: "Texture に関するTIPS",
+	tplTipsForTextureM1			: "Read/Write をOFFにしないと、メモリが余計に確保されます",
+	tplTipsForTextureM2			: "MipMaps が必要ない2D系であれば、OFFにしましょう",
+	tplTipsForTextureM3			: "圧縮設定になっているか確認しましょう",
+	tplTipsForTextureM4			: "適切なサイズになっているか確認しましょう",
 
 	// audio
-	tplTipsForAudioTitle		: "Audio�Ɋւ���TIPS",
-	tplTipsForAudioM1			: "iOS�ł� MP3���k���ǂ��ł��傤",
-	tplTipsForAudioM2			: "Android�ł́AVorbis���k���ǂ��ł��傤",
-	tplTipsForAudioM3			: "Force Mono�����p���ėe�ʂ����炵�܂��傤",
-	tplTipsForAudioM4			: "�r�b�g���[�g�ݒ�͉\�Ȕ͈͂ŉ����Ă�������",
+	tplTipsForAudioTitle		: "Audioに関するTIPS",
+	tplTipsForAudioM1			: "iOSでは MP3圧縮が良いでしょう",
+	tplTipsForAudioM2			: "Androidでは、Vorbis圧縮が良いでしょう",
+	tplTipsForAudioM3			: "Force Monoを活用して容量を減らしましょう",
+	tplTipsForAudioM4			: "ビットレート設定は可能な範囲で下げてください",
 
 	// model
-	tplTipsForModelTitle		: "Model�Ɋւ���TIPS",
-	tplTipsForModelM1			: "Read/Write ��OFF�ɂ��Ȃ��ƁA���������]�v�Ɏ���܂�",
-	tplTipsForModelM2			: "�L�����N�^�[�łȂ����f���� ���O��Disable�ɂ��܂��傤",
-	tplTipsForModelM3			: "���ꃊ�O�Ȃ�� Avatar���g���܂킵�܂��傤",
-	tplTipsForModelM4			: "Mesh Compression��Enable�ɂ��܂��傤",
+	tplTipsForModelTitle		: "Modelに関するTIPS",
+	tplTipsForModelM1			: "Read/Write をOFFにしないと、メモリが余計に取られます",
+	tplTipsForModelM2			: "キャラクターでないモデルは リグをDisableにしましょう",
+	tplTipsForModelM3			: "同一リグならば Avatarを使いまわしましょう",
+	tplTipsForModelM4			: "Mesh CompressionをEnableにしましょう",
 
 	// resource directory
-	tplTipsForResourcesTitle	: "Resources�Ɋւ���TIPS",
-	tplTipsForResourcesM1		: 'Resources�t�H���_�̓v���W�F�N�g���珜�O���܂��傤',
-	tplTipsForResourcesM2		: 'Resources�t�H���_�͗��p����/���Ȃ��Ɋւ�炸�v���W�F�N�g���ɂ��邾���Ń�����������܂�',
-	tplTipsForResourcesM3		: 'Resources.Load���g�킸 AssetBundle�𗘗p���܂��傤',
+	tplTipsForResourcesTitle	: "Resourcesに関するTIPS",
+	tplTipsForResourcesM1		: 'Resourcesフォルダはプロジェクトから除外しましょう',
+	tplTipsForResourcesM2		: 'Resourcesフォルダは利用する/しないに関わらずプロジェクト内にあるだけでメモリを消費します',
+	tplTipsForResourcesM3		: 'Resources.Loadを使わず AssetBundleを利用しましょう',
 
 	// asset bundle
 	tplTipsForAbTitle			: "TIPS for AssetBundle",

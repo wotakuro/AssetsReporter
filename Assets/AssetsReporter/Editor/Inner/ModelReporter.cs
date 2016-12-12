@@ -109,8 +109,13 @@ public class ModelReporter {
 		AssetsReporterUtils.AddJsonObject(sb, "optimizeMesh", importer.optimizeMesh).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "generateCollider", importer.addCollider).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "importMaterials", importer.importMaterials).Append(",");
+#if UNITY_5_4_OR_NEWER
+        AssetsReporterUtils.AddJsonObject(sb, "normalMode", importer.importNormals.ToString()).Append(",");
+        AssetsReporterUtils.AddJsonObject(sb, "tangentMode", importer.importTangents.ToString()).Append(",");
+#else
 		AssetsReporterUtils.AddJsonObject(sb, "normalMode", importer.normalImportMode.ToString()).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "tangentMode", importer.tangentImportMode.ToString()).Append(",");
+#endif
 		AssetsReporterUtils.AddJsonObject(sb, "importBlendShapes", importer.importBlendShapes).Append(",");
 		AssetsReporterUtils.AddJsonObject(sb, "objectNum", importer.transformPaths.Length).Append(",");
 		// rig

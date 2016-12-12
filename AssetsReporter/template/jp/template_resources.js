@@ -1,37 +1,37 @@
-g_jp_template_resources = {
+ï»¿g_jp_template_resources = {
 	// common
-	tplNoPlatform			: "w’è‚È‚µ",
-	tplWarning				: "Œx",
-	tplSearchFilter			: "ŒŸõğŒ",
-	tplSearchTitle			: "ŒŸõ",
-	tplSearchBtn			: "ŒŸõ‚·‚é",
-	tplSearchResultTitle	: "ŒŸõŒ‹‰Ê",
-	tplCheckNon				: "ƒ`ƒFƒbƒN‚È‚µ",
-	tplCheckEnableOnly		: "Enable‚Ì‚İ",
-	tplCheckDisableOnly		: "Disable ‚Ì‚İ",
-	tplHitNum				: "ƒqƒbƒg”",
-	tplItem					: "€–Ú",
-	tplCheck				: "ƒ`ƒFƒbƒN",
-	tplCondition			: "ğŒ",
-	tplAddConditionBtn		: "ğŒ’Ç‰Á",
-	tplDelConditionBtn		: "íœ",
-	tplFileInclude			: "ˆÈ‰º‚Ì’PŒê‚ªƒtƒ@ƒCƒ‹ƒpƒX‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚é‚à‚Ì‚Ì‚İ",
-	tplFileExclude			: "ˆÈ‰º‚Ì’PŒê‚ªƒtƒ@ƒCƒ‹ƒpƒX‚ÉŠÜ‚Ü‚ê‚È‚¢‚à‚Ì‚Ì‚İ",
+	tplNoPlatform			: "æŒ‡å®šãªã—",
+	tplWarning				: "è­¦å‘Š",
+	tplSearchFilter			: "æ¤œç´¢æ¡ä»¶",
+	tplSearchTitle			: "æ¤œç´¢",
+	tplSearchBtn			: "æ¤œç´¢ã™ã‚‹",
+	tplSearchResultTitle	: "æ¤œç´¢çµæœ",
+	tplCheckNon				: "ãƒã‚§ãƒƒã‚¯ãªã—",
+	tplCheckEnableOnly		: "Enableã®ã¿",
+	tplCheckDisableOnly		: "Disable ã®ã¿",
+	tplHitNum				: "ãƒ’ãƒƒãƒˆæ•°",
+	tplItem					: "é …ç›®",
+	tplCheck				: "ãƒã‚§ãƒƒã‚¯",
+	tplCondition			: "æ¡ä»¶",
+	tplAddConditionBtn		: "æ¡ä»¶è¿½åŠ ",
+	tplDelConditionBtn		: "å‰Šé™¤",
+	tplFileInclude			: "ä»¥ä¸‹ã®å˜èªãŒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã«å«ã¾ã‚Œã¦ã„ã‚‹ã‚‚ã®ã®ã¿",
+	tplFileExclude			: "ä»¥ä¸‹ã®å˜èªãŒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã«å«ã¾ã‚Œãªã„ã‚‚ã®ã®ã¿",
 
 	// specific
-	tplResultNoResourcesTitle	: 'ResourcesƒtƒHƒ‹ƒ_‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½',
-	tplResultNoResourcesBody	: '‚±‚ÌƒvƒƒWƒFƒNƒg“à‚É‚ÍResourcesƒtƒHƒ‹ƒ_‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñ',
+	tplResultNoResourcesTitle	: 'Resourcesãƒ•ã‚©ãƒ«ãƒ€ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ',
+	tplResultNoResourcesBody	: 'ã“ã®ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…ã«ã¯Resourcesãƒ•ã‚©ãƒ«ãƒ€ãŒå«ã¾ã‚Œã¦ã„ã¾ã›ã‚“',
 
-	tplResultBasic				: 'Šî–{î•ñ',
+	tplResultBasic				: 'åŸºæœ¬æƒ…å ±',
 
-	tplResourcesWarningM1		: "ResourcesƒtƒHƒ‹ƒ_‚ÉƒAƒZƒbƒg‚ğ“ü‚ê‚é‚ÆAƒƒ‚ƒŠ‚ğ—]Œv‚ÉÁ”ï‚µ‚Ü‚·B",
-	tplResourcesWarningM2		: "(Resources.Load “™‚Åƒ[ƒh‚·‚é‚½‚ß‚Éƒtƒ@ƒCƒ‹‚ÌˆË‘¶ŠÖŒW“™‚Ìî•ñ‚ªí‚Éƒƒ‚ƒŠã‚Éæ‚è‚Ü‚·B) ",
+	tplResourcesWarningM1		: "Resourcesãƒ•ã‚©ãƒ«ãƒ€ã«ã‚¢ã‚»ãƒƒãƒˆã‚’å…¥ã‚Œã‚‹ã¨ã€ãƒ¡ãƒ¢ãƒªã‚’ä½™è¨ˆã«æ¶ˆè²»ã—ã¾ã™ã€‚",
+	tplResourcesWarningM2		: "(Resources.Load ç­‰ã§ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãŸã‚ã«ãƒ•ã‚¡ã‚¤ãƒ«ã®ä¾å­˜é–¢ä¿‚ç­‰ã®æƒ…å ±ãŒå¸¸ã«ãƒ¡ãƒ¢ãƒªä¸Šã«ä¹—ã‚Šã¾ã™ã€‚) ",
 
-	tplResultResourceTitle		: "Resources“à‚ÉŠÜ‚Ü‚ê‚éƒtƒ@ƒCƒ‹",
-	tplResultDependencies		: "ˆË‘¶ƒtƒ@ƒCƒ‹",
-	tplResultNoDependencies		: "ˆË‘¶ƒtƒ@ƒCƒ‹‚Í‚ ‚è‚Ü‚¹‚ñB",
+	tplResultResourceTitle		: "Resourceså†…ã«å«ã¾ã‚Œã‚‹ãƒ•ã‚¡ã‚¤ãƒ«",
+	tplResultDependencies		: "ä¾å­˜ãƒ•ã‚¡ã‚¤ãƒ«",
+	tplResultNoDependencies		: "ä¾å­˜ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚",
 	tplResultPath				: "Path",
 	tplResultType				: "Type",
-	tplResourcesDependencies	: "ˆË‘¶‚·‚éƒtƒ@ƒCƒ‹"
+	tplResourcesDependencies	: "ä¾å­˜ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«"
 
 };

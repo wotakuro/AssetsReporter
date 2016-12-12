@@ -1,44 +1,44 @@
-g_jp_template_ab = {
+ï»¿g_jp_template_ab = {
 	// common
-	tplNoPlatform			: "w’è‚È‚µ",
-	tplWarning				: "Œx",
-	tplSearchFilter			: "ŒŸõğŒ",
-	tplSearchTitle			: "ŒŸõ",
-	tplSearchBtn			: "ŒŸõ‚·‚é",
-	tplSearchResultTitle	: "ŒŸõŒ‹‰Ê",
-	tplCheckNon				: "ƒ`ƒFƒbƒN‚È‚µ",
-	tplCheckEnableOnly		: "Enable‚Ì‚İ",
-	tplCheckDisableOnly		: "Disable ‚Ì‚İ",
-	tplHitNum				: "ƒqƒbƒg”",
-	tplItem					: "€–Ú",
-	tplCheck				: "ƒ`ƒFƒbƒN",
-	tplCondition			: "ğŒ",
-	tplAddConditionBtn		: "ğŒ’Ç‰Á",
-	tplDelConditionBtn		: "íœ",
-	tplFileInclude			: "ˆÈ‰º‚Ì’PŒê‚ªƒtƒ@ƒCƒ‹ƒpƒX‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚é‚à‚Ì‚Ì‚İ",
-	tplFileExclude			: "ˆÈ‰º‚Ì’PŒê‚ªƒtƒ@ƒCƒ‹ƒpƒX‚ÉŠÜ‚Ü‚ê‚È‚¢‚à‚Ì‚Ì‚İ",
+	tplNoPlatform			: "æŒ‡å®šãªã—",
+	tplWarning				: "è­¦å‘Š",
+	tplSearchFilter			: "æ¤œç´¢æ¡ä»¶",
+	tplSearchTitle			: "æ¤œç´¢",
+	tplSearchBtn			: "æ¤œç´¢ã™ã‚‹",
+	tplSearchResultTitle	: "æ¤œç´¢çµæœ",
+	tplCheckNon				: "ãƒã‚§ãƒƒã‚¯ãªã—",
+	tplCheckEnableOnly		: "Enableã®ã¿",
+	tplCheckDisableOnly		: "Disable ã®ã¿",
+	tplHitNum				: "ãƒ’ãƒƒãƒˆæ•°",
+	tplItem					: "é …ç›®",
+	tplCheck				: "ãƒã‚§ãƒƒã‚¯",
+	tplCondition			: "æ¡ä»¶",
+	tplAddConditionBtn		: "æ¡ä»¶è¿½åŠ ",
+	tplDelConditionBtn		: "å‰Šé™¤",
+	tplFileInclude			: "ä»¥ä¸‹ã®å˜èªãŒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã«å«ã¾ã‚Œã¦ã„ã‚‹ã‚‚ã®ã®ã¿",
+	tplFileExclude			: "ä»¥ä¸‹ã®å˜èªãŒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã«å«ã¾ã‚Œãªã„ã‚‚ã®ã®ã¿",
 
 
 	// specific
-	tplCondIncludeDepends	: "ƒAƒZƒbƒgƒoƒ“ƒhƒ‹“à•ïƒtƒ@ƒCƒ‹‹y‚ÑˆË‘¶ƒtƒ@ƒCƒ‹",
-	tplCondIncludeFiles		: "AssetBundle‚ÉˆÈ‰º‚Ì–¼‘O‚ğŠÜ‚Şƒtƒ@ƒCƒ‹‚ªŠÜ‚Ü‚ê‚Ä‚¢‚½ê‡",
-	tplCondDependsFiles		: "AssetBundle‚ªˆÈ‰º‚Ì–¼‘O‚ğŠÜ‚Şƒtƒ@ƒCƒ‹‚ÉˆË‘¶‚µ‚Ä‚¢‚½ê‡",
+	tplCondIncludeDepends	: "ã‚¢ã‚»ãƒƒãƒˆãƒãƒ³ãƒ‰ãƒ«å†…åŒ…ãƒ•ã‚¡ã‚¤ãƒ«åŠã³ä¾å­˜ãƒ•ã‚¡ã‚¤ãƒ«",
+	tplCondIncludeFiles		: "AssetBundleã«ä»¥ä¸‹ã®åå‰ã‚’å«ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ãŒå«ã¾ã‚Œã¦ã„ãŸå ´åˆ",
+	tplCondDependsFiles		: "AssetBundleãŒä»¥ä¸‹ã®åå‰ã‚’å«ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¾å­˜ã—ã¦ã„ãŸå ´åˆ",
 
-	tplCondAssetBundleName	: "AssetBundle–¼",
-	tplCondIncludeAbName	: "AssetBundle‚ÉˆÈ‰º‚Ì–¼‘O‚ªŠÜ‚Ü‚ê‚éê‡",
-	tplCondExcludeAbName	: "AssetBundle‚ÉˆÈ‰º‚Ì–¼‘O‚ªŠÜ‚Ü‚ê‚È‚¢ê‡",
+	tplCondAssetBundleName	: "AssetBundleå",
+	tplCondIncludeAbName	: "AssetBundleã«ä»¥ä¸‹ã®åå‰ãŒå«ã¾ã‚Œã‚‹å ´åˆ",
+	tplCondExcludeAbName	: "AssetBundleã«ä»¥ä¸‹ã®åå‰ãŒå«ã¾ã‚Œãªã„å ´åˆ",
 	
 	// result
-	tplResultFileList			: "ƒtƒ@ƒCƒ‹ˆê——",
-	tplResultFileDependencies	: "ˆË‘¶ƒtƒ@ƒCƒ‹ˆê——",
-	tplResultAbDependencies		: "ˆË‘¶ƒtƒ@ƒCƒ‹ˆê——",
+	tplResultFileList			: "ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§",
+	tplResultFileDependencies	: "ä¾å­˜ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§",
+	tplResultAbDependencies		: "ä¾å­˜ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§",
 	tplResultType				: "Type",
 	tplResultPath				: "Path",
 	tplResultBundleName			: "bundle name",
 	tplResultBundleValiant		: "bundle valiant",
-	tplResultNoDependencies		: "“Á‚ÉˆË‘¶‚Í‚ ‚è‚Ü‚¹‚ñ",
-	tplResultListen				: "‹’®",
+	tplResultNoDependencies		: "ç‰¹ã«ä¾å­˜ã¯ã‚ã‚Šã¾ã›ã‚“",
+	tplResultListen				: "è¦–è´",
 
-	tplResultDuplicateFiles		: "d•¡‚µ‚ÄAssetBundle‚É“à•ï‚µ‚Ä‚¢‚éƒtƒ@ƒCƒ‹"
+	tplResultDuplicateFiles		: "é‡è¤‡ã—ã¦AssetBundleã«å†…åŒ…ã—ã¦ã„ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«"
 
 };

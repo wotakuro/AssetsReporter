@@ -1,14 +1,14 @@
-g_jp_template_index = {
+ï»¿g_jp_template_index = {
 	tplTextureTitle    : "Texture Report" ,
-	tplTextureExplain  : "Texture ‚ÌImport Settings‚ğŠm”F‚Å‚«‚Ü‚·" ,
+	tplTextureExplain  : "Texture ã®Import Settingsã‚’ç¢ºèªã§ãã¾ã™" ,
 	tplAudioTitle      : "Audio Report" ,
-	tplAudioExplain    : "AudioClip‚Ì Import Settings‚ğŠm”F‚Å‚«‚Ü‚·" ,
+	tplAudioExplain    : "AudioClipã® Import Settingsã‚’ç¢ºèªã§ãã¾ã™" ,
 	tplModelTitle      : "Model Report" ,
-	tplModelExplain    : "Model‚Ì Import Settings‚ğŠm”F‚Å‚«‚Ü‚·" ,
+	tplModelExplain    : "Modelã® Import Settingsã‚’ç¢ºèªã§ãã¾ã™" ,
 	tplAbTitle         : "AssetBundle Report" ,
-	tplAbExplain       : "AssetBundle‚Ì Import Settings‚ğŠm”F‚Å‚«‚Ü‚·" ,
+	tplAbExplain       : "AssetBundleã® Import Settingsã‚’ç¢ºèªã§ãã¾ã™" ,
 	tplResourceTitle   : "Resources Report" ,
-	tplResourceExplain : "ResourcesƒtƒHƒ‹ƒ_‚ªƒvƒƒWƒFƒNƒg‚É‚È‚¢‚©Šm”F‚Å‚«‚Ü‚·B" ,
+	tplResourceExplain : "Resourcesãƒ•ã‚©ãƒ«ãƒ€ãŒãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«ãªã„ã‹ç¢ºèªã§ãã¾ã™ã€‚" ,
 	tplTipsTitle       : "Tips" , 
-	tplTipsExplain     : "Tips î•ñ‚Å‚·" ,
+	tplTipsExplain     : "Tips æƒ…å ±ã§ã™" ,
 };

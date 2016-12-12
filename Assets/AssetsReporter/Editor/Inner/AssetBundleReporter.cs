@@ -64,7 +64,6 @@ public class AssetBundleReporter {
 			AssetsReporterUtils.AddCurrenTimeVar(sb); 
 			AssetsReporterUtils.AddPlatformVar(sb, "");
 
-			var dependsAssetBundle = new HashSet<string>();
 			sb.Append("g_ab_report=[");
 			foreach (var abname in abnames)
 			{
