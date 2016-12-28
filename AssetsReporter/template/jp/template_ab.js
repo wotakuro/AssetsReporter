@@ -39,6 +39,7 @@
 	tplResultNoDependencies		: "特に依存はありません",
 	tplResultListen				: "視聴",
 
-	tplResultDuplicateFiles		: "重複してAssetBundleに内包しているファイル"
+	tplResultDuplicateFiles		: "重複してAssetBundleに内包しているファイル",
+	tplResultNoDuplicate		: "重複したファイルは特にありません"
 
 };

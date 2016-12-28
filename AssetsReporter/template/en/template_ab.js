@@ -38,6 +38,7 @@ g_en_template_ab = {
 	tplResultNoDependencies		: "No dependencies",
 	tplResultListen				: "Listen",
 
-	tplResultDuplicateFiles		: "DuplicateFiles"
+	tplResultDuplicateFiles		: "DuplicateFiles",
+	tplResultNoDuplicate		: "There are no Duplicate Files "
 
 };
