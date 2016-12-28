@@ -7,6 +7,8 @@ g_en_template_index = {
 	tplModelExplain    : "Check Model Import Settings" ,
 	tplAbTitle         : "AssetBundle Report" ,
 	tplAbExplain       : "Check AssetBundle Import Settings" ,
+	tplAbDupTitle      : "AssetBundle Duplicate Report" ,
+	tplAbDupExplain    : "Check Duplicated Assets in AssetBundle(you can also see the result in AssetBundle Report. This is summirized page.)" ,
 	tplResourceTitle   : "Resources Report" ,
 	tplResourceExplain : "Check \"Resources\" directory in the project." ,
 	tplTipsTitle       : "Tips" , 

@@ -7,6 +7,8 @@
 	tplModelExplain    : "Modelの Import Settingsを確認できます" ,
 	tplAbTitle         : "AssetBundle Report" ,
 	tplAbExplain       : "AssetBundleの Import Settingsを確認できます" ,
+	tplAbDupTitle      : "AssetBundle Duplicate Report" ,
+	tplAbDupExplain    : "AssetBundle中にある重複アセットの確認が出来ます(AssetBundle Report でも、確認できます。こちらは簡易のまとめページです)" ,
 	tplResourceTitle   : "Resources Report" ,
 	tplResourceExplain : "Resourcesフォルダがプロジェクトにないか確認できます。" ,
 	tplTipsTitle       : "Tips" , 

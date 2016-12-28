@@ -147,7 +147,7 @@ function GetCurrentTemplateData()
    return g_current_template_data;
 }
 
-function LoadLanguageJavascript( lang , set )
+function LoadLanguageJavascript( lang , set ,completeCallback=null)
 {
   var idstr = "dynamic_js_" + lang +"_" + set;
   if( !document.getElementById( idstr )  ){
@@ -158,6 +158,9 @@ function LoadLanguageJavascript( lang , set )
     script.onload = function(){
       g_current_template_data = eval( "g_" + lang + "_template_" + set );
       SetTemplateToHtml( g_current_template_data  );
+      if( completeCallback ){
+         completeCallback();
+      }
     };
     document.head.appendChild( script );
   }else{
