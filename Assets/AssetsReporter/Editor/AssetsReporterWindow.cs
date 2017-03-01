@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class AssetsReporterWindow : EditorWindow {
 
-    private class LanguageSetting
+    public class LanguageSetting
     {
         public string languageCode;
         public string languageOutput;
@@ -22,9 +22,9 @@ public class AssetsReporterWindow : EditorWindow {
     }
 
 	private const float Space = 10.0f;
-	private const string excludeRulePath = "AssetsReporter/excludeList.txt";
+	public const string excludeRulePath = "AssetsReporter/excludeList.txt";
 
-    private LanguageSetting[] languages = 
+    public static readonly LanguageSetting[] languages = 
     {
         new LanguageSetting("en","English","English"),
         new LanguageSetting("jp","日本語","Japanese"),
@@ -32,7 +32,7 @@ public class AssetsReporterWindow : EditorWindow {
     private int selectLanguageIdx = 0;
     private string[] selectLanguageList;
 
-	private string[] targetList = 
+	public static readonly string[] targetList = 
 	{
 		"default",
 		"Standalone",
@@ -49,10 +49,12 @@ public class AssetsReporterWindow : EditorWindow {
 	[MenuItem("Tools/AssetsReporter")]
 	public static void Create()
 	{
+        Debug.Log(EditorUserBuildSettings.activeBuildTarget);
 		EditorWindow.GetWindow<AssetsReporterWindow>();
 	}
 
-	void OnGUI()
+
+    void OnGUI()
 	{
 		scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
 
@@ -97,17 +99,46 @@ public class AssetsReporterWindow : EditorWindow {
 
 	void OnEnable()
 	{
+        this.selectLanguageIdx = GetActiveLanguage();
+        this.currentTarget = GetCurrentTarget();
+		LoadExcludeList();
+	}
+
+    public static int GetActiveLanguage()
+    {
         string language = Application.systemLanguage.ToString();
         for (int i = 0; i < languages.Length; ++i)
         {
             if (languages[i].appLanguage == language)
             {
-                this.selectLanguageIdx = i;
-                break;
+                return i;
             }
         }
-		LoadExcludeList();
-	}
+        return 0;
+    }
+
+    public static int GetCurrentTarget()
+    {
+        switch (EditorUserBuildSettings.activeBuildTarget)
+        {
+            case BuildTarget.StandaloneWindows:
+            case BuildTarget.StandaloneWindows64:
+            case BuildTarget.StandaloneOSXUniversal:
+            case BuildTarget.StandaloneOSXIntel64:
+            case BuildTarget.StandaloneOSXIntel:
+            case BuildTarget.StandaloneLinux:
+            case BuildTarget.StandaloneLinux64:
+            case BuildTarget.StandaloneLinuxUniversal:
+                return 1;
+            case BuildTarget.iOS:
+                return 2;
+            case BuildTarget.Android:
+                return 3;
+            case BuildTarget.WebGL:
+                return 4;
+        }
+        return 0;
+    }
 
 	private void OnGUIExcludeList()
 	{
@@ -165,9 +196,9 @@ public class AssetsReporterWindow : EditorWindow {
         {
             SaveExcludeList();
             AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            TextureReporter.CreateReport(this.targetList[currentTarget], excludeList);
+            TextureReporter.CreateReport(targetList[currentTarget], excludeList);
             ModelReporter.CreateReport( excludeList);
-            AudioReporter.CreateReport(this.targetList[currentTarget], excludeList);
+            AudioReporter.CreateReport(targetList[currentTarget], excludeList);
             AssetBundleReporter.CreateReport(false);
             ResourcesReporter.CreateReport();
             AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "index.html"));
@@ -188,7 +219,7 @@ public class AssetsReporterWindow : EditorWindow {
         {
             SaveExcludeList();
             AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            TextureReporter.CreateReport(this.targetList[currentTarget], excludeList);
+            TextureReporter.CreateReport(targetList[currentTarget], excludeList);
             TextureReporter.OpenReport();
         }
         if (GUILayout.Button("Open", GUILayout.Width(100)))
@@ -206,7 +237,7 @@ public class AssetsReporterWindow : EditorWindow {
 		{
 			SaveExcludeList();
             AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            AudioReporter.CreateReport(this.targetList[currentTarget], excludeList);
+            AudioReporter.CreateReport(targetList[currentTarget], excludeList);
 			AudioReporter.OpenReport();
 		}
 		if (GUILayout.Button("Open", GUILayout.Width(100)))
@@ -278,6 +309,11 @@ public class AssetsReporterWindow : EditorWindow {
 	}
 	private void LoadExcludeList()
 	{
-		excludeList = new List<string>( File.ReadAllLines(excludeRulePath) );
+        excludeList = ReadExculudeList();
 	}
+    private static List<string> ReadExculudeList()
+    {
+        var list = new List<string>(File.ReadAllLines(excludeRulePath));
+        return list;
+    }
 }

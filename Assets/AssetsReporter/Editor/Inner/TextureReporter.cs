@@ -88,16 +88,25 @@ public class TextureReporter {
 	}
 
 	private void ReportTexture(StringBuilder sb , TextureImporter importer) {
-		int w, h;
+        int w, h;
+        var type = importer.textureType;
+        int maxSize = importer.maxTextureSize;
+#if UNITY_5_5_OR_NEWER
+        var defaultTextureSetting = importer.GetDefaultPlatformTextureSettings();
+        var format = defaultTextureSetting.format;
+        if (!importer.GetPlatformTextureSettings(this.platform, out maxSize, out format))
+        {
+            maxSize = importer.maxTextureSize;
+            format = defaultTextureSetting.format;
+        }
+#else
 		var format = importer.textureFormat;
-		var type = importer.textureType;
-		int maxSize = importer.maxTextureSize;
-
 		if (! importer.GetPlatformTextureSettings(this.platform, out maxSize, out format))
 		{
 			maxSize = importer.maxTextureSize;
 			format = importer.textureFormat;
 		}
+#endif
 
         var tex = GetTextureSize(importer, out w, out h) as Texture2D;
 		sb.Append("{");
