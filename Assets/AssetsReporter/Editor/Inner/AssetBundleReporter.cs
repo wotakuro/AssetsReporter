@@ -191,7 +191,7 @@ public class AssetBundleReporter {
 			string importerName = "";
 			string importerValiant = "";
 			string importerType = "";
-			var importer = AssetImporter.GetAtPath(d);
+            var importer = GetAssetBundleNamedDirectoryImporter(d);
 			if (importer != null ) {
 				importerName = importer.assetBundleName;
 				importerValiant = importer.assetBundleVariant;
@@ -203,4 +203,36 @@ public class AssetBundleReporter {
 			}
 		}
 	}
+
+    private static AssetImporter GetAssetBundleNamedDirectoryImporter(string path)
+    {
+        var originImporter = AssetImporter.GetAtPath(path);
+        if (!string.IsNullOrEmpty(originImporter.assetBundleName))
+        {
+            return originImporter;
+        }
+
+        int length = path.Length;
+        StringBuilder sb = new StringBuilder(length);
+        sb.Append(path);
+
+        int idx = length-1;
+        while (idx > 0 )
+        {
+            int next = path.LastIndexOf( '/' , idx -1  );
+            if (next <= 0)
+            {
+                break;
+            }
+            sb.Length = next;
+
+            var importer = AssetImporter.GetAtPath(sb.ToString());
+            if ( !string.IsNullOrEmpty( importer.assetBundleName ) )
+            {
+                return importer;
+            }
+            idx = next;
+        }
+        return originImporter;
+    }
 }
