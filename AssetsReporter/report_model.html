@@ -64,7 +64,7 @@
               continue;
             }
 
-            reportData(data[i] );
+            reportData(data[i] , i );
             ++ result_num;
           }
           $("#result_num").html( "(" + result_num + ")" );
@@ -90,11 +90,20 @@
           return condition;
        }
 
-       function reportData(data){
+       function reportData(data,idx){
          var tplData = GetCurrentTemplateData();
          var str = '<div class="model-block">';
          str += '<h4 class="model-title selectable">' + data.path + '</h4>';
-         str += '<div class="model-body" style="display: none;">';
+         str += '<div class="model-body" data-index="' + idx + '" style="display: none;">';
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function getDetailReportHtmlStr(idx){
+         var str = "";
+         var tplData = GetCurrentTemplateData();
+         var data = g_model_report[idx];
          if( data.preview ){
            str += '<h5 class="selectable">' + tplData.tplResultInfoPreview + '</h5>';
            str += '<div>';
@@ -153,10 +162,7 @@
            str += '</table>'
          }
          str += '</div>';
-
-
-         str += '</div>';
-         $("#report").append( str );
+         return str;
        }
 
        $(document).ready( function(){
@@ -166,7 +172,13 @@
          setupCheckBox( g_model_avatar_list , "Avatar","a_" , "#model_avatar_block" );
        });
        $(document).on("click",".model-title",function() {
-         $(this).next('.model-body').slideToggle();
+         var body = $(this).next('.model-body');
+         var idx  = body.data("index");
+         if( !body.data("already") ){
+            body.html( getDetailReportHtmlStr(idx) );
+         }
+         body.data("already",true);
+         body.slideToggle();
        });
        $(document).on("click","h5.selectable",function() {
          $(this).next('div').slideToggle();

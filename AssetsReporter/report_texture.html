@@ -59,7 +59,7 @@
               continue;
             }
 
-            reportData(data[i] );
+            reportData(data[i] , i );
             ++ result_num;
           }
           $("#result_num").html( "(" + result_num + ")" );
@@ -91,11 +91,22 @@
           return condition;
        }
 
-       function reportData(data){
+       function reportData(data,idx){
          var tplData = GetCurrentTemplateData();
          var str = '<div class="image-block">';
          str += '<h4 class="image-title selectable">' + data.path + '</h4>';
-         str += '<div class="image-body" style="display: none;">';
+         str += '<div class="image-body" data-index="' + idx + '" style="display: none;">';
+
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function getDetailReportHtmlStr(idx){
+         var str = "";
+         var tplData = GetCurrentTemplateData();
+         var data = g_texture_report[idx];
+
          if( data.preview ){
            str += '<img class="image-texture selectable" src="result/preview/' + data.preview + '" />';
          }else{
@@ -111,16 +122,14 @@
             str += '(' + tplData.tplResultNonPow2 + ')';
          }
          str += '</td></tr>';
-		 if( data.spritePackingTag ){
+         if( data.spritePackingTag ){
             str += '<tr><th>' + tplData.tplResultSpriteTag + '</th><td>' + data.spritePackingTag + '</td></tr>'; 
          }
          str += '<tr><th>'  + tplData.tplResultMaxSize +  ' </th><td>' + data.maxSize + '</td></tr>';
          str += '<tr><th>' + tplData.tplResultMipMap + '</th><td>' + data.mipmapEnabled + '</td></tr>';
          str += '<tr><th>' + tplData.tplResultReadWrite + '</th><td>' + data.isReadable + '</td></tr>';
          str += '</table></div>';
-         str += '</div>';
-         str += '</div>';
-         $("#report").append( str );
+         return str;
        }
 
        $(document).ready( function(){
@@ -130,7 +139,13 @@
          setupCheckBox( g_texture_spriteTag_list , "SpritePackingTag","st_" , "#sprite_tag_block" );
        });
        $(document).on("click",".image-title",function() {
-         $(this).next('.image-body').slideToggle();
+         var body = $(this).next('.image-body');
+         var idx  = body.data("index");
+         if( !body.data("already") ){
+            body.html( getDetailReportHtmlStr(idx) );
+         }
+         body.data("already",true);
+         body.slideToggle();
        });
        $(document).on("click",".image-texture",function() {
          $(this).next('.image-explain').slideToggle();
