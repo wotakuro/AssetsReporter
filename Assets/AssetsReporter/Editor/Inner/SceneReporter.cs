@@ -9,16 +9,15 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 
 public class SceneReporter {
-    private List<string> GetBuildScenesList()
+    private List<string> GetAllScenePath()
     {
-        List<string> buildScenes = new List<string>();
-        var scenes = EditorBuildSettings.scenes;
-        foreach (var scene in scenes)
+        var guids = AssetDatabase.FindAssets("t:scene", null);
+        List<string> allScenePath = new List<string>(guids.Length);
+        foreach (var guid in guids)
         {
-            if (!scene.enabled) { continue; }
-            buildScenes.Add(scene.path);
+            allScenePath.Add( AssetDatabase.GUIDToAssetPath(guid) );
         }
-        return buildScenes;
+        return allScenePath;
     }
 
     public static void CreateReport()
@@ -28,7 +27,7 @@ public class SceneReporter {
     }
     public static void OpenReport()
     {
-        AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "report_scenes.html"));
+        AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "report_scene.html"));
     }
 
     public void ReportScenes(string reportPath)
@@ -36,8 +35,8 @@ public class SceneReporter {
         try
         {
             var sb = new StringBuilder(1024 * 1024);
-            sb.Append("g_scenes_report = [");
-            var scenePathList = GetBuildScenesList();
+            sb.Append("g_scene_report = [");
+            var scenePathList = GetAllScenePath();
 
             bool isFirst = true;
             foreach (var scenePath in scenePathList)
@@ -58,13 +57,16 @@ public class SceneReporter {
     }
     private void ReportSceneAtPath( StringBuilder sb,string scenePath)
     {
+        var scene = EditorSceneManager.OpenScene(scenePath);
         sb.Append("{");
-        AssetsReporterUtils.AddJsonObject(sb, "scenePath", scenePath ).Append(",\n");
+        AssetsReporterUtils.AddJsonObject(sb, "buildIndex", scene.buildIndex).Append(",\n");
+        AssetsReporterUtils.AddJsonObject(sb, "path", scenePath).Append(",\n");
+        AssetsReporterUtils.AddJsonObject(sb, "sceneName", scene.name).Append(",\n");
+        AssetsReporterUtils.AddJsonObject(sb, "rootCount", scene.rootCount).Append(",\n");
 
         ReportSceneDependAssets(sb, scenePath);
         sb.Append(",");
 
-        var scene = EditorSceneManager.OpenScene(scenePath);
         var rootObjects = scene.GetRootGameObjects();
 
         int allGameObjectCount = 0;

@@ -1,0 +1,107 @@
+﻿<html>
+  <head>
+    <title>Scene Report</title>
+    <link rel="stylesheet" type="text/css" href="css/report.css">
+    <script type="text/javascript" src="result/report_scene.js"></script>
+    <script type="text/javascript" src="result/report_language.js"></script>
+    <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript">
+    <!--
+       function search(){
+          var data = g_scene_report;
+          var length = data.length;
+          var i = 0;
+          var condition = createSearchCondition();
+          $("#report").empty();
+          var result_num = 0;
+          for( i = 0 ; i < length ; ++ i ){
+            // check include path
+            if( !isIncludeFileName(data[i].path , condition.include_file_cond ) ){
+              continue;
+            }
+            // check exclude path
+            if( isExcludeFileName(data[i].path , condition.exclude_file_cond ) ){
+              continue;
+            }
+            reportData(data[i] ,i );
+            ++ result_num;
+          }
+          $("#result_num").html( "(" + result_num + ")" );
+       }
+
+       function createSearchCondition(){
+          var condition = { 
+            include_file_cond:getConditionList("include_file_name"),
+            exclude_file_cond:getConditionList("exclude_file_name")
+          };
+          return condition;
+       }
+
+       function reportData(data,idx){
+         var tplData = GetCurrentTemplateData();
+         var str = '<div class="scene-block">';
+         str += '<h4 class="scene-title selectable">' +"[" + data.buildIndex + "]  " + data.sceneName + '</h4>';
+         str += '<div class="acene-body" data-index="' + idx + '"style="display: none;">';
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function getDetailReportHtmlStr(idx){
+         var str = "";
+         var tplData = GetCurrentTemplateData();
+         var data = g_scene_report[idx];
+         return str;
+       }
+
+
+
+       $(document).ready( function(){
+         LoadLanguageJavascript( g_language , "scene" );
+       });
+       $(document).on("click",".scene-title",function() {
+         var body = $(this).next('.scene-body');
+         var idx  = body.data("index");
+         if( !body.data("already") ){
+            body.html( getDetailReportHtmlStr(idx) );
+         }
+         body.data("already",true);
+         body.slideToggle();
+       });
+    -->
+    </script>
+  </head>
+<body>
+   <div class="content-head">
+     <h1>Scene Report</h1>
+     <div class="report-info">
+        <div id="report_at"></div>
+        <div id ="platform"></div>
+     </div>
+   </div>
+   <div class="content-main">
+   <div id="warning_field"></div>
+   <h2 class="tplSearchTitle"></h2>
+   <div class=""boxContainer>
+     <div class="box">
+     </div>
+   </div>
+   <div>
+     <h3 class="tplFileInclude"></h3>
+     <div id="include_file_name">
+        <input type="button" class="add_cond tplAddConditionBtn"/>
+     </div>
+     <h3 class="tplFileExclude"></h3>
+     <div id="exclude_file_name">
+        <input type="button" class="add_cond tplAddConditionBtn" />
+     </div>
+
+   <h3 class="tplSearchTitle"></h3>
+     <input type ="button" class="search-btn tplSearchBtn" onClick="search()" />
+     <h2><span class="tplSearchResultTItle"></span> <span id="result_num"></span></h2>
+     <div id="report"></div>
+   </div>
+   </div>
+</body>
+</html>

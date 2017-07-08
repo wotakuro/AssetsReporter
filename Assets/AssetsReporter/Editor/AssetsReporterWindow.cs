@@ -105,8 +105,11 @@ public class AssetsReporterWindow : EditorWindow {
             () => { AssetBundleReporter.CreateReport(true); },
            AssetBundleReporter.OpenReport);
         // Resources
-        OnGUIReportGroup("Resources Report",ResourcesReporter.CreateReport,ResourcesReporter.OpenReport);
-		EditorGUILayout.EndScrollView();
+        OnGUIReportGroup("Resources Report", ResourcesReporter.CreateReport, ResourcesReporter.OpenReport);
+        // Scenes
+        OnGUIReportGroup("Scene Report", SceneReporter.CreateReport, SceneReporter.OpenReport);
+
+        EditorGUILayout.EndScrollView();
 	}
 
     void OnGUISelectLanguage()
