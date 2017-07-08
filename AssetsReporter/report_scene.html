@@ -10,6 +10,7 @@
     <!--
        function search(){
           var data = g_scene_report;
+          sortSceneData( data );
           var length = data.length;
           var i = 0;
           var condition = createSearchCondition();
@@ -28,6 +29,14 @@
             ++ result_num;
           }
           $("#result_num").html( "(" + result_num + ")" );
+       }
+
+       function sortSceneData(data){
+         data.sort( (a,b)=>{
+            if( a.buildIndex > b.buildIndex){ return 1;}
+            if( a.buildIndex < b.buildIndex){ return -1;}
+            return 0;
+         });
        }
 
        function createSearchCondition(){
