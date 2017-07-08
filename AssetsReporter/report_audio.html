@@ -55,7 +55,7 @@
             if( isExcludeFileName(data[i].path , condition.exclude_file_cond ) ){
               continue;
             }
-            reportData(data[i] );
+            reportData(data[i] ,i );
             ++ result_num;
           }
           $("#result_num").html( "(" + result_num + ")" );
@@ -78,11 +78,20 @@
           return condition;
        }
 
-       function reportData(data){
+       function reportData(data,idx){
          var tplData = GetCurrentTemplateData();
          var str = '<div class="audio-block">';
          str += '<h4 class="audio-title selectable">' + data.path + '</h4>';
-         str += '<div class="audio-body" style="display: none;">';
+         str += '<div class="audio-body" data-index="' + idx + '"style="display: none;">';
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function getDetailReportHtmlStr(idx){
+         var str = "";
+         var tplData = GetCurrentTemplateData();
+         var data = g_audio_report[idx];
          str += '<div class="try-listen">' + tplData.tplResultListen + '</div>';
          if( data.preview ){
            str += '<audio src="result/preview/' + data.preview + '" controls></audio>';
@@ -100,8 +109,7 @@
          str += '<tr><th>' + tplData.tplResultSampleOverride + '</th><td>' + data.sampleRateOverride + ' Hz</td></tr>';
          str += '</table>';
          str += '</div>';
-         str += '</div>';
-         $("#report").append( str );
+         return str;
        }
 
 
@@ -113,7 +121,13 @@
          setupCheckBox( g_audio_compress_list ,"Format", "c_" , "#audio_compress_block" );
        });
        $(document).on("click",".audio-title",function() {
-         $(this).next('.audio-body').slideToggle();
+         var body = $(this).next('.audio-body');
+         var idx  = body.data("index");
+         if( !body.data("already") ){
+            body.html( getDetailReportHtmlStr(idx) );
+         }
+         body.data("already",true);
+         body.slideToggle();
        });
     -->
     </script>

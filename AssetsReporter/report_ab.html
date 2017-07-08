@@ -35,7 +35,7 @@
               continue;
             }
             countDependencyFiles( data[i],dependenceFileCount );
-            reportData(data[i] );
+            reportData(data[i] , i );
             ++ result_num;
           }
           deleteAlreadyInAssetBundle( data , dependenceFileCount );
@@ -79,11 +79,22 @@
          return false;
        }
 
-       function reportData(data){
+       function reportData(data,idx){
          var tplData = GetCurrentTemplateData();
          var str = '<div class="ab-block">';
          str += '<h4 class="ab-title selectable">' + data.abname + '</h4>';
-         str += '<div class="ab-body" style="display: none;">';
+         str += '<div class="ab-body" data-index="' + idx + '" style="display: none;">';
+////////////
+////////////
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function getDetailReportHtmlStr(idx){
+         var str = "";
+         var tplData = GetCurrentTemplateData();
+         var data = g_ab_report[idx];
          data.files.sort( function(a,b){
            if(a.type > b.type ){ return 1;}
            if(a.type < b.type ){ return -1;}
@@ -115,9 +126,8 @@
            str += "</table>";
          }
          str += '</div>';
-         str += '</div>';
-         str += '</div>';
-         $("#report").append( str );
+
+         return str;
        }
 
        function getFileReportData( file ){
@@ -209,7 +219,13 @@
          LoadLanguageJavascript( GetLanguageConfig() , "ab" );
        });
        $(document).on("click",".ab-title",function() {
-         $(this).next('.ab-body').slideToggle();
+         var body = $(this).next('.ab-body');
+         var idx  = body.data("index");
+         if( !body.data("already") ){
+            body.html( getDetailReportHtmlStr(idx) );
+         }
+         body.data("already",true);
+         body.slideToggle();
        });
        $(document).on("click","h6.selectable",function() {
          $(this).next('.ab-file-explain').slideToggle();

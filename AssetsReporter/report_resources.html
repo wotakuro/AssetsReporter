@@ -42,7 +42,7 @@
                 }
               }
             }
-            reportData( data[i] );
+            reportData( data[i] , i );
             ++ result_num;
           }
           ///////////////////////////
@@ -80,12 +80,22 @@
          return -1;
        }
 
-       function reportData(data){
+       function reportData(data,idx){
          var tplData = GetCurrentTemplateData();
          var str = '<div class="resources-block">';
          str += '<h4 class="resources-title selectable">' + data.path + '</h4>';
-         str += '<div class="resources-body" style="display: none;">';
-         str += '<h5>' + tplData.tplResultBasic+ '</h5>';           
+         str += '<div class="resources-body" data-index="' + idx + '" style="display: none;">';
+
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function getDetailReportHtmlStr(idx){
+         var str = "";
+         var tplData = GetCurrentTemplateData();
+         var data = g_resources_report[idx];
+         str += '<h5>' + tplData.tplResultBasic+ '</h5>'; 
          str += '<table>';
          str += '<tr>';
          str += '<th>' + tplData.tplResultPath + '</th>' + '<td>' + data.path + '</td>';
@@ -116,10 +126,7 @@
            }
            str += '</table>';
          }
-
-         str += '</div>';
-         str += '</div>';
-         $("#report").append( str );
+         return str;
        }
 
        function createSearchCondition(){
@@ -145,7 +152,13 @@
          LoadLanguageJavascript( GetLanguageConfig() , "resources" );
        });
        $(document).on("click",".resources-title",function() {
-         $(this).next('.resources-body').slideToggle();
+         var body = $(this).next('.resources-body');
+         var idx  = body.data("index");
+         if( !body.data("already") ){
+            body.html( getDetailReportHtmlStr(idx) );
+         }
+         body.data("already",true);
+         body.slideToggle();
        });
        $(document).on("click","h5.selectable",function() {
          $(this).next('div').slideToggle();
