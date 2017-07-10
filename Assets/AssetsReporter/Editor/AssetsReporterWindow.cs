@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System;
 using System.Text;
 using System.Collections;
 using System.IO;
@@ -70,14 +71,45 @@ public class AssetsReporterWindow : EditorWindow {
 		EditorGUILayout.Space();
 		OnGUIExcludeList();
 		EditorGUILayout.Space();
-        OnGUIAll();
+        // all
+        OnGUIReportGroup("All Report",
+            () =>
+            {
+                TextureReporter.CreateReport(targetList[currentTarget], excludeList);
+                ModelReporter.CreateReport(excludeList);
+                AudioReporter.CreateReport(targetList[currentTarget], excludeList);
+                AssetBundleReporter.CreateReport(false);
+                ResourcesReporter.CreateReport();
+                SceneReporter.CreateReport();
+            },
+            () =>
+            {
+                AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "index.html"));
+            });
+
         EditorGUILayout.Space();
-		OnGUITexture();
-		OnGUIAudio();
-		OnGUIModel();
-		OnGUIAssetBundle();
-        OnGUIResources();
-		EditorGUILayout.EndScrollView();
+        // Texture
+        OnGUIReportGroup("Texture Report",
+            () => { TextureReporter.CreateReport(targetList[currentTarget], excludeList); },
+            TextureReporter.OpenReport);
+        // Audios 
+        OnGUIReportGroup("Audio Report",
+            () => { AudioReporter.CreateReport(targetList[currentTarget],excludeList); },
+            AudioReporter.OpenReport);
+        // models
+        OnGUIReportGroup("Model Report",
+            () => { ModelReporter.CreateReport(excludeList); }, 
+            ModelReporter.OpenReport);
+        // AssetBundles
+        OnGUIReportGroup("AssetBundle Report",
+            () => { AssetBundleReporter.CreateReport(true); },
+           AssetBundleReporter.OpenReport);
+        // Resources
+        OnGUIReportGroup("Resources Report", ResourcesReporter.CreateReport, ResourcesReporter.OpenReport);
+        // Scenes
+        OnGUIReportGroup("Scene Report", SceneReporter.CreateReport, SceneReporter.OpenReport);
+
+        EditorGUILayout.EndScrollView();
 	}
 
     void OnGUISelectLanguage()
@@ -187,121 +219,25 @@ public class AssetsReporterWindow : EditorWindow {
 	}
 
 
-    private void OnGUIAll()
+    private void OnGUIReportGroup(string groupName, Action reportAct, Action openAct)
     {
-        EditorGUILayout.LabelField("All Report");
+        EditorGUILayout.LabelField(groupName);
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("", GUILayout.Width(Space));
         if (GUILayout.Button("Report", GUILayout.Width(100)))
         {
             SaveExcludeList();
             AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            TextureReporter.CreateReport(targetList[currentTarget], excludeList);
-            ModelReporter.CreateReport( excludeList);
-            AudioReporter.CreateReport(targetList[currentTarget], excludeList);
-            AssetBundleReporter.CreateReport(false);
-            ResourcesReporter.CreateReport();
-            AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter", "index.html"));
+            reportAct();
+            openAct();
         }
         if (GUILayout.Button("Open", GUILayout.Width(100)))
         {
-            AssetsReporterUtils.OpenURL(Path.Combine("AssetsReporter","index.html"));
+            openAct();
         }
         EditorGUILayout.EndHorizontal();
     }
 
-    private void OnGUITexture()
-    {
-        EditorGUILayout.LabelField("Texture Report");
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("", GUILayout.Width(Space));
-        if (GUILayout.Button("Report", GUILayout.Width(100)))
-        {
-            SaveExcludeList();
-            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            TextureReporter.CreateReport(targetList[currentTarget], excludeList);
-            TextureReporter.OpenReport();
-        }
-        if (GUILayout.Button("Open", GUILayout.Width(100)))
-        {
-            TextureReporter.OpenReport();
-        }
-        EditorGUILayout.EndHorizontal();
-    }
-	private void OnGUIAudio()
-	{
-		EditorGUILayout.LabelField("Audio Report");
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("", GUILayout.Width(Space));
-		if (GUILayout.Button("Report", GUILayout.Width(100)))
-		{
-			SaveExcludeList();
-            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            AudioReporter.CreateReport(targetList[currentTarget], excludeList);
-			AudioReporter.OpenReport();
-		}
-		if (GUILayout.Button("Open", GUILayout.Width(100)))
-		{
-			AudioReporter.OpenReport();
-		}
-		EditorGUILayout.EndHorizontal();
-	}
-
-	private void OnGUIModel()
-	{
-		EditorGUILayout.LabelField("Model Report");
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("", GUILayout.Width(Space));
-		if (GUILayout.Button("Report", GUILayout.Width(100)))
-		{
-			SaveExcludeList();
-            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            ModelReporter.CreateReport(excludeList);
-			ModelReporter.OpenReport();
-		}
-		if (GUILayout.Button("Open", GUILayout.Width(100)))
-		{
-			ModelReporter.OpenReport();
-		}
-		EditorGUILayout.EndHorizontal();
-	}
-	private void OnGUIAssetBundle()
-	{
-		EditorGUILayout.LabelField("AssetBundle Report");
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("", GUILayout.Width(Space));
-		if (GUILayout.Button("Report", GUILayout.Width(100)))
-		{
-			SaveExcludeList();
-            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            AssetBundleReporter.CreateReport(true);
-			AssetBundleReporter.OpenReport();
-		}
-		if (GUILayout.Button("Open", GUILayout.Width(100)))
-		{
-			AssetBundleReporter.OpenReport();
-		}
-		EditorGUILayout.EndHorizontal();
-	}
-
-    private void OnGUIResources()
-    {
-        EditorGUILayout.LabelField("Resources Report");
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("", GUILayout.Width(Space));
-        if (GUILayout.Button("Report", GUILayout.Width(100)))
-        {
-            SaveExcludeList();
-            AssetsReporterUtils.WriteReportLanguage(languages[this.selectLanguageIdx].languageCode);
-            ResourcesReporter.CreateReport();
-            ResourcesReporter.OpenReport();
-        }
-        if (GUILayout.Button("Open", GUILayout.Width(100)))
-        {
-            ResourcesReporter.OpenReport();
-        }
-        EditorGUILayout.EndHorizontal();
-    }
 
 	private void SaveExcludeList()
 	{
