@@ -18,4 +18,13 @@ g_en_template_scene = {
 	tplFileInclude			: "If filepath includes below words",
 	tplFileExclude			: "If filepath doesn't include below words",
 
+	// specific
+	tplBasicInfo			: "Basic",
+	tplValueNum				: "Number",
+	tplRootGameObjectNum	: "RootGameObject Number",
+	tplScenePath			: "Path",
+	tplAllGameObjectNum		: "All GameObject Number",
+	tplAllComponentNum		: "All Component Number",
+	tplAllMonoBehaviourNum	: "All MonoBehaviour Number",
+	tplDependsTitle			: "Depends",
 };

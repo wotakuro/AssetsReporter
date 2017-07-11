@@ -51,7 +51,7 @@
          var tplData = GetCurrentTemplateData();
          var str = '<div class="scene-block">';
          str += '<h4 class="scene-title selectable">' +"[" + data.buildIndex + "]  " + data.sceneName + '</h4>';
-         str += '<div class="acene-body" data-index="' + idx + '"style="display: none;">';
+         str += '<div class="scene-body" data-index="' + idx + '"style="display: none;">';
          str += '</div>';
          str += '</div>';
          $("#report").append( str );
@@ -61,6 +61,21 @@
          var str = "";
          var tplData = GetCurrentTemplateData();
          var data = g_scene_report[idx];
+         str += '<h5>' + tplData.tplBasicInfo + '</h5>';
+         str += '<table>';
+         str += '<tr><th>' + tplData.tplItem + '</th><th>' + tplData.tplValueNum + '</th></tr>';
+         str += '<tr><td>' + tplData.tplScenePath + '</td><td>' + data.path + '</td></tr>';
+         str += '<tr><td>' + tplData.tplRootGameObjectNum + '</td><td>' + data.rootCount + '</td></tr>';
+         str += '<tr><td>' + tplData.tplAllGameObjectNum + '</td><td>' + data.allGameObjects + '</td></tr>';
+         str += '<tr><td>' + tplData.tplAllMonoBehaviourNum + '</td><td>' + data.allMonoBehaviour + '</td></tr>';
+         str += '<tr><td>' + tplData.tplAllComponentNum + '</td><td>' + data.allComponents + '</td></tr>';
+         str += '</table>';
+
+         var depends = data.depends;
+         str += '<h5>' + tplData.tplDependsTitle + '</h5>';
+         for( var i = 0 ; i < depends.length ; ++ i ){
+           str += depends[i].importer + '::' + depends[i].path + '<br />';
+         }
          return str;
        }
 
