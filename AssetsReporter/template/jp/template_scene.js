@@ -18,4 +18,13 @@
 	tplFileInclude			: "以下の単語がファイルパスに含まれているもののみ",
 	tplFileExclude			: "以下の単語がファイルパスに含まれないもののみ",
 
+	// specific
+	tplBasicInfo			: "基本情報",
+	tplValueNum				: "数",
+	tplRootGameObjectNum	: "RootGameObject数",
+	tplScenePath			: "パス",
+	tplAllGameObjectNum		: "全GameObject数",
+	tplAllComponentNum		: "全Component数",
+	tplAllMonoBehaviourNum	: "全MonoBehaviour数",
+	tplDependsTitle			: "依存関係",
 };
