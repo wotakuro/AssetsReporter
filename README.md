@@ -8,9 +8,6 @@ Purpose of this： This software was developed for detect strange "Import settin
 Copy this to your project.
 (Not only Assets directory, but also AssetsReport directory.)
 
-<pre>For Japanese (日本の方向け)
-branchをjapaneseにする事で日本語版になります。
-</pre>
 
 <pre>To customize this.
 If you wanted to customize this, you'd better to watch wiki.
