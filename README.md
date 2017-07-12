@@ -65,6 +65,12 @@ You can use this like these cases.
 You'll be able to watch assetbundle data on web browser.
 </pre>
 
+# SceneReporter
+![alt text](doc/image/SceneReporter.png)
+<pre>
+You can see the summary of each scenes.
+</pre>
+
 # ResourcesReporter
 ![alt text](doc/image/ResourcesReporter.png)
 <pre>

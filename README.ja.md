@@ -57,6 +57,13 @@ Rigの設定はどうなっているか、Mesh最適化等はちゃんとして�
 作成予定のAssetBundleを閲覧可能な形にします
 </pre>
 
+# SceneReporter
+![alt text](doc/image/ja/.png)
+<pre>
+シーンの上皮王を閲覧できます
+</pre>
+
+
 # ResourcesReporter
 ![alt text](doc/image/ja/ReporterAb.png)
 <pre>
@@ -72,8 +79,6 @@ Resourcesフォルダはあるだけでメモリを消費するので可能な�
 </pre>
 
 
-## TODO
-リファクタリング<br/>
 
 # その他
 こちらではjQueryを利用しています
