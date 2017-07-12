@@ -9,6 +9,15 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 
 public class SceneReporter {
+
+    private List<string> excludeList = new List<string>();
+
+    private SceneReporter(List<string> exList)
+    {
+
+        this.excludeList = exList;
+    }
+
     private List<string> GetAllScenePath()
     {
         var guids = AssetDatabase.FindAssets("t:scene", null);
@@ -20,9 +29,9 @@ public class SceneReporter {
         return allScenePath;
     }
 
-    public static void CreateReport()
+    public static void CreateReport(List<string> exList)
     {
-        var reporter = new SceneReporter();
+        var reporter = new SceneReporter(exList);
         reporter.ReportScenes(AssetsReporterUtils.ResultDir + "report_scene.js");
     }
     public static void OpenReport()
@@ -72,6 +81,7 @@ public class SceneReporter {
         int allGameObjectCount = 0;
         int allComponentCount = 0;
         int allMonoBehaviourCount = 0;
+        var componentsCountDictionary = new Dictionary<string, int>(1024);
         foreach (var rootObj in rootObjects)
         {
             allGameObjectCount += CountChildTransform(rootObj.transform);
@@ -79,23 +89,39 @@ public class SceneReporter {
             var childMonoBehaviour = rootObj.GetComponentsInChildren<MonoBehaviour>();
             if (childComponents != null) { allComponentCount += childComponents.Length; }
             if (childMonoBehaviour != null) { allMonoBehaviourCount += childMonoBehaviour.Length; }
+            AddToConpoenentCountDictionary(componentsCountDictionary, childComponents);
         }
         AssetsReporterUtils.AddJsonObject(sb, "allGameObjects", allGameObjectCount).Append(",");
         AssetsReporterUtils.AddJsonObject(sb, "allComponents", allComponentCount).Append(",");
-        AssetsReporterUtils.AddJsonObject(sb, "allMonoBehaviour", allMonoBehaviourCount);
-
+        AssetsReporterUtils.AddJsonObject(sb, "allMonoBehaviour", allMonoBehaviourCount).Append(",");
+        AssetsReporterUtils.AddJsonToContDictionary(sb, "componentCount", componentsCountDictionary);
         sb.Append("}");
+    }
+
+    private  static void AddToConpoenentCountDictionary(Dictionary<string, int> cntDict, Component[] components)
+    {
+        if (components == null)
+        {
+            return;
+        }
+        foreach (var component in components)
+        {
+            if (component != null)
+            {
+                AssetsReporterUtils.AddCountDictionary(cntDict, component.GetType().ToString());
+            }
+        }
     }
 
     private int CountChildTransform(Transform trans)
     {
-        if(trans.childCount == 0 ){
+        if(trans.childCount <= 0 ){
             return 1;
         }
-        int num = 0;
+        int num = 1;
         foreach (Transform child in trans)
         {
-            num = num + CountChildTransform( child  );
+            num += CountChildTransform( child  );
         }
         return num;
     }
@@ -111,7 +137,7 @@ public class SceneReporter {
                 if (firstFlag) { firstFlag = false; }
                 else { sb.Append(','); }
                 var importer = AssetImporter.GetAtPath(depend);
-                var obj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(depend);
+                var obj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(importer.assetPath);
                 sb.Append("{");
                 AssetsReporterUtils.AddJsonObject(sb, "path", depend).Append(",");
                 AssetsReporterUtils.AddJsonObject(sb, "importer", importer.GetType().ToString());
@@ -120,6 +146,10 @@ public class SceneReporter {
                 {
                     sb.Append(",");
                     AssetsReporterUtils.AddJsonObject(sb, "type", obj.GetType().ToString());
+                }
+                else
+                {
+                    Debug.Log("loaderror " + depend + "::" + importer.name);
                 }
                 obj = null;
                 sb.Append("}\n");

@@ -23,8 +23,10 @@ g_en_template_scene = {
 	tplValueNum				: "Number",
 	tplRootGameObjectNum	: "RootGameObject Number",
 	tplScenePath			: "Path",
+	tplObjectType			: "Object Type",
 	tplAllGameObjectNum		: "All GameObject Number",
 	tplAllComponentNum		: "All Component Number",
 	tplAllMonoBehaviourNum	: "All MonoBehaviour Number",
 	tplDependsTitle			: "Depends",
+	tplAllComponentsTitle	: "Component Num In Scene"
 };

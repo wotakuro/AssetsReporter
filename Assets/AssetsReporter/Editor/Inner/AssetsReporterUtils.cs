@@ -72,9 +72,22 @@ public class AssetsReporterUtils{
 		return sb;
 	}
 
+    public static StringBuilder AddJsonToContDictionary<T>(StringBuilder sb, string key, Dictionary<T, int> set)
+    {
+        sb.Append(key).Append(":");
+        AddCountDictCore(sb, set);
+        return sb;
+    }
+
 	public static void AddCountVarObject<T>(StringBuilder sb, string varname, Dictionary<T, int> set)
 	{
-		sb.Append(varname).Append("=[");
+		sb.Append(varname).Append("=");
+        AddCountDictCore(sb,set);
+		sb.Append(";\n");
+	}
+    private static void AddCountDictCore<T>(StringBuilder sb, Dictionary<T, int> set)
+    {
+        sb.Append("[");
 		bool isFirst = true;
 		foreach (var format in set)
 		{
@@ -91,8 +104,8 @@ public class AssetsReporterUtils{
 			sb.Append(",cnt:").Append('"').Append(format.Value).Append('"');
 			sb.Append("}");
 		}
-		sb.Append("];\n");
-	}
+        sb.Append("]");
+    }
 
 	public static bool IsPathMatch(string path, List<string> list)
 	{

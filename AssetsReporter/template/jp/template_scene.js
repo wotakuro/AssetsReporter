@@ -23,8 +23,10 @@
 	tplValueNum				: "数",
 	tplRootGameObjectNum	: "RootGameObject数",
 	tplScenePath			: "パス",
+	tplObjectType			: "オブジェクトタイプ",
 	tplAllGameObjectNum		: "全GameObject数",
 	tplAllComponentNum		: "全Component数",
 	tplAllMonoBehaviourNum	: "全MonoBehaviour数",
 	tplDependsTitle			: "依存関係",
+	tplAllComponentsTitle	: "シーン内コンポーネント数"
 };

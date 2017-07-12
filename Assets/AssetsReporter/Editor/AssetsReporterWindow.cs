@@ -80,7 +80,7 @@ public class AssetsReporterWindow : EditorWindow {
                 AudioReporter.CreateReport(targetList[currentTarget], excludeList);
                 AssetBundleReporter.CreateReport(false);
                 ResourcesReporter.CreateReport();
-                SceneReporter.CreateReport();
+                SceneReporter.CreateReport(excludeList);
             },
             () =>
             {
@@ -107,7 +107,9 @@ public class AssetsReporterWindow : EditorWindow {
         // Resources
         OnGUIReportGroup("Resources Report", ResourcesReporter.CreateReport, ResourcesReporter.OpenReport);
         // Scenes
-        OnGUIReportGroup("Scene Report", SceneReporter.CreateReport, SceneReporter.OpenReport);
+        OnGUIReportGroup("Scene Report",
+            () => { SceneReporter.CreateReport(excludeList); },
+            SceneReporter.OpenReport);
 
         EditorGUILayout.EndScrollView();
 	}
