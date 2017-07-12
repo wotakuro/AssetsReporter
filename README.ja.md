@@ -58,7 +58,7 @@ Rigの設定はどうなっているか、Mesh最適化等はちゃんとして�
 </pre>
 
 # SceneReporter
-![alt text](doc/image/ja/SceneReporter.png)
+![alt text](doc/image/ja/sceneReporter.png)
 <pre>
 シーンの上皮王を閲覧できます
 </pre>
