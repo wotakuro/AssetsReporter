@@ -28,5 +28,10 @@
 	tplAllComponentNum		: "全Component数",
 	tplAllMonoBehaviourNum	: "全MonoBehaviour数",
 	tplDependsTitle			: "依存関係",
-	tplAllComponentsTitle	: "シーン内コンポーネント数"
+	tplAllComponentsTitle	: "シーン内コンポーネント数",
+
+
+	tplBuildSceenOnly		: "ビルド対象のシーンのみ",
+	tplCondDependsFiles		: "Sceneが以下の名前を含むファイルに依存していた場合のみ"
+
 };

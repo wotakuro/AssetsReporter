@@ -28,5 +28,9 @@ g_en_template_scene = {
 	tplAllComponentNum		: "All Component Number",
 	tplAllMonoBehaviourNum	: "All MonoBehaviour Number",
 	tplDependsTitle			: "Depends",
-	tplAllComponentsTitle	: "Component Num In Scene"
+	tplAllComponentsTitle	: "Component Num In Scene",
+
+	tplBuildSceenOnly		: "Build target scene only",
+	tplCondDependsFiles		: "If the scene has files that include these words"
+
 };

@@ -74,20 +74,6 @@
          str += '<tr><td>' + tplData.tplAllComponentNum + '</td><td>' + data.allComponents + '</td></tr>';
          str += '</table>';
          str += '</div>';
-         // depends
-         var depends = data.depends;
-         sortDependAssets( depends );
-         str += '<h5 class="scene-sub-title selectable">' + tplData.tplDependsTitle + '</h5>';
-
-         str += '<div  class="scene-sub-body">';
-         str += '<table>';
-         str += '<tr><th>' + tplData.tplObjectType + '</th><th>' + tplData.tplScenePath + '</th></tr>';
-         for( var i = 0 ; i < depends.length ; ++ i ){
-           if( !depends[i].type ){continue;}
-           str += '<tr><td>' + depends[i].type + '</td><td>' + depends[i].path + '</td></tr>';
-         }
-         str += '</table>';
-         str += '</div>';
          // Components
          str += '<h5 class="scene-sub-title selectable">' + tplData.tplAllComponentsTitle + '</h5>';
          var componentsCount = data.componentCount;
@@ -102,7 +88,24 @@
          for( var i = 0 ; i < componentsCount.length ; ++ i ){
            str += '<tr><td>' + componentsCount[i].val + '</td><td>' + componentsCount[i].cnt + '</td></tr>';
          }
+         str += '</table>';
+         str += '</div>';
+
+         // depends
+         var depends = data.depends;
+         sortDependAssets( depends );
+         str += '<h5 class="scene-sub-title selectable">' + tplData.tplDependsTitle + '</h5>';
+
+         str += '<div  class="scene-sub-body">';
          str += '<table>';
+         str += '<tr><th>' + tplData.tplObjectType + '</th><th>' + tplData.tplScenePath + '</th></tr>';
+         for( var i = 0 ; i < depends.length ; ++ i ){
+           if( !depends[i].type ){continue;}
+           str += '<tr><td>' + depends[i].type + '</td><td>' + depends[i].path + '</td></tr>';
+         }
+         str += '</table>';
+         str += '</div>';
+
          str += '</div>';
          return str;
        }
