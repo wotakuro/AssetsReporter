@@ -12,7 +12,7 @@ function getCheckCondition( data , headerStr){
 }
 
 function convertCheckBoxValue( val ){
-  return val.replace(/ /g,'_').replace(/\./g,'_').replace(/\//g,'_');
+  return val.replace(/ /g,'_').replace(/\./g,'_').replace(/\//g,'_').replace(/\(/g,'_').replace(/\)/g,'_');
 }
 
 function setupCheckBox( data,thStr ,headStr,writeTo ){
