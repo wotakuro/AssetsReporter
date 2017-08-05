@@ -109,8 +109,8 @@
          for( var i = 0 ; i < depends.length ; ){
            if( !depends[i].type ){ ++i ; continue;}
            var next = getNextTypeIndexFromDepends( depends,i);
-           str += '<h6>' + depends[i].type + '(' + (next - i ) + ')</h6>';
-           str += '<div>';
+           str += '<h6 class="scene-file-title selectable">' + depends[i].type + '(' + (next - i ) + ')</h6>';
+           str += '<div class="scene-file-block" style="display: none;">';
            str += '<table>';
            str += '<tr><th>' + tplData.tplScenePath + '</th></tr>';
            for( ; i < next; ++ i ){
@@ -176,6 +176,9 @@
        });
        $(document).on("click",".scene-sub-title",function() {
          $(this).next('.scene-sub-body').slideToggle();
+       });
+       $(document).on("click",".scene-file-title",function() {
+         $(this).next('.scene-file-block').slideToggle();
        });
     -->
     -->
