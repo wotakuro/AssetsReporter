@@ -31,6 +31,6 @@ g_en_template_scene = {
 	tplAllComponentsTitle	: "Component Num In Scene",
 
 	tplBuildSceenOnly		: "Build target scene only",
-	tplCondDependsFiles		: "If the scene has files that include these words"
+	tplCondDependsFiles		: "If the scene has files that includes this word"
 
 };

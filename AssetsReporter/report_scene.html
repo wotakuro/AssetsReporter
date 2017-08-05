@@ -17,12 +17,19 @@
           $("#report").empty();
           var result_num = 0;
           for( i = 0 ; i < length ; ++ i ){
+            if( condition.build_only && data[i].buildIndex < 0 ){
+              continue;
+            }
             // check include path
             if( !isIncludeFileName(data[i].path , condition.include_file_cond ) ){
               continue;
             }
             // check exclude path
             if( isExcludeFileName(data[i].path , condition.exclude_file_cond ) ){
+              continue;
+            }
+            // check depends
+            if( !isDependFile( data[i] , condition.depend_file ) ){
               continue;
             }
             reportData(data[i] ,i );
@@ -44,7 +51,9 @@
        function createSearchCondition(){
           var condition = { 
             include_file_cond:getConditionList("include_file_name"),
-            exclude_file_cond:getConditionList("exclude_file_name")
+            exclude_file_cond:getConditionList("exclude_file_name"),
+            depend_file:$("#depend_file").val(),
+            build_only:$("#build_scene_only").prop('checked'),
           };
           return condition;
        }
@@ -128,6 +137,13 @@
          });
        }
 
+       function isDependFile( data , file ){
+         if( !file ){ return true;}
+         for( var i = 0 ; i < data.depends.length; ++ i ){
+           if(data.depends[i].path.indexOf(file) >= 0 ){ return true; }
+         }
+         return false;
+       }
 
 
        $(document).ready( function(){
@@ -159,14 +175,27 @@
    </div>
    <div class="content-main">
    <div id="warning_field"></div>
+
    <h2 class="tplSearchTitle"></h2>
    <div class=""boxContainer>
      <div class="box">
+       <h3 class="tplBasicInfo"></h3>
+         <table>
+           <tr><th class="tplItem"></th><th class="tplCondition"></th></tr>
+           <tr>
+             <td class="tplBuildSceenOnly"></td>
+             <td> <input id="build_scene_only" type="checkbox" checked /></td>
+           </tr>
+         </table>
+       <div>
      </div>
    </div>
    <div>
+     <h3 class="tplCondDependsFiles"></h3>
+   <input id="depend_file" type="text" size="150" />
+
      <h3 class="tplFileInclude"></h3>
-     <div id="include_file_name">
+     <div id="include_depend_name">
         <input type="button" class="add_cond tplAddConditionBtn"/>
      </div>
      <h3 class="tplFileExclude"></h3>
