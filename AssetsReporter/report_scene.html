@@ -106,13 +106,20 @@
          str += '<h5 class="scene-sub-title selectable">' + tplData.tplDependsTitle + '</h5>';
 
          str += '<div  class="scene-sub-body">';
-         str += '<table>';
-         str += '<tr><th>' + tplData.tplObjectType + '</th><th>' + tplData.tplScenePath + '</th></tr>';
-         for( var i = 0 ; i < depends.length ; ++ i ){
-           if( !depends[i].type ){continue;}
-           str += '<tr><td>' + depends[i].type + '</td><td>' + depends[i].path + '</td></tr>';
+         for( var i = 0 ; i < depends.length ; ){
+           if( !depends[i].type ){ ++i ; continue;}
+           var next = getNextTypeIndexFromDepends( depends,i);
+           str += '<h6>' + depends[i].type + '(' + (next - i ) + ')</h6>';
+           str += '<div>';
+           str += '<table>';
+           str += '<tr><th>' + tplData.tplScenePath + '</th></tr>';
+           for( ; i < next; ++ i ){
+             str += '<tr><td>' + depends[i].path + '</td></tr>';
+           }
+           str += '</table>';
+           str += '</div>';
+
          }
-         str += '</table>';
          str += '</div>';
 
          str += '</div>';
@@ -135,6 +142,15 @@
             if( a.path < b.path ){return -1;}
             return 0;
          });
+       }
+       function getNextTypeIndexFromDepends( depends , idx){
+         var type = depends[idx].type;
+         var length = depends.length;
+         var i;
+         for( i = idx + 1; i < length ; ++ i ){
+           if( type != depends[i].type ){ return i;}
+         }
+         return i;
        }
 
        function isDependFile( data , file ){
