@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+#if UNITY_2017_3_OR_NEWER
+using UnityEngine.Rendering;
+#endif
 
 
 public class AssetsReporterUtils{
@@ -152,10 +155,14 @@ public class AssetsReporterUtils{
 	public static void SaveTexture2d(string path, Texture2D tex)
 	{
 		if (tex == null) { return; }
-		File.WriteAllBytes(path, tex.EncodeToPNG());
-	}
+#if UNITY_2017_3_OR_NEWER
+        File.WriteAllBytes(path, ImageConversion.EncodeToPNG( tex ));
+#else
+        File.WriteAllBytes(path, tex.EncodeToPNG());
+#endif
+    }
 
-	public static string GetAssetPreview(AssetImporter importer,UnityEngine.Object obj,bool createFlag)
+    public static string GetAssetPreview(AssetImporter importer,UnityEngine.Object obj,bool createFlag)
 	{
         if (importer == null || obj == null)
         {
@@ -187,7 +194,8 @@ public class AssetsReporterUtils{
         }
 		return file;
 	}
-    
+
+    static int cnt = 0;
     public static string GetWebVisibleTexturePreview(TextureImporter importer, Texture2D tex,bool createFlag)
     {
         if (importer == null || tex == null)
@@ -198,6 +206,23 @@ public class AssetsReporterUtils{
         string file = guid + ".png";
         if (!createFlag) { return file; }
 
+#if UNITY_2017_3_OR_NEWER
+
+        var backupActive = RenderTexture.active;
+        RenderTexture renderTexture = new RenderTexture(tex.width, tex.height, 0);
+        CommandBuffer cmd = new CommandBuffer();
+        cmd.Blit(tex,renderTexture);
+        Graphics.ExecuteCommandBuffer(cmd);
+        cmd.Dispose();
+
+        RenderTexture.active = renderTexture;
+        var saveTex = new Texture2D(tex.width, tex.height, TextureFormat.RGBA32, false);
+        saveTex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
+        AssetsReporterUtils.SaveTexture2d(AssetsReporterUtils.PreviewDir + file, saveTex);
+
+        RenderTexture.active = backupActive;
+        renderTexture.Release();
+#else
         var texCopy = new Texture2D(tex.width, tex.height, tex.format, tex.mipmapCount > 1);
         texCopy.LoadRawTextureData(tex.GetRawTextureData());
         texCopy.Apply();
@@ -212,6 +237,7 @@ public class AssetsReporterUtils{
             Texture2D.DestroyImmediate(texCopy);
             saveTex = texCopy = null;
         }
+#endif
         return file;
     }
 

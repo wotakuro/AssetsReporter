@@ -157,9 +157,13 @@ public class AssetsReporterWindow : EditorWindow {
         {
             case BuildTarget.StandaloneWindows:
             case BuildTarget.StandaloneWindows64:
+#if UNITY_2017_3_OR_NEWER
+            case BuildTarget.StandaloneOSX:
+#else
             case BuildTarget.StandaloneOSXUniversal:
             case BuildTarget.StandaloneOSXIntel64:
             case BuildTarget.StandaloneOSXIntel:
+#endif
             case BuildTarget.StandaloneLinux:
             case BuildTarget.StandaloneLinux64:
             case BuildTarget.StandaloneLinuxUniversal:
