@@ -1,0 +1,232 @@
+﻿<html>
+  <head>
+    <title>Scene Report</title>
+    <link rel="stylesheet" type="text/css" href="css/report.css">
+    <script type="text/javascript" src="result/report_scene.js"></script>
+    <script type="text/javascript" src="result/report_language.js"></script>
+    <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript">
+    <!--
+       function search(){
+          var data = g_scene_report;
+          sortSceneData( data );
+          var length = data.length;
+          var i = 0;
+          var condition = createSearchCondition();
+          $("#report").empty();
+          var result_num = 0;
+          for( i = 0 ; i < length ; ++ i ){
+            if( condition.build_only && data[i].buildIndex < 0 ){
+              continue;
+            }
+            // check include path
+            if( !isIncludeFileName(data[i].path , condition.include_file_cond ) ){
+              continue;
+            }
+            // check exclude path
+            if( isExcludeFileName(data[i].path , condition.exclude_file_cond ) ){
+              continue;
+            }
+            // check depends
+            if( !isDependFile( data[i] , condition.depend_file ) ){
+              continue;
+            }
+            reportData(data[i] ,i );
+            ++ result_num;
+          }
+          $("#result_num").html( "(" + result_num + ")" );
+       }
+
+       function sortSceneData(data){
+         data.sort( (a,b)=>{
+            if( a.buildIndex > b.buildIndex){ return 1;}
+            if( a.buildIndex < b.buildIndex){ return -1;}
+            if( a.name > b.name ){return 1;}
+            if( a.name < b.name ){return -1;}
+            return 0;
+         });
+       }
+
+       function createSearchCondition(){
+          var condition = { 
+            include_file_cond:getConditionList("include_file_name"),
+            exclude_file_cond:getConditionList("exclude_file_name"),
+            depend_file:$("#depend_file").val(),
+            build_only:$("#build_scene_only").prop('checked'),
+          };
+          return condition;
+       }
+
+       function reportData(data,idx){
+         var tplData = GetCurrentTemplateData();
+         var str = '<div class="scene-block">';
+         str += '<h4 class="scene-title selectable">' +"[" + data.buildIndex + "]  " + data.sceneName + '</h4>';
+         str += '<div class="scene-body" data-index="' + idx + '"style="display: none;">';
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function getDetailReportHtmlStr(idx){
+         var str = "";
+         var tplData = GetCurrentTemplateData();
+         var data = g_scene_report[idx];
+         str += '<h5 class="scene-sub-title selectable">' + tplData.tplBasicInfo + '</h5>';
+         str += '<div  class="scene-sub-body">';
+         str += '<table>';
+         str += '<tr><th>' + tplData.tplItem + '</th><th>' + tplData.tplValueNum + '</th></tr>';
+         str += '<tr><td>' + tplData.tplScenePath + '</td><td>' + data.path + '</td></tr>';
+         str += '<tr><td>' + tplData.tplRootGameObjectNum + '</td><td>' + data.rootCount + '</td></tr>';
+         str += '<tr><td>' + tplData.tplAllGameObjectNum + '</td><td>' + data.allGameObjects + '</td></tr>';
+         str += '<tr><td>' + tplData.tplAllMonoBehaviourNum + '</td><td>' + data.allMonoBehaviour + '</td></tr>';
+         str += '<tr><td>' + tplData.tplAllComponentNum + '</td><td>' + data.allComponents + '</td></tr>';
+         str += '</table>';
+         str += '</div>';
+         // Components
+         str += '<h5 class="scene-sub-title selectable">' + tplData.tplAllComponentsTitle + '</h5>';
+         var componentsCount = data.componentCount;
+         componentsCount.sort( function(a,b){
+            if( a.val > b.val ){return 1;}
+            if( a.val < b.val ){return -1;}
+            return 0;
+         });
+         str += '<div  class="scene-sub-body">';
+         str += '<table>';
+         str += '<tr><th>' + tplData.tplObjectType + '</th><th>' + tplData.tplValueNum + '</th></tr>';
+         for( var i = 0 ; i < componentsCount.length ; ++ i ){
+           str += '<tr><td>' + componentsCount[i].val + '</td><td>' + componentsCount[i].cnt + '</td></tr>';
+         }
+         str += '</table>';
+         str += '</div>';
+
+         // depends
+         var depends = data.depends;
+         sortDependAssets( depends );
+         str += '<h5 class="scene-sub-title selectable">' + tplData.tplDependsTitle + '</h5>';
+
+         str += '<div  class="scene-sub-body">';
+         for( var i = 0 ; i < depends.length ; ){
+           if( !depends[i].type ){ ++i ; continue;}
+           var next = getNextTypeIndexFromDepends( depends,i);
+           str += '<h6 class="scene-file-title selectable">' + depends[i].type + '(' + (next - i ) + ')</h6>';
+           str += '<div class="scene-file-block" style="display: none;">';
+           str += '<table>';
+           str += '<tr><th>' + tplData.tplScenePath + '</th></tr>';
+           for( ; i < next; ++ i ){
+             str += '<tr><td>' + depends[i].path + '</td></tr>';
+           }
+           str += '</table>';
+           str += '</div>';
+
+         }
+         str += '</div>';
+
+         str += '</div>';
+         return str;
+       }
+       function sortDependAssets(depends){
+         var length = depends.length;
+         for( var i = 0 ; i < length ; ++ i ){
+            if( !depends[i].type ){ continue;}
+            var lastIndex = depends[i].type.lastIndexOf( '.' );
+            if( lastIndex < 0 ){continue;}
+            depends[i].type = depends[i].type.substr( lastIndex + 1 );
+         }
+         depends.sort( function(a,b){
+            if( !a.type ){ return 1;}
+            if( !b.type ){ return -1;}
+            if( a.type > b.type){ return 1;}
+            if( a.type < b.type){ return -1;}
+            if( a.path > b.path ){return 1;}
+            if( a.path < b.path ){return -1;}
+            return 0;
+         });
+       }
+       function getNextTypeIndexFromDepends( depends , idx){
+         var type = depends[idx].type;
+         var length = depends.length;
+         var i;
+         for( i = idx + 1; i < length ; ++ i ){
+           if( type != depends[i].type ){ return i;}
+         }
+         return i;
+       }
+
+       function isDependFile( data , file ){
+         if( !file ){ return true;}
+         for( var i = 0 ; i < data.depends.length; ++ i ){
+           if(data.depends[i].path.indexOf(file) >= 0 ){ return true; }
+         }
+         return false;
+       }
+
+
+       $(document).ready( function(){
+         LoadLanguageJavascript( g_language , "scene" );
+       });
+       $(document).on("click",".scene-title",function() {
+         var body = $(this).next('.scene-body');
+         var idx  = body.data("index");
+         if( !body.data("already") ){
+            body.html( getDetailReportHtmlStr(idx) );
+         }
+         body.data("already",true);
+         body.slideToggle();
+       });
+       $(document).on("click",".scene-sub-title",function() {
+         $(this).next('.scene-sub-body').slideToggle();
+       });
+       $(document).on("click",".scene-file-title",function() {
+         $(this).next('.scene-file-block').slideToggle();
+       });
+    -->
+    -->
+    </script>
+  </head>
+<body>
+   <div class="content-head">
+     <h1>Scene Report</h1>
+     <div class="report-info">
+        <div id="report_at"></div>
+        <div id ="platform"></div>
+     </div>
+   </div>
+   <div class="content-main">
+   <div id="warning_field"></div>
+
+   <h2 class="tplSearchTitle"></h2>
+   <div class=""boxContainer>
+     <div class="box">
+       <h3 class="tplBasicInfo"></h3>
+         <table>
+           <tr><th class="tplItem"></th><th class="tplCondition"></th></tr>
+           <tr>
+             <td class="tplBuildSceenOnly"></td>
+             <td> <input id="build_scene_only" type="checkbox" checked /></td>
+           </tr>
+         </table>
+       <div>
+     </div>
+   </div>
+   <div>
+     <h3 class="tplCondDependsFiles"></h3>
+   <input id="depend_file" type="text" size="150" />
+
+     <h3 class="tplFileInclude"></h3>
+     <div id="include_depend_name">
+        <input type="button" class="add_cond tplAddConditionBtn"/>
+     </div>
+     <h3 class="tplFileExclude"></h3>
+     <div id="exclude_file_name">
+        <input type="button" class="add_cond tplAddConditionBtn" />
+     </div>
+
+   <h3 class="tplSearchTitle"></h3>
+     <input type ="button" class="search-btn tplSearchBtn" onClick="search()" />
+     <h2><span class="tplSearchResultTItle"></span> <span id="result_num"></span></h2>
+     <div id="report"></div>
+   </div>
+   </div>
+</body>
+</html>

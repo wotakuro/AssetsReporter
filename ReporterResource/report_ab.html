@@ -1,0 +1,272 @@
+﻿<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>AssetBundle Report</title>
+    <link rel="stylesheet" type="text/css" href="css/report.css">
+    <script type="text/javascript" src="result/report_ab.js"></script>
+    <script type="text/javascript" src="result/report_language.js"></script>
+    <script type="text/javascript" src="third_party/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/reporter.js"></script>
+    <script type="text/javascript">
+    <!--
+       function search(){
+          var data = g_ab_report;
+          var length = data.length;
+          var dependenceFileCount = {};
+          var i = 0;
+          var condition = createSearchCondition();
+          $("#report").empty();
+          var result_num = 0;
+          for( i = 0 ; i < length ; ++ i ){
+            // check ab name include
+            if( !isIncludeFileName( data[i].abname, condition.include_abname_cond ) ){
+              continue;
+            }
+            // check abname exclude
+            if( isExcludeFileName( data[i].abname, condition.exclude_abname_cond ) ){
+              continue;
+            }
+            // check include
+            if( !isIncludeFile(data[i] , condition.in_bundle_file ) ){
+              continue;
+            }
+            // check depends
+            if( !isDependFile( data[i] , condition.depend_file ) ){
+              continue;
+            }
+            countDependencyFiles( data[i],dependenceFileCount );
+            reportData(data[i] , i );
+            ++ result_num;
+          }
+          deleteAlreadyInAssetBundle( data , dependenceFileCount );
+          reportDuplication( dependenceFileCount );
+          $("#result_num").html( "(" + result_num + ")" );
+       }
+       function createSearchCondition(){
+          var condition = { 
+            depend_file:$("#depend_file").val(),
+            in_bundle_file:$("#in_bundle_file").val(),
+            include_abname_cond:getConditionList("include_ab_name"),
+            exclude_abname_cond:getConditionList("exclude_ab_name")
+          };
+          return condition;
+       }
+
+       function isIncludeFile( data , file ){
+         if( !file ){ return true;}
+         var length = data.files.length;
+         for( var i = 0 ; i < length; ++ i ){
+           if( data.files[i].path.indexOf( file ) >= 0 ){
+             return true;
+           }
+         }
+         return false;
+       }
+
+       function isDependFile( data , file ){
+         if( !file ){ return true;}
+         var l1 = data.files.length;
+         for( var i = 0 ; i < l1; ++ i ){
+           if( data.files[i].path.indexOf( file ) >= 0 ){
+             return true;
+           }
+           var depends = data.files[i].depends;
+           var l2 = depends.length;
+           for( var j = 0; j < l2 ; ++ j ){
+             if(depends[j].indexOf(file) >= 0 ){ return true; }
+           }
+         }
+         return false;
+       }
+
+       function reportData(data,idx){
+         var tplData = GetCurrentTemplateData();
+         var str = '<div class="ab-block">';
+         str += '<h4 class="ab-title selectable">' + data.abname + '</h4>';
+         str += '<div class="ab-body" data-index="' + idx + '" style="display: none;">';
+         str += '</div>';
+         str += '</div>';
+         $("#report").append( str );
+       }
+
+       function getDetailReportHtmlStr(idx){
+         var str = "";
+         var tplData = GetCurrentTemplateData();
+         var data = g_ab_report[idx];
+         data.files.sort( function(a,b){
+           if(a.type > b.type ){ return 1;}
+           if(a.type < b.type ){ return -1;}
+           return 0;
+         } );
+         str += '<h5 class="selectable">' + tplData.tplResultFileList + '</h5>';
+         str += '<div>';
+         for( var i = 0 ; i < data.files.length ;++ i ){
+           str += getFileReportData(data.files[i] );
+         }
+         str += '</div>'
+         str += '<h5 class="selectable">' + tplData.tplResultAbDependencies + '</h5>';
+         str += '<div>'; 
+         if( data.depends.length == 0 ){
+           str += tplData.tplResultNoDependencies;
+         }else{
+           str += "<table>";
+           str += "<tr>";
+           str += '<th>' + tplData.tplResultType + '</th><th>' + tplData.tplResultPath + '</th><th>' + tplData.tplResultBundleName + '</th><th>' + tplData.tplResultBundleValiant + '</th>';
+           str += "</tr>";
+           for( var i = 0 ; i < data.depends.length ; ++ i ){
+             str += "<tr>";
+             str += "<td>" + data.depends[i].importerType + "</td>";
+             str += "<td>" + data.depends[i].file + "</td>";
+             str += "<td>" + data.depends[i].name + "</td>";
+             str += "<td>" + data.depends[i].valiant + "</td>";
+             str += "</tr>";
+           }
+           str += "</table>";
+         }
+         str += '</div>';
+
+         return str;
+       }
+
+       function getFileReportData( file ){
+         var tplData = GetCurrentTemplateData();
+         var str = '';
+         str += '<h6 class="selectable">' + '[' +  file.type + '] '+ file.path + '</h6>';
+         str += '<div class="ab-file-explain" style="display: none;">';
+         if( file.type == "Texture2D" ){
+           if( file.preview ){
+             str += '<img class="ab-image-texture selectable" src="result/preview/' + file.preview + '" />';
+           }else{
+             str += '<img class="ab-image-texture selectable" src="../' + file.path + '" />';
+           }
+         }else if( file.type == "AudioClip" ){
+           str += '<div class="try-listen">' + tplData.tplResultListen + '</div>'+ '<audio src="../' + file.path + '" controls></audio>' ;
+         }else{
+           if( file.preview ){
+             str += '<img class="ab-image-texture selectable" src="result/preview/' + file.preview + '" />';
+           }
+           str += "<table>";
+           str += '<tr><th>'+ tplData.tplResultFileDependencies + '</th></tr>';
+           for( var i = 0 ; i < file.depends.length ; ++ i ){
+             str += "<tr><td>"+ file.depends[i] + "</td></tr>";
+           }
+           str += "</table>";
+         }
+         str += '</div>';
+         return str;
+       }
+
+       // delete already in assetBundle
+       function deleteAlreadyInAssetBundle( data , dependenceFileCount ){
+         for( var i = 0 ; i < data.length ; ++ i ){
+           var files = data[i].files;
+           for( var j = 0 ; j < files.length ; ++ j ){
+             if( dependenceFileCount[ files[j].path ] ){
+               delete( dependenceFileCount[ files[j].path ] );
+             }
+           }
+         }
+       }
+
+
+       // Count Dependency
+       function countDependencyFiles( data, dependenceFileCount){
+         for( var i = 0 ; i < data.depends.length ; ++ i ){
+           if( data.depends[i].name ){ continue; }
+           if( data.depends[i].importerType == "Mono" ){ continue; }
+           var file = data.depends[i].file;
+           if( !dependenceFileCount[file] ){
+             dependenceFileCount[file] = {count:1};
+           }else{
+             dependenceFileCount[file].count += 1;
+           }
+         }
+       }
+
+       function reportDuplication( dependenceFileCount ){
+         var dataList = [];
+         for( var idx in dependenceFileCount ){
+           if( dependenceFileCount[idx].count > 1 ){
+             var data = { file:idx , count:dependenceFileCount[idx].count }
+             dataList.push( data ); 
+           }
+         }
+         if( dataList.length == 0 ){ return ; }
+         dataList.sort( function(a,b){
+           if( a.count > b.count ){return -1;}
+           if( a.count < b.count ){return 1;}
+           return 0;
+         });
+         var tplData = GetCurrentTemplateData();
+         var str = "<br /><h2>" + tplData.tplResultDuplicateFiles + "</h2>";
+         str += "<table>";
+         str += '<tr><th>' + tplData.ResultPath+ '</th>';
+         str += '<th>' + tplData.tplHitNum + '</th>';
+         str += "</tr>";
+         for( var i = 0;i < dataList.length ; ++ i ){
+             str += "<tr>";
+             str += "<td>" + dataList[i].file + "</td>";
+             str += "<td>" + dataList[i].count + "</td>";
+             str += "</tr>";
+         }
+         str += "<table>"
+         $("#report").append( str );
+       }
+
+       $(document).ready( function(){
+         LoadLanguageJavascript( GetLanguageConfig() , "ab" );
+       });
+       $(document).on("click",".ab-title",function() {
+         var body = $(this).next('.ab-body');
+         var idx  = body.data("index");
+         if( !body.data("already") ){
+            body.html( getDetailReportHtmlStr(idx) );
+         }
+         body.data("already",true);
+         body.slideToggle();
+       });
+       $(document).on("click","h6.selectable",function() {
+         $(this).next('.ab-file-explain').slideToggle();
+       });
+       $(document).on("click","h5.selectable",function() {
+         $(this).next('div').slideToggle();
+       });
+    -->
+    </script>
+  </head>
+<body>
+   <div class="content-head">
+     <h1>AssetBundle Report</h1>
+     <div class="report-info">
+        <div id="report_at"></div>
+        <div id ="platform"></div>
+     </div>
+   </div>
+   <div class="content-main">
+   <h2 class="tplSearchTitle"></h2>
+   <h3 class="tplCondAssetBundleName"></h3>
+   <h4 class="tplCondIncludeAbName"></h4>
+   <div id="include_ab_name">
+      <input type="button" class="add_cond tplAddConditionBtn"  />
+   </div>
+   <h4 class="tplCondExcludeAbName"></h4>
+   <div id="exclude_ab_name">
+      <input type="button" class="add_cond tplAddConditionBtn"  />
+   </div>
+   <br />
+   <h3 class="tplCondIncludeDepends"></h3>
+   <span class="tplCondIncludeFiles"></span><br />
+   <input id="in_bundle_file" type="text" size="150" />
+   <br />
+   <span class="tplCondDependsFiles"></span><br />
+   <input id="depend_file" type="text" size="150" />
+   <div class="boxContainer">
+   </div>
+   <div>
+     <input type ="button" class="search-btn tplSearchBtn" onClick="search()" />
+     <h2><span class="tplSearchResultTitle"></span> <span id="result_num"></span></h2>
+     <div id="report"></div>
+   </div>
+   </div>
+</body>
+</html>
