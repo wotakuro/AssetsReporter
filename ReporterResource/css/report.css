@@ -121,6 +121,14 @@ h6{
   padding-top:30px;
   padding-right:15px;
 }
+.return-to-top-header{
+  float: left;
+  text-align:left;
+  color:#ffffff;
+  padding-top:10px;
+  padding-left:15px;
+}
+
 
 audio{
   padding-bottom:5px;
