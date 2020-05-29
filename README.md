@@ -20,12 +20,12 @@ You can watch result of AssetsReport.
 
 
 # How to use
-![alt text](doc/image/menu.png)
+![alt text](Documentation~/image/menu.png)
 <pre>
 Click "Tools/AssetsReporter" to open window.
 </pre>
 
-![alt text](doc/image/reporterWindow.png)
+![alt text](Documentation~/image/reporterWindow.png)
 <pre>
 This reports independentae of each part( "Texture/Model/Audio").
 Push "Report" button to analyze project, then open web browser.
@@ -33,7 +33,7 @@ Push "Report" button to analyze project, then open web browser.
 
 
 # TextureReporter
-![alt text](doc/image/textureReporter.png)
+![alt text](Documentation~/image/textureReporter.png)
 <pre>
 This reports Import settings of Textures.
 You can use this like these cases.
@@ -42,7 +42,7 @@ You can use this like these cases.
 </pre>
 
 # ModelReporter
-![alt text](doc/image/modelReporter.png)
+![alt text](Documentation~/image/modelReporter.png)
 <pre>
 This reports Import settings of Models.
 You can use this like these cases.
@@ -52,7 +52,7 @@ You can use this like these cases.
 </pre>
 
 # AudioReporter
-![alt text](doc/image/audioReporter.png)
+![alt text](Documentation~/image/audioReporter.png)
 <pre>
 This reports Import settings of AudioClips.
 You can use this like these cases.
@@ -60,19 +60,19 @@ You can use this like these cases.
 </pre>
 
 # AssetBundleReporter
-![alt text](doc/image/ReporterAb.png)
+![alt text](Documentation~/image/ReporterAb.png)
 <pre>
 You'll be able to watch assetbundle data on web browser.
 </pre>
 
 # SceneReporter
-![alt text](doc/image/SceneReporter.png)
+![alt text](Documentation~/image/SceneReporter.png)
 <pre>
 You can see the summary of each scenes.
 </pre>
 
 # ResourcesReporter
-![alt text](doc/image/ResourcesReporter.png)
+![alt text](Documentation~/image/ResourcesReporter.png)
 <pre>
 It waste runtime-memory to put "Resources" directory in your project.
 You should better to replace "Resources" directory to assetbundle.

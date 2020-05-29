@@ -18,7 +18,7 @@ AssetsReportの結果がこのような感じで閲覧可能です。<br />
 
 
 # 使い方
-![alt text](doc/image/ja/reporterWindow.png)
+![alt text](Documentation~/image/ja/reporterWindow.png)
 <pre>
 メニューの「Tools/AssetsReporter」を押すことで上記Windowが開きます。
 
@@ -31,41 +31,41 @@ Texture/Model/Audio等の項目別に呼び出して使います。
 
 
 # TextureReporter
-![alt text](doc/image/ja/textureReporter.png)
+![alt text](Documentation~/image/ja/textureReporter.png)
 <pre>
 プロジェクト内のTextureの設定をレポートします。
 圧縮フォーマットは適切かなどの確認等に使えればと思います。
 </pre>
 
 # ModelReporter
-![alt text](doc/image/ja/modelReporter.png)
+![alt text](Documentation~/image/ja/modelReporter.png)
 <pre>
 プロジェクト内のModelの設定をレポートします。
 Rigの設定はどうなっているか、Mesh最適化等はちゃんとしているか等々確認できます
 </pre>
 
 # AudioReporter
-![alt text](doc/image/ja/audioReporter.png)
+![alt text](Documentation~/image/ja/audioReporter.png)
 <pre>
 プロジェクト内のAudioの設定をレポートします。
 圧縮フォーマット等の確認にお使いください
 </pre>
 
 # AssetBundleReporter
-![alt text](doc/image/ja/ResourcesReporter.png)
+![alt text](Documentation~/image/ja/ResourcesReporter.png)
 <pre>
 作成予定のAssetBundleを閲覧可能な形にします
 </pre>
 
 # SceneReporter
-![alt text](doc/image/ja/sceneReporter.png)
+![alt text](Documentation~/image/ja/sceneReporter.png)
 <pre>
 シーンの状況を閲覧できます
 </pre>
 
 
 # ResourcesReporter
-![alt text](doc/image/ja/ReporterAb.png)
+![alt text](Documentation~/image/ja/ReporterAb.png)
 <pre>
 プロジェクト中にある「Resources」ディレクトリを一覧にします。
 Resourcesフォルダはあるだけでメモリを消費するので可能な限り消しましょう。
