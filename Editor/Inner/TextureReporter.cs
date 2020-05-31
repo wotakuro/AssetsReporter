@@ -115,10 +115,13 @@ namespace UTJ.AssetsReporter
 
 			var tex = GetTextureSize(importer, out w, out h) as Texture2D;
 			sb.Append("{");
-			if (!AssetsReporterUtils.IsVisibleInWebBrowserImage(importer.assetPath) && tex != null)
+			if (tex != null)
 			{
-				string preview = AssetsReporterUtils.GetWebVisibleTexturePreview(importer, tex, true);
-				AssetsReporterUtils.AddJsonObject(sb, "preview", preview).Append(",");
+				if (!AssetsReporterUtils.IsVisibleInWebBrowserImage(importer.assetPath))
+				{
+					string preview = AssetsReporterUtils.GetWebVisibleTexturePreview(importer, tex, true);
+					AssetsReporterUtils.AddJsonObject(sb, "preview", preview).Append(",");
+				}
 			}
 
 			AssetsReporterUtils.AddJsonObject(sb, "path", importer.assetPath.ToString()).Append(",");

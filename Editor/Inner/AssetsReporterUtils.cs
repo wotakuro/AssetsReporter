@@ -216,7 +216,6 @@ namespace UTJ.AssetsReporter
 			string file = guid + ".png";
 			if (!createFlag) { return file; }
 
-#if UNITY_2017_3_OR_NEWER
 
 			var backupActive = RenderTexture.active;
 			RenderTexture renderTexture = new RenderTexture(tex.width, tex.height, 0);
@@ -232,22 +231,7 @@ namespace UTJ.AssetsReporter
 
 			RenderTexture.active = backupActive;
 			renderTexture.Release();
-#else
-			var texCopy = new Texture2D(tex.width, tex.height, tex.format, tex.mipmapCount > 1);
-			texCopy.LoadRawTextureData(tex.GetRawTextureData());
-			texCopy.Apply();
-			if (texCopy != null)
-			{
-				var saveTex = new Texture2D(tex.width, tex.height, TextureFormat.RGBA32, false);
-				saveTex.SetPixels(texCopy.GetPixels());
-				saveTex.Apply();
-				AssetsReporterUtils.SaveTexture2d(AssetsReporterUtils.PreviewDir + file, saveTex);
 
-				Texture2D.DestroyImmediate(saveTex);
-				Texture2D.DestroyImmediate(texCopy);
-				saveTex = texCopy = null;
-			}
-#endif
 			return file;
 		}
 

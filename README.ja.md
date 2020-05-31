@@ -20,7 +20,7 @@ AssetsReportの結果がこのような感じで閲覧可能です。<br />
 # 使い方
 ![alt text](Documentation~/image/ja/reporterWindow.png)
 <pre>
-メニューの「Tools/AssetsReporter」を押すことで上記Windowが開きます。
+メニューの「Tools/UTJ/AssetsReporter」を押すことで上記Windowが開きます。
 
 Texture/Model/Audio等の項目別に呼び出して使います。
 「Report」ボタンを押すとプロジェクト内を解析し、ブラウザで表示することが出来ます。

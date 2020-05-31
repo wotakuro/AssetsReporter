@@ -51,7 +51,7 @@ namespace UTJ.AssetsReporter
 
         private List<string> excludeList = new List<string>();
 
-        [MenuItem("Tools/AssetsReporter")]
+        [MenuItem("Tools/UTJ/AssetsReporter")]
         public static void Create()
         {
             AssetsReporterUtils.UnzipPackageData();

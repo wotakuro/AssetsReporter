@@ -22,7 +22,7 @@ You can watch result of AssetsReport.
 # How to use
 ![alt text](Documentation~/image/menu.png)
 <pre>
-Click "Tools/AssetsReporter" to open window.
+Click "Tools/UTJ/AssetsReporter" to open window.
 </pre>
 
 ![alt text](Documentation~/image/reporterWindow.png)

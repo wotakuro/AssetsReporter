@@ -1,7 +1,6 @@
 {
     "category": "report", 
     "description": "Assetのレポートを行います.", 
-    "gitHead": "0d2114387a99011be685886f8ea902242e323e70", 
     "keywords": [
         "reporter",
         "asset"
