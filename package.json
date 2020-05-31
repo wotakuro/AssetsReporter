@@ -1,11 +1,12 @@
 {
-    "category": "report", 
-    "description": "Assetのレポートを行います.", 
-    "keywords": [
-        "reporter",
-        "asset"
-    ], 
-    "name": "com.utj.assetsreporter", 
-    "unity": "2018.4", 
-    "version": "1.0.0"
+  "category": "report",
+  "description": "Assetのレポートを行います.",
+  "keywords": [
+    "reporter",
+    "asset"
+  ],
+  "name": "com.utj.assetsreporter",
+  "displayName": "Assets Reporter",
+  "unity": "2018.4",
+  "version": "1.0.0"
 }
