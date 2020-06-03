@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.iOS;
+//using UnityEditor.iOS;
 #if UNITY_2017_3_OR_NEWER
 using UnityEngine.Rendering;
 #endif
