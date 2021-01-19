@@ -41,7 +41,6 @@
 	tplResultReadWrite		: "Read/Write",
 	tplResultOptimizeMesh	: "OptimizeMesh",
 	tplResultImportMaterial	: "ImportMaterial",
-	tplResultImportMaterialMode	: "ImportMaterialMode",
 	tplResultGenCollider	: "Generate Collider",
 
 	tplResultRigType		: "タイプ",

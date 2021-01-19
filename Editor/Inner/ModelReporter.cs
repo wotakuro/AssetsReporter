@@ -110,11 +110,19 @@ namespace UTJ.AssetsReporter
 			AssetsReporterUtils.AddJsonObject(sb, "isReadable", importer.isReadable).Append(",");
 			AssetsReporterUtils.AddJsonObject(sb, "scaleFactor", importer.globalScale).Append(",");
 			AssetsReporterUtils.AddJsonObject(sb, "meshCompression", importer.meshCompression.ToString()).Append(",");
-			AssetsReporterUtils.AddJsonObject(sb, "optimizeMesh", importer.optimizeMesh).Append(",");
 			AssetsReporterUtils.AddJsonObject(sb, "generateCollider", importer.addCollider).Append(",");
+#if UNITY_2020_2_OR_NEWER
+			AssetsReporterUtils.AddJsonObject(sb, "materialImportMode", importer.materialImportMode.ToString()).Append(",");
+			AssetsReporterUtils.AddJsonObject(sb, "optimizeMeshPolygons", importer.optimizeMeshPolygons).Append(",");
+			AssetsReporterUtils.AddJsonObject(sb, "optimizeMeshVertices", importer.optimizeMeshVertices).Append(",");
+			// 互換性
+			AssetsReporterUtils.AddJsonObject(sb, "optimizeMesh", importer.optimizeMeshVertices | importer.optimizeMeshPolygons).Append(",");
+#else
 			AssetsReporterUtils.AddJsonObject(sb, "importMaterials", importer.importMaterials).Append(",");
+			AssetsReporterUtils.AddJsonObject(sb, "optimizeMesh", importer.optimizeMesh).Append(",");
+#endif
 #if UNITY_5_4_OR_NEWER
-        AssetsReporterUtils.AddJsonObject(sb, "normalMode", importer.importNormals.ToString()).Append(",");
+			AssetsReporterUtils.AddJsonObject(sb, "normalMode", importer.importNormals.ToString()).Append(",");
         AssetsReporterUtils.AddJsonObject(sb, "tangentMode", importer.importTangents.ToString()).Append(",");
 #else
 			AssetsReporterUtils.AddJsonObject(sb, "normalMode", importer.normalImportMode.ToString()).Append(",");

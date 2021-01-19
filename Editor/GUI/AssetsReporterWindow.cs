@@ -259,7 +259,15 @@ namespace UTJ.AssetsReporter
         }
         private static List<string> ReadExculudeList()
         {
-            var list = new List<string>(File.ReadAllLines(excludeRulePath));
+            List<string> list = null;
+            if (File.Exists(excludeRulePath))
+            {
+                list = new List<string>(File.ReadAllLines(excludeRulePath));
+            }
+            else
+            {
+                list = new List<string>();
+            }
             return list;
         }
     }

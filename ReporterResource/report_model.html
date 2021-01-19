@@ -121,7 +121,13 @@
          str += '<tr><th>' + tplData.tplResultScaleFactor + '</th><td>' + data.scaleFactor + '</td></tr>';
          str += '<tr><th>' + tplData.tplResultReadWrite + '</th><td>' + data.isReadable + '</td></tr>';
          str += '<tr><th>' + tplData.tplResultOptimizeMesh + '</th><td>' + data.optimizeMesh + '</td></tr>';
-         str += '<tr><th>' + tplData.tplResultImportMaterial + '</th><td>' + data.importMaterials + '</td></tr>';
+         if( data.importMaterials !== undefined ){
+           str += '<tr><th>' + tplData.tplResultImportMaterial + '</th><td>' + data.importMaterials + '</td></tr>';
+         } 
+         if( data.materialImportMode !== undefined ){
+           str += '<tr><th>' + tplData.tplResultImportMaterialMode + '</th><td>' + data.materialImportMode + '</td></tr>';
+         }
+
          str += '<tr><th>' + tplData.tplResultGenCollider + '</th><td>' + data.generateCollider + '</td></tr>';
          str += '</table></div>';
 
